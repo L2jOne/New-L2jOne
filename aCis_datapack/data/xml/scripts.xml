@@ -375,7 +375,7 @@
 	<script path="scripts.ai.individual.Benom"/>
 	<script path="scripts.ai.individual.Core"/>
 	<script path="scripts.ai.individual.DrChaos"/>
-<!-- 	<script path="scripts.ai.individual.Frintezza"/> -->
+ 	<script path="scripts.ai.individual.Frintezza"/>
 	<script path="scripts.ai.individual.Gordon"/>
 <!-- 	<script path="scripts.ai.individual.IceFairySirra"/> -->
 	<script path="scripts.ai.individual.Orfen"/>

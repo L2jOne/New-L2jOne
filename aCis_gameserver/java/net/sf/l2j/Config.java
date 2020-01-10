@@ -547,7 +547,6 @@ public final class Config
 	public static int MAX_DEFENDERS_NUMBER;
 	public static int ATTACKERS_RESPAWN_DELAY;
 	
-	public static boolean ENABLE_WINNNER_REWARD_SIEGE_CLAN;
 	public static IntIntHolder[] REWARD_WINNER_SIEGE_CLAN;
 	public static IntIntHolder[] LEADER_REWARD_WINNER_SIEGE_CLAN;
 	
@@ -1309,7 +1308,6 @@ public final class Config
 		MAX_DEFENDERS_NUMBER = sieges.getProperty("DefenderMaxClans", 10);
 		ATTACKERS_RESPAWN_DELAY = sieges.getProperty("AttackerRespawn", 10000);
 
-		ENABLE_WINNNER_REWARD_SIEGE_CLAN = sieges.getProperty("EnableRewardWinnerClan", false);
 		REWARD_WINNER_SIEGE_CLAN = sieges.parseIntIntList("MembersRewardsID", "57-100");
 		LEADER_REWARD_WINNER_SIEGE_CLAN = sieges.parseIntIntList("LeaderRewardsID", "57-400");
 	

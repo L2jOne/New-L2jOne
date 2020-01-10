@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.model.actor.template;
 import java.util.List;
 
 import net.sf.l2j.commons.random.Rnd;
+import net.sf.l2j.commons.util.ArraysUtil;
 import net.sf.l2j.commons.util.StatsSet;
 
 import net.sf.l2j.gameserver.data.xml.ItemData;
@@ -84,7 +85,7 @@ public class PlayerTemplate extends CreatureTemplate
 		_isbuffs = set.getBool("isbuffs", false);
 		_isShow = set.getBool("isShow", false);
 		
-		_buffs = set.getIntegerArray("buffs");
+		_buffs = set.getIntegerArray("buffs", ArraysUtil.EMPTY_INT_ARRAY);
 		
 		_level = set.getInteger("level", 1);
 		_sp = set.getInteger("sp", 1);

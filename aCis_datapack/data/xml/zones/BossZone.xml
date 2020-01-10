@@ -109,12 +109,10 @@
 		<node x="26846" y="-8117"/>
 		<node x="28231" y="-8163"/>
 	</zone>
-	<zone id="110012" shape="NPoly" minZ="-5200" maxZ="-4680"><!-- Frintezza -->
-		<stat name="InvadeTime" val="1800000"/>
-		<node x="172031" y="-90127"/>
-		<node x="176428" y="-90089"/>
-		<node x="176428" y="-74051"/>
-		<node x="172057" y="-74108"/>
+	<zone id="110012" shape="Cuboid" minZ="-5200" maxZ="-4680"> <!-- Frintezza -->
+        <stat name="InvadeTime" val="1800000" />
+        <node x="172176" y="-74106" />
+        <node x="176284" y="-90033" />
 	</zone>
 	<zone id="110013" shape="NPoly" minZ="-5136" maxZ="864"><!-- Ice Fairy 1 -->
 		<stat name="InvadeTime" val="1800000"/>
