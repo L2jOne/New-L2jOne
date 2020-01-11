@@ -7487,6 +7487,7 @@ public final class Player extends Playable
 		}
 		_isHero = hero;
 		
+		broadcastUserInfo();
 		sendSkillList();
 	}
 	
