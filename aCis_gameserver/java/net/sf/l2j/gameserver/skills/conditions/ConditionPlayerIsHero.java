@@ -1,29 +1,22 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionPlayerIsHero.
- */
 public class ConditionPlayerIsHero extends Condition
 {
 	private final boolean _val;
 	
-	/**
-	 * Instantiates a new condition player is hero.
-	 * @param val the val
-	 */
 	public ConditionPlayerIsHero(boolean val)
 	{
 		_val = val;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (env.getPlayer() == null)
-			return false;
-		
-		return (env.getPlayer().isHero() == _val);
+		return effector instanceof Player && ((Player) effector).isHero() == _val;
 	}
 }

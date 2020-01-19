@@ -293,7 +293,7 @@ public abstract class ClanHallSiege extends Quest implements Siegable
 		{
 			_hall.setOwner(winner);
 			
-			winner.setClanHall(_hall.getId());
+			winner.setClanHallId(_hall.getId());
 			
 			World.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_VICTORIOUS_OVER_S2_S_SIEGE).addString(winner.getName()).addString(_hall.getName()));
 		}

@@ -198,10 +198,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="139" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="139" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8927" type="Weapon" name="Shadow Item: Poleaxe">
@@ -223,11 +223,11 @@
     <set name="item_skill" val="3599-1" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="139" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="139" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8928" type="Weapon" name="Shadow Item: Stick of Eternity">
@@ -249,11 +249,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="111" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="111" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8929" type="Weapon" name="Shadow Item: Inferno Staff">
@@ -275,11 +275,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="135" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="135" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8930" type="Weapon" name="Shadow Item: Pa'agrian Hammer">
@@ -301,11 +301,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="135" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="135" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8931" type="Weapon" name="Shadow Item: Dark Screamer">
@@ -326,11 +326,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="122" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="122" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="8932" type="Weapon" name="Shadow Item: Akat Long Bow">
@@ -353,11 +353,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="316" />
-      <set order="0x08" stat="mAtk" val="84" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="227" />
+      <set stat="pAtk" val="316" />
+      <set stat="mAtk" val="84" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="227" />
     </for>
   </item>
   <item id="8933" type="Weapon" name="Shadow Item: Pa'agrian Sword">
@@ -378,10 +378,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="169" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="169" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8934" type="Weapon" name="Shadow Item: Fisted Blade">
@@ -402,11 +402,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="169" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="169" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8935" type="Weapon" name="Test Rapier">
@@ -424,10 +424,10 @@
     <set name="spiritshots" val="3" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="156" />
-      <set order="0x08" stat="mAtk" val="83" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="156" />
+      <set stat="mAtk" val="83" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8936" type="Armor" name="Santa's Antlers">
@@ -455,10 +455,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="120" />
     <for>
-      <set order="0x08" stat="pAtk" val="175" />
-      <set order="0x08" stat="mAtk" val="78" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="175" />
+      <set stat="mAtk" val="78" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8938" type="Weapon" name="Damascus * Tallum Blade">
@@ -479,12 +479,12 @@
     <set name="enchant4_skill" val="3045-17" />
     <set name="item_skill" val="3552-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="305" />
-      <set order="0x08" stat="mAtk" val="121" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="305" />
+      <set stat="mAtk" val="121" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="8939" type="EtcItem" name="Dominic's Mark">
@@ -763,11 +763,11 @@
     <set name="item_skill" val="3599-1" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8973" type="Weapon" name="Shadow Item: Falchion">
@@ -787,10 +787,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8974" type="Weapon" name="Shadow Item: Iron Hammer">
@@ -810,11 +810,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8975" type="Weapon" name="Shadow Item: Voodoo Doll">
@@ -835,10 +835,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="25" />
-      <set order="0x08" stat="mAtk" val="28" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="25" />
+      <set stat="mAtk" val="28" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8976" type="Weapon" name="Shadow Item: Buzdygan">
@@ -858,11 +858,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8977" type="Weapon" name="Shadow Item: Mage Staff">
@@ -883,11 +883,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="30" />
-      <set order="0x08" stat="mAtk" val="28" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="30" />
+      <set stat="mAtk" val="28" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8978" type="Weapon" name="Shadow Item: Sword Breaker">
@@ -907,11 +907,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="27" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="27" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="8979" type="Weapon" name="Shadow Item: Viper's Fang">
@@ -931,11 +931,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="38" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="38" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8980" type="Weapon" name="Shadow Item: Composition Bow">
@@ -957,11 +957,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="64" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
+      <set stat="pAtk" val="64" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
     </for>
   </item>
   <item id="8981" type="Weapon" name="Shadow Item: Crucifix of Blessing">
@@ -982,10 +982,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="25" />
-      <set order="0x08" stat="mAtk" val="28" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="25" />
+      <set stat="mAtk" val="28" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8982" type="Weapon" name="Shadow Item: Two Handed Sword">
@@ -1006,10 +1006,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="78" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="78" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8983" type="Weapon" name="Shadow Item: Crimson Sword">
@@ -1030,10 +1030,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="64" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="64" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8984" type="Weapon" name="Shadow Item: Spiked Club">
@@ -1054,11 +1054,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="64" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="64" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8985" type="Weapon" name="Shadow Item: Staff of Magic">
@@ -1080,11 +1080,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="62" />
-      <set order="0x08" stat="mAtk" val="52" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="62" />
+      <set stat="mAtk" val="52" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8986" type="Weapon" name="Shadow Item: Kukuri">
@@ -1105,11 +1105,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="56" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="56" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="8987" type="Weapon" name="Shadow Item: Dagger of Mana">
@@ -1131,11 +1131,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="45" />
-      <set order="0x08" stat="mAtk" val="52" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="45" />
+      <set stat="mAtk" val="52" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="8988" type="Weapon" name="Shadow Item: Triple-Edged Jamadhr">
@@ -1156,11 +1156,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="78" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="78" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8989" type="Weapon" name="Shadow Item: Gastraphetes">
@@ -1183,11 +1183,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="132" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
+      <set stat="pAtk" val="132" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
     </for>
   </item>
   <item id="8990" type="Weapon" name="Shadow Item: War Hammer">
@@ -1209,11 +1209,11 @@
     <set name="item_skill" val="3599-1" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="64" />
-      <set order="0x08" stat="mAtk" val="39" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="64" />
+      <set stat="mAtk" val="39" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8991" type="Weapon" name="Shadow Item: Sword of Delusion">
@@ -1234,10 +1234,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="139" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="139" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8992" type="Weapon" name="Shadow Item: Poleaxe">
@@ -1259,11 +1259,11 @@
     <set name="item_skill" val="3599-1" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="139" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="139" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8993" type="Weapon" name="Shadow Item: Stick of Eternity">
@@ -1285,11 +1285,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="111" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="111" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="8994" type="Weapon" name="Shadow Item: Inferno Staff">
@@ -1311,11 +1311,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="135" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="135" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8995" type="Weapon" name="Shadow Item: Pa'agrian Hammer">
@@ -1337,11 +1337,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="135" />
-      <set order="0x08" stat="mAtk" val="101" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="135" />
+      <set stat="mAtk" val="101" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8996" type="Weapon" name="Shadow Item: Dark Screamer">
@@ -1362,11 +1362,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="122" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="122" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="8997" type="Weapon" name="Shadow Item: Akat Long Bow">
@@ -1389,11 +1389,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="316" />
-      <set order="0x08" stat="mAtk" val="84" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="227" />
+      <set stat="pAtk" val="316" />
+      <set stat="mAtk" val="84" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="227" />
     </for>
   </item>
   <item id="8998" type="Weapon" name="Shadow Item: Pa'agrian Sword">
@@ -1414,10 +1414,10 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="169" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="169" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="8999" type="Weapon" name="Shadow Item: Fisted Blade">
@@ -1438,11 +1438,11 @@
     <set name="is_sellable" val="false" />
     <set name="duration" val="600" />
     <for>
-      <set order="0x08" stat="pAtk" val="169" />
-      <set order="0x08" stat="mAtk" val="76" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="169" />
+      <set stat="mAtk" val="76" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
 </list>

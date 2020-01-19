@@ -5,7 +5,6 @@ import net.sf.l2j.gameserver.enums.skills.Stats;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Calculator;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class CreatureStat
 {
@@ -40,7 +39,7 @@ public class CreatureStat
 	 */
 	public final double calcStat(Stats stat, double init, Creature target, L2Skill skill)
 	{
-		if (_activeChar == null || stat == null)
+		if (stat == null)
 			return init;
 		
 		final int id = stat.ordinal();
@@ -49,18 +48,11 @@ public class CreatureStat
 		if (c == null || c.size() == 0)
 			return init;
 		
-		// Create and init an Env object to pass parameters to the Calculator
-		final Env env = new Env();
-		env.setCharacter(_activeChar);
-		env.setTarget(target);
-		env.setSkill(skill);
-		env.setValue(init);
-		
 		// Launch the calculation
-		c.calc(env);
+		double value = c.calc(_activeChar, target, skill, init);
 		
 		// avoid some troubles with negative stats (some stats should never be negative)
-		if (env.getValue() <= 0)
+		if (value <= 0)
 		{
 			switch (stat)
 			{
@@ -80,10 +72,10 @@ public class CreatureStat
 				case STAT_MEN:
 				case STAT_STR:
 				case STAT_WIT:
-					env.setValue(1);
+					value = 1.0;
 			}
 		}
-		return env.getValue();
+		return value;
 	}
 	
 	/**

@@ -803,8 +803,8 @@
     <set name="weight" val="160" />
     <set name="price" val="18000" />
     <for>
-      <add order="0x10" stat="pDef" val="13" />
-      <add order="0x10" stat="mDef" val="16" />
+      <baseadd stat="pDef" val="13" />
+      <baseadd stat="mDef" val="16" />
     </for>
   </item>
   <item id="3892" type="Armor" name="Wolf's Hard Leather Mail">
@@ -816,8 +816,8 @@
     <set name="weight" val="160" />
     <set name="price" val="32000" />
     <for>
-      <add order="0x10" stat="pDef" val="16" />
-      <add order="0x10" stat="mDef" val="18" />
+      <baseadd stat="pDef" val="16" />
+      <baseadd stat="mDef" val="18" />
     </for>
   </item>
   <item id="3893" type="Armor" name="Wolf's Wooden Armor">
@@ -829,8 +829,8 @@
     <set name="weight" val="160" />
     <set name="price" val="55000" />
     <for>
-      <add order="0x10" stat="pDef" val="19" />
-      <add order="0x10" stat="mDef" val="20" />
+      <baseadd stat="pDef" val="19" />
+      <baseadd stat="mDef" val="20" />
     </for>
   </item>
   <item id="3894" type="Armor" name="Wolf's Ring Mail">
@@ -842,8 +842,8 @@
     <set name="weight" val="160" />
     <set name="price" val="87000" />
     <for>
-      <add order="0x10" stat="pDef" val="22" />
-      <add order="0x10" stat="mDef" val="23" />
+      <baseadd stat="pDef" val="22" />
+      <baseadd stat="mDef" val="23" />
     </for>
   </item>
   <item id="3895" type="Armor" name="Wolf's Bone Armor">
@@ -855,8 +855,8 @@
     <set name="weight" val="160" />
     <set name="price" val="130000" />
     <for>
-      <add order="0x10" stat="pDef" val="26" />
-      <add order="0x10" stat="mDef" val="26" />
+      <baseadd stat="pDef" val="26" />
+      <baseadd stat="mDef" val="26" />
     </for>
   </item>
   <item id="3896" type="Armor" name="Wolf's Scale Male">
@@ -868,8 +868,8 @@
     <set name="weight" val="160" />
     <set name="price" val="200000" />
     <for>
-      <add order="0x10" stat="pDef" val="30" />
-      <add order="0x10" stat="mDef" val="29" />
+      <baseadd stat="pDef" val="30" />
+      <baseadd stat="mDef" val="29" />
     </for>
   </item>
   <item id="3897" type="Armor" name="Wof's Bronze Armor">
@@ -881,8 +881,8 @@
     <set name="weight" val="160" />
     <set name="price" val="260000" />
     <for>
-      <add order="0x10" stat="pDef" val="33" />
-      <add order="0x10" stat="mDef" val="31" />
+      <baseadd stat="pDef" val="33" />
+      <baseadd stat="mDef" val="31" />
     </for>
   </item>
   <item id="3898" type="Armor" name="Wolf's Plate Mail">
@@ -894,8 +894,8 @@
     <set name="weight" val="160" />
     <set name="price" val="330000" />
     <for>
-      <add order="0x10" stat="pDef" val="37" />
-      <add order="0x10" stat="mDef" val="33" />
+      <baseadd stat="pDef" val="37" />
+      <baseadd stat="mDef" val="33" />
     </for>
   </item>
   <item id="3899" type="Armor" name="Wolf's Steel Armor">
@@ -907,8 +907,8 @@
     <set name="weight" val="160" />
     <set name="price" val="420000" />
     <for>
-      <add order="0x10" stat="pDef" val="40" />
-      <add order="0x10" stat="mDef" val="36" />
+      <baseadd stat="pDef" val="40" />
+      <baseadd stat="mDef" val="36" />
     </for>
   </item>
 </list>

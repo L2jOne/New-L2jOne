@@ -18,7 +18,6 @@ import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.scripting.Quest;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
 import net.sf.l2j.gameserver.skills.conditions.ConditionGameChance;
@@ -185,27 +184,18 @@ public final class Weapon extends Item
 	 * Cast a {@link L2Skill} upon critical hit.
 	 * @param caster : The Creature caster.
 	 * @param target : The Creature target.
-	 * @param crit : if true, the method continues its progression.
 	 */
-	public void castSkillOnCrit(Creature caster, Creature target, boolean crit)
+	public void castSkillOnCrit(Creature caster, Creature target)
 	{
-		if (_skillOnCrit == null || !crit)
+		if (_skillOnCrit == null)
 			return;
 		
 		final L2Skill skillOnCrit = _skillOnCrit.getSkill();
 		if (skillOnCrit == null)
 			return;
 		
-		if (_skillOnCritCondition != null)
-		{
-			final Env env = new Env();
-			env.setCharacter(caster);
-			env.setTarget(target);
-			env.setSkill(skillOnCrit);
-			
-			if (!_skillOnCritCondition.test(env))
-				return;
-		}
+		if (_skillOnCritCondition != null && !_skillOnCritCondition.test(caster, target, skillOnCrit))
+			return;
 		
 		final byte shld = Formulas.calcShldUse(caster, target, skillOnCrit);
 		if (!Formulas.calcSkillSuccess(caster, target, skillOnCrit, shld, false))
@@ -215,7 +205,7 @@ public final class Weapon extends Item
 		if (currentEffect != null)
 			currentEffect.exit();
 		
-		skillOnCrit.getEffects(caster, target, new Env(shld, false, false, false));
+		skillOnCrit.getEffects(caster, target, shld, false);
 	}
 	
 	/**
@@ -241,16 +231,8 @@ public final class Weapon extends Item
 		if (trigger.isToggle() || trigger.isPotion())
 			return;
 		
-		if (_skillOnMagicCondition != null)
-		{
-			final Env env = new Env();
-			env.setCharacter(caster);
-			env.setTarget(target);
-			env.setSkill(skillOnMagic);
-			
-			if (!_skillOnMagicCondition.test(env))
-				return;
-		}
+		if (_skillOnMagicCondition != null && !_skillOnMagicCondition.test(caster, target, skillOnMagic))
+			return;
 		
 		final byte shld = Formulas.calcShldUse(caster, target, skillOnMagic);
 		if (skillOnMagic.isOffensive() && !Formulas.calcSkillSuccess(caster, target, skillOnMagic, shld, false))

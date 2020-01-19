@@ -2,20 +2,16 @@ package net.sf.l2j.gameserver.skills.effects;
 
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.Summon;
-import net.sf.l2j.gameserver.skills.Env;
 
-/**
- * @author demonia
- */
 final class EffectImobilePetBuff extends L2Effect
 {
-	private Summon _pet;
-	
-	public EffectImobilePetBuff(Env env, EffectTemplate template)
+	public EffectImobilePetBuff(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -27,12 +23,9 @@ final class EffectImobilePetBuff extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		_pet = null;
-		
 		if (getEffected() instanceof Summon && getEffector() instanceof Player && ((Summon) getEffected()).getOwner() == getEffector())
 		{
-			_pet = (Summon) getEffected();
-			_pet.setIsImmobilized(true);
+			getEffected().setIsImmobilized(true);
 			return true;
 		}
 		return false;
@@ -41,7 +34,7 @@ final class EffectImobilePetBuff extends L2Effect
 	@Override
 	public void onExit()
 	{
-		_pet.setIsImmobilized(false);
+		getEffected().setIsImmobilized(false);
 	}
 	
 	@Override

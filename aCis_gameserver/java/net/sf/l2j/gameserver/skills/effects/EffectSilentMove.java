@@ -4,15 +4,16 @@ import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectSilentMove extends L2Effect
 {
-	public EffectSilentMove(Env env, EffectTemplate template)
+	public EffectSilentMove(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -44,16 +45,13 @@ public class EffectSilentMove extends L2Effect
 		if (getEffected().isDead())
 			return false;
 		
-		double manaDam = calc();
-		
-		if (manaDam > getEffected().getCurrentMp())
+		if (getValue() > getEffected().getCurrentMp())
 		{
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
-			getEffected().sendPacket(sm);
+			getEffected().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 			return false;
 		}
 		
-		getEffected().reduceCurrentMp(manaDam);
+		getEffected().reduceCurrentMp(getValue());
 		return true;
 	}
 	

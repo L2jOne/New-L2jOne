@@ -4,16 +4,13 @@ import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.actor.Creature;
 
-/**
- * @author Gnat
- */
 public class EffectNegate extends L2Effect
 {
-	public EffectNegate(Env env, EffectTemplate template)
+	public EffectNegate(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -25,17 +22,15 @@ public class EffectNegate extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		L2Skill skill = getSkill();
-		
-		for (int negateSkillId : skill.getNegateId())
+		for (int negateSkillId : getSkill().getNegateId())
 		{
 			if (negateSkillId != 0)
 				getEffected().stopSkillEffects(negateSkillId);
 		}
-		for (L2SkillType negateSkillType : skill.getNegateStats())
-		{
-			getEffected().stopSkillEffects(negateSkillType, skill.getNegateLvl());
-		}
+		
+		for (L2SkillType negateSkillType : getSkill().getNegateStats())
+			getEffected().stopSkillEffects(negateSkillType, getSkill().getNegateLvl());
+		
 		return true;
 	}
 	

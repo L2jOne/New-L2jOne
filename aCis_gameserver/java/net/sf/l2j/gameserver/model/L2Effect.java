@@ -22,10 +22,8 @@ import net.sf.l2j.gameserver.network.serverpackets.AbnormalStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncTemplate;
-import net.sf.l2j.gameserver.skills.basefuncs.Lambda;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
 
 public abstract class L2Effect
@@ -41,12 +39,11 @@ public abstract class L2Effect
 	
 	private final Creature _effector;
 	private final Creature _effected;
-	
-	private final L2Skill _skill; // the skill that was used.
+	private final L2Skill _skill;
+	private final double _value;
 	
 	private final boolean _isHerbEffect;
 	
-	private final Lambda _lambda; // the value of an update
 	private EffectState _state; // the current state
 	
 	private final int _period; // period, seconds
@@ -100,17 +97,19 @@ public abstract class L2Effect
 	
 	/**
 	 * <font color="FF0000"><b>WARNING: scheduleEffect no longer inside constructor ; you must call it explicitly.</b></font>
-	 * @param env
 	 * @param template
+	 * @param skill
+	 * @param effected
+	 * @param effector
 	 */
-	protected L2Effect(Env env, EffectTemplate template)
+	protected L2Effect(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
 		_state = EffectState.CREATED;
-		_skill = env.getSkill();
+		_skill = skill;
 		_template = template;
-		_effected = env.getTarget();
-		_effector = env.getCharacter();
-		_lambda = template.lambda;
+		_effected = effected;
+		_effector = effector;
+		_value = template.value;
 		_funcTemplates = template.funcTemplates;
 		_count = template.counter;
 		_totalCount = _count;
@@ -123,9 +122,6 @@ public abstract class L2Effect
 			if (_effected instanceof Servitor || (_effected instanceof Player && ((Player) _effected).getSummon() != null))
 				temp /= 2;
 		}
-		
-		if (env.isSkillMastery())
-			temp *= 2;
 		
 		_period = temp;
 		_abnormalEffect = template.abnormalEffect;
@@ -218,6 +214,11 @@ public abstract class L2Effect
 		return _skill;
 	}
 	
+	public final double getValue()
+	{
+		return _value;
+	}
+	
 	public final Creature getEffector()
 	{
 		return _effector;
@@ -241,16 +242,6 @@ public abstract class L2Effect
 	public boolean isHerbEffect()
 	{
 		return _isHerbEffect;
-	}
-	
-	public final double calc()
-	{
-		final Env env = new Env();
-		env.setCharacter(_effector);
-		env.setTarget(_effected);
-		env.setSkill(_skill);
-		
-		return _lambda.calc(env);
 	}
 	
 	private final synchronized void startEffectTask()
@@ -432,14 +423,9 @@ public abstract class L2Effect
 		
 		final List<Func> funcs = new ArrayList<>(_funcTemplates.size());
 		
-		final Env env = new Env();
-		env.setCharacter(getEffector());
-		env.setTarget(getEffected());
-		env.setSkill(getSkill());
-		
 		for (FuncTemplate t : _funcTemplates)
 		{
-			final Func f = t.getFunc(env, this);
+			final Func f = t.getFunc(getEffector(), getEffected(), getSkill(), this);
 			if (f != null)
 				funcs.add(f);
 		}

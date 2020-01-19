@@ -3,8 +3,6 @@ package net.sf.l2j.loginserver.data.sql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.l2j.commons.logging.CLogger;
 
@@ -18,48 +16,48 @@ public class AccountTable
 {
 	private static final CLogger LOGGER = new CLogger(AccountTable.class.getName());
 	
-	private static final String SELECT_ACCOUNTS = "SELECT login, password, access_level, last_server FROM accounts";
+	private static final String SELECT_ACCOUNT = "SELECT password, access_level, last_server FROM accounts WHERE login = ?";
 	private static final String INSERT_ACCOUNT = "INSERT INTO accounts (login, password, last_active) VALUES (?, ?, ?)";
 	private static final String UPDATE_ACCOUNT_LAST_TIME = "UPDATE accounts SET last_active = ? WHERE login = ?";
 	private static final String UPDATE_ACCOUNT_LAST_SERVER = "UPDATE accounts SET last_server = ? WHERE login = ?";
 	private static final String UPDATE_ACCOUNT_ACCESS_LEVEL = "UPDATE accounts SET access_level = ? WHERE login = ?";
 	
-	private final Map<String, Account> _accounts = new ConcurrentHashMap<>();
-	
 	protected AccountTable()
 	{
+	}
+	
+	/**
+	 * @param login : The {@link String} used as login.
+	 * @return A new {@link Account} whom informations are already registered into the database, or null if not existing.
+	 */
+	public Account getAccount(String login)
+	{
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement ps = con.prepareStatement(SELECT_ACCOUNTS);
-			ResultSet rs = ps.executeQuery())
+			PreparedStatement ps = con.prepareStatement(SELECT_ACCOUNT))
 		{
-			while (rs.next())
+			ps.setString(1, login);
+			
+			try (ResultSet rs = ps.executeQuery())
 			{
-				final String login = rs.getString("login");
-				
-				_accounts.put(login, new Account(login, rs.getString("password"), rs.getInt("access_level"), rs.getInt("last_server")));
+				if (rs.next())
+					return new Account(login, rs.getString("password"), rs.getInt("access_level"), rs.getInt("last_server"));
 			}
 		}
 		catch (Exception e)
 		{
 			LOGGER.error("Exception retrieving account infos.", e);
 		}
-		LOGGER.info("Loaded {} accounts.", _accounts.size());
-	}
-	
-	public Account getAccount(String login)
-	{
-		return _accounts.get(login);
+		return null;
 	}
 	
 	/**
 	 * @param login : The {@link String} used as login.
 	 * @param hashed : The {@link String} used as hashed password.
 	 * @param currentTime : The creation timestamp of the newly generated {@link Account}.
-	 * @return A new {@link Account}, registered into both memory and db.
+	 * @return A new {@link Account} whom informations are saved into the database, or null if a problem occured.
 	 */
 	public Account createAccount(String login, String hashed, long currentTime)
 	{
-		// Insert the new Account on db.
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_ACCOUNT))
 		{
@@ -74,23 +72,17 @@ public class AccountTable
 			return null;
 		}
 		
-		// Create the Account.
-		final Account account = new Account(login, hashed, 0, 1);
-		
-		// Feed the Map.
-		_accounts.put(login, account);
-		
-		return account;
+		// Generate a new Account.
+		return new Account(login, hashed, 0, 1);
 	}
 	
 	/**
 	 * @param login : The {@link String} used as login.
 	 * @param currentTime : The timestamp to refresh this {@link Account} with.
-	 * @return True if the given {@link Account} last_active timestamp has been correctly refreshed on db, false otherwise.
+	 * @return True if the given {@link Account} last_active timestamp has been correctly refreshed on the database, false otherwise.
 	 */
 	public boolean setAccountLastTime(String login, long currentTime)
 	{
-		// Refresh current time of the account.
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_ACCOUNT_LAST_TIME))
 		{
@@ -107,7 +99,7 @@ public class AccountTable
 	}
 	
 	/**
-	 * Refresh access_level value of an {@link Account} on db.
+	 * Refresh access_level value of an {@link Account} on the database.
 	 * @param login : The {@link String} used as login.
 	 * @param level : The new level to set.
 	 */
@@ -127,7 +119,7 @@ public class AccountTable
 	}
 	
 	/**
-	 * Refresh last_server value of an {@link Account} on db.
+	 * Refresh last_server value of an {@link Account} on the database.
 	 * @param login : The {@link String} used as login.
 	 * @param serverId : The serverId to set.
 	 */

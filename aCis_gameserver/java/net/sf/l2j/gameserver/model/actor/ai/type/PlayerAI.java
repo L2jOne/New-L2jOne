@@ -344,9 +344,9 @@ public class PlayerAI extends PlayableAI
 			{
 				SystemMessage msg;
 				if (item.getEnchantLevel() > 0)
-					msg = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3).addString(_actor.getName()).addNumber(item.getEnchantLevel()).addItemName(item.getItemId());
+					msg = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3_S4).addString(_actor.getName()).addNumber(item.getEnchantLevel()).addItemName(item.getItemId()).addZoneName(_actor.getPosition());
 				else
-					msg = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2).addString(_actor.getName()).addItemName(item.getItemId());
+					msg = SystemMessage.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3).addString(_actor.getName()).addItemName(item.getItemId()).addZoneName(_actor.getPosition());
 				
 				getActor().broadcastPacketInRadius(msg, 1400);
 			}

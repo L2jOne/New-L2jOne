@@ -31,10 +31,10 @@
       <player clanHall="-1" />
     </cond>
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="90" />
-      <enchant val="0" order="0x0C" stat="sDef" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="90" />
+      <enchant val="0" stat="sDef" />
     </for>
   </item>
   <item id="6903" type="EtcItem" name="Music Box M">
@@ -160,8 +160,8 @@
     <set name="weight" val="6" />
     <set name="price" val="2" />
     <for>
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="6918" type="Armor" name="Monster Only (Shield of Silenos)">
@@ -172,9 +172,9 @@
     <set name="weight" val="1380" />
     <set name="price" val="12900" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="90" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="90" />
     </for>
   </item>
   <item id="6919" type="Armor" name="Monster Only (Shield of Ketra Orc)">
@@ -186,9 +186,9 @@
     <set name="weight" val="1320" />
     <set name="price" val="78400" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="142" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="142" />
     </for>
   </item>
   <item id="6920" type="EtcItem" name="Recipe: Greater Fish Oil (100%)">

@@ -1,31 +1,21 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionPlayerActiveEffectId.
- */
 public class ConditionPlayerActiveEffectId extends Condition
 {
 	private final int _effectId;
 	private final int _effectLvl;
 	
-	/**
-	 * Instantiates a new condition player active effect id.
-	 * @param effectId the effect id
-	 */
 	public ConditionPlayerActiveEffectId(int effectId)
 	{
 		_effectId = effectId;
 		_effectLvl = -1;
 	}
 	
-	/**
-	 * Instantiates a new condition player active effect id.
-	 * @param effectId the effect id
-	 * @param effectLevel the effect level
-	 */
 	public ConditionPlayerActiveEffectId(int effectId, int effectLevel)
 	{
 		_effectId = effectId;
@@ -33,9 +23,9 @@ public class ConditionPlayerActiveEffectId extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		final L2Effect e = env.getCharacter().getFirstEffect(_effectId);
+		final L2Effect e = effector.getFirstEffect(_effectId);
 		if (e != null && (_effectLvl == -1 || _effectLvl <= e.getSkill().getLevel()))
 			return true;
 		

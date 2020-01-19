@@ -1,18 +1,28 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class Condition.
- * @author mkizub
- */
 public abstract class Condition implements ConditionListener
 {
 	private ConditionListener _listener;
+	
 	private String _msg;
 	private int _msgId;
-	private boolean _addName = false;
+	
+	private boolean _addName;
 	private boolean _result;
+	
+	/**
+	 * Test impl.
+	 * @param effector : The Creature who is the initiator of the Condition.
+	 * @param effected : The Creature who is the target of the Condition.
+	 * @param skill : The Skill, if any.
+	 * @param item : The Item, if any.
+	 * @return true, if successful
+	 */
+	abstract boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item);
 	
 	/**
 	 * Sets the message.
@@ -86,14 +96,27 @@ public abstract class Condition implements ConditionListener
 		return _listener;
 	}
 	
-	/**
-	 * Test.
-	 * @param env the env
-	 * @return true, if successful
-	 */
-	public final boolean test(Env env)
+	public final boolean test(Creature caster, Creature target, L2Skill skill)
 	{
-		boolean res = testImpl(env);
+		return test(caster, target, skill, null);
+	}
+	
+	public final boolean test(Creature caster, Creature target, Item item)
+	{
+		return test(caster, target, null, null);
+	}
+	
+	/**
+	 * Test this {@link Condition} condition, and update listener.
+	 * @param caster : The Creature who is the initiator of the Condition.
+	 * @param target : The Creature who is the target of the Condition.
+	 * @param skill : The Skill, if any.
+	 * @param item : The Item, if any.
+	 * @return true if all conditions were met.
+	 */
+	public final boolean test(Creature caster, Creature target, L2Skill skill, Item item)
+	{
+		boolean res = testImpl(caster, target, skill, item);
 		if (_listener != null && res != _result)
 		{
 			_result = res;
@@ -102,17 +125,6 @@ public abstract class Condition implements ConditionListener
 		return res;
 	}
 	
-	/**
-	 * Test impl.
-	 * @param env the env
-	 * @return true, if successful
-	 */
-	abstract boolean testImpl(Env env);
-	
-	/*
-	 * (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.skills.conditions.ConditionListener#notifyChanged()
-	 */
 	@Override
 	public void notifyChanged()
 	{

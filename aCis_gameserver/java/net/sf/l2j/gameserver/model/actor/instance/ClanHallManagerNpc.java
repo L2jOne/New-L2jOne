@@ -478,7 +478,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_RESTORE_HP, percent, fee, Config.CH_HPREG_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_RESTORE_HP, percent, fee, Config.CH_HPREG_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -534,7 +534,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_RESTORE_MP, percent, fee, Config.CH_MPREG_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_RESTORE_MP, percent, fee, Config.CH_MPREG_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -598,7 +598,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_RESTORE_EXP, percent, fee, Config.CH_EXPREG_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_RESTORE_EXP, percent, fee, Config.CH_EXPREG_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -952,7 +952,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_ITEM_CREATE, lvl, fee, Config.CH_ITEM_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_ITEM_CREATE, lvl, fee, Config.CH_ITEM_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -996,7 +996,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_TELEPORT, lvl, fee, Config.CH_TELE_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_TELEPORT, lvl, fee, Config.CH_TELE_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -1064,7 +1064,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_SUPPORT, lvl, fee, Config.CH_SUPPORT_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_SUPPORT, lvl, fee, Config.CH_SUPPORT_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -1273,7 +1273,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_DECO_CURTAINS, lvl, fee, Config.CH_CURTAIN_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_DECO_CURTAINS, lvl, fee, Config.CH_CURTAIN_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);
@@ -1317,7 +1317,7 @@ public class ClanHallManagerNpc extends Merchant
 									break;
 							}
 							
-							if (!getClanHall().updateFunctions(player, ClanHall.FUNC_DECO_FRONTPLATEFORM, lvl, fee, Config.CH_FRONT_FEE_RATIO))
+							if (!getClanHall().updateFunction(player, ClanHall.FUNC_DECO_FRONTPLATEFORM, lvl, fee, Config.CH_FRONT_FEE_RATIO))
 								html.setFile("data/html/clanHallManager/low_adena.htm");
 							else
 								revalidateDeco(player);

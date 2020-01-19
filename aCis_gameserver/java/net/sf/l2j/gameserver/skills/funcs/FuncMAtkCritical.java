@@ -1,38 +1,35 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncMAtkCritical extends Func
 {
-	static final FuncMAtkCritical _fac_instance = new FuncMAtkCritical();
-	
-	public static Func getInstance()
-	{
-		return _fac_instance;
-	}
+	private static final FuncMAtkCritical INSTANCE = new FuncMAtkCritical();
 	
 	private FuncMAtkCritical()
 	{
-		super(Stats.MCRITICAL_RATE, 0x09, null, null);
+		super(null, Stats.MCRITICAL_RATE, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		final Creature player = env.getCharacter();
-		if (player instanceof Player)
-		{
-			if (player.getActiveWeaponInstance() != null)
-				env.mulValue(Formulas.WIT_BONUS[player.getWIT()]);
-		}
-		else
-			env.mulValue(Formulas.WIT_BONUS[player.getWIT()]);
+		if (!(effector instanceof Player) || (effector.getActiveWeaponInstance() != null))
+			return value * Formulas.WIT_BONUS[effector.getWIT()];
 		
-		env.setBaseValue(env.getValue());
+		return value;
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

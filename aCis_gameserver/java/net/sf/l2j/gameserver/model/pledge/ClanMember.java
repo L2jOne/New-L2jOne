@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 import net.sf.l2j.commons.logging.CLogger;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.enums.actors.Sex;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.Player;
 
 public class ClanMember
@@ -101,19 +101,13 @@ public class ClanMember
 			_raceOrdinal = _player.getRace().ordinal();
 		}
 		
+		// Add Clan skills.
 		if (player != null)
 		{
-			if (_clan.getLevel() > 3 && player.isClanLeader())
-				player.addSiegeSkills();
+			_clan.addClanSkillsTo(player);
 			
-			if (_clan.getReputationScore() >= 0)
-			{
-				for (L2Skill sk : _clan.getClanSkills().values())
-				{
-					if (sk.getMinPledgeClass() <= player.getPledgeClass())
-						player.addSkill(sk, false);
-				}
-			}
+			if (_clan.getLevel() >= Config.MINIMUM_CLAN_LEVEL && player.isClanLeader())
+				player.addSiegeSkills();
 		}
 		_player = player;
 	}

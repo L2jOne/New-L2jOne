@@ -38,7 +38,7 @@ public final class FusionSkill
 		{
 			final L2Skill force = SkillTable.getInstance().getInfo(_fusionId, _fusionLevel);
 			if (force != null)
-				force.getEffects(_caster, _target, null);
+				force.getEffects(_caster, _target);
 		}
 		
 		_geoCheckTask = ThreadPool.scheduleAtFixedRate(() ->

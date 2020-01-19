@@ -196,8 +196,8 @@ public class ClanHall
 	 * Add a {@link Location} into the dedicated {@link SpawnType} {@link List}.<br>
 	 * <br>
 	 * If the key doesn't exist, generate a new {@link ArrayList}.
-	 * @param type : The SpawnType to test.
-	 * @param loc : The Location to add.
+	 * @param type : The {@link SpawnType} to test.
+	 * @param loc : The {@link Location} to add.
 	 */
 	public final void addSpawn(SpawnType type, Location loc)
 	{
@@ -205,8 +205,8 @@ public class ClanHall
 	}
 	
 	/**
-	 * @param type : The SpawnType to test.
-	 * @return the {@link List} of {@link Location}s based on {@link SpawnType} parameter. If that SpawnType doesn't exist, return the OWNER List of Locations.
+	 * @param type : The {@link SpawnType} to test.
+	 * @return the {@link List} of {@link Location}s based on {@link SpawnType} parameter. If that {@link SpawnType} doesn't exist, return the OWNER {@link List} of {@link Location}.
 	 */
 	public final List<Location> getSpawns(SpawnType type)
 	{
@@ -214,8 +214,8 @@ public class ClanHall
 	}
 	
 	/**
-	 * @param type : The SpawnType to test.
-	 * @return a random {@link Location} based on {@link SpawnType} parameter. If that SpawnType doesn't exist, return a NORMAL random Location.
+	 * @param type : The {@link SpawnType} to test.
+	 * @return a random {@link Location} based on {@link SpawnType} parameter. If that {@link SpawnType} doesn't exist, return a NORMAL random {@link Location}.
 	 */
 	public final Location getRndSpawn(SpawnType type)
 	{
@@ -231,7 +231,7 @@ public class ClanHall
 	}
 	
 	/**
-	 * @param doorId : The id to make checks on.
+	 * @param doorId : The id to test.
 	 * @return the {@link Door} based on a doorId.
 	 */
 	public final Door getDoor(int doorId)
@@ -240,7 +240,7 @@ public class ClanHall
 	}
 	
 	/**
-	 * @param type : The type of ClanHallFunction we search.
+	 * @param type : The type of {@link ClanHallFunction} we search.
 	 * @return the {@link ClanHallFunction} associated to the type.
 	 */
 	public ClanHallFunction getFunction(int type)
@@ -251,9 +251,9 @@ public class ClanHall
 	/**
 	 * Free this {@link ClanHall}.
 	 * <ul>
-	 * <li>Remove the ClanHall from the Clan.</li>
+	 * <li>Remove the {@link ClanHall} from the {@link Clan}.</li>
 	 * <li>Reset all variables to default.</li>
-	 * <li>Delete functions, and update the database.</li>
+	 * <li>Delete {@link ClanHallFunction}s, and update the database.</li>
 	 * </ul>
 	 */
 	public void free()
@@ -270,7 +270,7 @@ public class ClanHall
 		if (clan != null)
 		{
 			// Set the clan hall id back to 0.
-			clan.setClanHall(0);
+			clan.setClanHallId(0);
 			
 			// Refresh Clan Action panel.
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
@@ -304,7 +304,7 @@ public class ClanHall
 	
 	/**
 	 * Set {@link ClanHall} {@link Clan} owner. If previous owner was existing, do some actions on it.
-	 * @param clan : The new ClanHall owner.
+	 * @param clan : The new {@link ClanHall} owner.
 	 */
 	public void setOwner(Clan clan)
 	{
@@ -331,7 +331,7 @@ public class ClanHall
 		if (owner != null)
 		{
 			// Set the clan hall id back to 0.
-			owner.setClanHall(0);
+			owner.setClanHallId(0);
 			
 			// Refresh Clan Action panel.
 			owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
@@ -343,7 +343,7 @@ public class ClanHall
 		// Close all doors.
 		openCloseDoors(false);
 		
-		clan.setClanHall(_id);
+		clan.setClanHallId(_id);
 		
 		_ownerId = clan.getClanId();
 		_paidUntil = System.currentTimeMillis() + ONE_WEEK;
@@ -363,10 +363,10 @@ public class ClanHall
 	}
 	
 	/**
-	 * Open or close a {@link ClanHall} {@link Door} by a {@link Player}. The Player must be owner of this ClanHall.
-	 * @param player : The player who requested to open/close the door.
+	 * Open or close a {@link ClanHall} {@link Door} by a {@link Player}. The {@link Player} must be the owner of this {@link ClanHall}.
+	 * @param player : The {@link Player} who requested to open/close the door.
 	 * @param doorId : The affected doorId.
-	 * @param open : If set to true the door will open, false will close it.
+	 * @param open : If set to true the {@link Door} will open, false will close it.
 	 */
 	public void openCloseDoor(Player player, int doorId, boolean open)
 	{
@@ -377,7 +377,7 @@ public class ClanHall
 	/**
 	 * Open or close a {@link ClanHall} {@link Door} based on its doorId.
 	 * @param doorId : The affected doorId.
-	 * @param open : If set to true the door will open, false will close it.
+	 * @param open : If set to true the {@link Door} will open, false will close it.
 	 */
 	public void openCloseDoor(int doorId, boolean open)
 	{
@@ -386,8 +386,8 @@ public class ClanHall
 	
 	/**
 	 * Open or close a {@link ClanHall} {@link Door}.
-	 * @param door : The affected Door.
-	 * @param open : If set to true the door will open, false will close it.
+	 * @param door : The affected {@link Door}.
+	 * @param open : If set to true the {@link Door} will open, false will close it.
 	 */
 	public static void openCloseDoor(Door door, boolean open)
 	{
@@ -401,9 +401,9 @@ public class ClanHall
 	}
 	
 	/**
-	 * Open or close all {@link ClanHall} related {@link Door}s by a {@link Player}. The Player must be owner of this ClanHall.
-	 * @param player : The player who requested to open/close doors.
-	 * @param open : If set to true the door will open, false will close it.
+	 * Open or close all {@link ClanHall} related {@link Door}s by a {@link Player}. The {@link Player} must be the owner of this {@link ClanHall}.
+	 * @param player : The {@link Player} who requested to open/close doors.
+	 * @param open : If set to true the {@link Door} will open, false will close it.
 	 */
 	public void openCloseDoors(Player player, boolean open)
 	{
@@ -413,7 +413,7 @@ public class ClanHall
 	
 	/**
 	 * Open or close all {@link ClanHall} related {@link Door}s.
-	 * @param open : If set to true the door will open, false will close it.
+	 * @param open : If set to true the {@link Door} will open, false will close it.
 	 */
 	public void openCloseDoors(boolean open)
 	{
@@ -427,7 +427,7 @@ public class ClanHall
 	}
 	
 	/**
-	 * Banish all {@link Player}s stranger to that {@link ClanHall} zone.
+	 * Banish all {@link Player}s from that {@link ClanHall} zone.
 	 */
 	public void banishForeigners()
 	{
@@ -440,8 +440,10 @@ public class ClanHall
 	 */
 	public void removeAllFunctions()
 	{
+		// Remove all ClanHallFunctions from memory.
 		_functions.clear();
 		
+		// Update db.
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_FUNCTIONS))
 		{
@@ -455,15 +457,15 @@ public class ClanHall
 	}
 	
 	/**
-	 * Update a {@link ClanHallFunction}s linked to this {@link ClanHall}.
-	 * @param player : The player who requested the change.
-	 * @param type : The type of ClanHallFunction to update.
+	 * Update a {@link ClanHallFunction} linked to this {@link ClanHall}. If it doesn't exist, generate it and save it on database.
+	 * @param player : The {@link Player} who requested the change.
+	 * @param type : The type of {@link ClanHallFunction} to update.
 	 * @param lvl : The new level to set.
-	 * @param lease : The associated lease taken from Player inventory.
+	 * @param lease : The associated lease taken from {@link Player} inventory.
 	 * @param rate : The new rate to set.
-	 * @return true if the ClanHallFunction has been successfully updated.
+	 * @return True if the {@link ClanHallFunction} has been successfully updated.
 	 */
-	public boolean updateFunctions(Player player, int type, int lvl, int lease, long rate)
+	public boolean updateFunction(Player player, int type, int lvl, int lease, long rate)
 	{
 		// Player doesn't exist.
 		if (player == null)
@@ -473,11 +475,16 @@ public class ClanHall
 		if (lease > 0 && !player.destroyItemByItemId("Consume", 57, lease, null, true))
 			return false;
 		
-		// The function doesn't exist, we create it.
-		final ClanHallFunction chf = _functions.get(type);
+		ClanHallFunction chf = _functions.get(type);
 		if (chf == null)
 		{
-			_functions.put(type, new ClanHallFunction(this, type, lvl, lease, rate, System.currentTimeMillis() + rate));
+			// Generate a ClanHallFunction and save it on the database.
+			chf = new ClanHallFunction(this, type, lvl, lease, rate, System.currentTimeMillis() + rate);
+			chf.dbSave();
+			
+			// Add the ClanHallFunction on memory.
+			_functions.put(type, chf);
+			
 			return true;
 		}
 		

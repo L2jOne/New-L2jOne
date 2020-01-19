@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="4700" levels="13" name="Gift of Queen">
 	    <table name="#magicLvl"> 57 66 75 77 78 79 80 81 82 83 84 85 86 </table>
@@ -20,8 +20,8 @@
         <set name="aggroPoints" val="#power" />
         <for>
 			<effect name="Buff" time="#time" val="0" stackOrder="#stackOrder" stackType="buff_queen_of_cat">
-                <mul order="0x30" stat="pAtk" val="#pAtk" />
-                <add order="0x40" stat="accCombat" val="#accCombat" />
+                <mul stat="pAtk" val="#pAtk" />
+                <add stat="accCombat" val="#accCombat" />
             </effect>
         </for>
 	</skill>
@@ -63,7 +63,7 @@
         <set name="aggroPoints" val="#power" />
         <for>
 			<effect name="Buff" time="#time" val="0" stackOrder="#stackOrder" stackType="buff_unicorn_seraphim">
-                <mul order="0x30" stat="regMp" val="#regMp" />
+                <mul stat="regMp" val="#regMp" />
             </effect>
         </for>
 	</skill>
@@ -86,7 +86,7 @@
         <set name="aggroPoints" val="#power" />
         <for>
 			<effect name="Buff" time="#time" val="0" stackOrder="#stackOrder" stackType="buff_unicorn_seraphim">
-                <mul order="0x30" stat="mReuse" val="#mReuse" />
+                <mul stat="mReuse" val="#mReuse" />
             </effect>
         </for>
 	</skill>
@@ -132,8 +132,8 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
-                <mul order="0x30" stat="mDef" val="#mDef" />
-                <mul order="0x30" stat="pDef" val="#pDef" />
+                <mul stat="mDef" val="#mDef" />
+                <mul stat="pDef" val="#pDef" />
             </effect>
 			<effect name="TargetMe" val="0" />
         </for>
@@ -160,8 +160,8 @@
 		<set name="isMagic" val="true" />
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="debuff_nightshade">
-                <mul order="0x30" stat="mDef" val="#mDef" />
-                <mul order="0x30" stat="pDef" val="#pDef" />
+                <mul stat="mDef" val="#mDef" />
+                <mul stat="pDef" val="#pDef" />
             </effect>
 			<effect name="TargetMe" val="0" />
         </for>
@@ -255,10 +255,10 @@
         <set name="aggroPoints" val="#aggro" />
         <for>
 			<effect name="ImobileBuff" time="30" val="0" stackOrder="1" stackType="ultimate_buff">
-                <mul order="0x30" stat="mDef" val="5.0" />
-                <mul order="0x30" stat="pDef" val="5.0" />
-                <mul order="0x30" stat="pAtkSpd" val="0.3" />
-                <mul order="0x30" stat="runSpd" val="0.1" />
+                <mul stat="mDef" val="5.0" />
+                <mul stat="pDef" val="5.0" />
+                <mul stat="pAtkSpd" val="0.3" />
+                <mul stat="runSpd" val="0.1" />
             </effect>
         </for>
 	</skill>
@@ -1504,8 +1504,8 @@
 		<set name="magicLvl" val="1" />
         <set name="operateType" val="OP_PASSIVE" />
         <for>
-            <add order="0x40" stat="rEvas" val="#rEvas" />
-            <mul order="0x30" stat="mDef" val="#mDef" />
+            <add stat="rEvas" val="#rEvas" />
+            <mul stat="mDef" val="#mDef" />
         </for>
 	</skill>
 	<skill id="4790" levels="1" name="Raid Boss - Level 23">

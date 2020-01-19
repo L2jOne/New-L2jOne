@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="2001" levels="1" name="Red Potion">
 		<set name="target" val="TARGET_SELF"/>
@@ -88,7 +88,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="1" stackType="hit_up">
-				<add order="0x40" stat="accCombat" val="4" />
+				<add stat="accCombat" val="4" />
 			</effect>
 		</for>
 	</skill>
@@ -103,7 +103,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="1" stackType="speed_up">
-				<add order="0x40" stat="runSpd" val="20" />
+				<add stat="runSpd" val="20" />
 			</effect>
 		</for>
 	</skill>
@@ -118,7 +118,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="1" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="1.15" />
+				<mul stat="pAtkSpd" val="1.15" />
 			</effect>
 		</for>
 	</skill>
@@ -272,7 +272,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="2" stackType="speed_up">
-				<add order="0x40" stat="runSpd" val="33" />
+				<add stat="runSpd" val="33" />
 			</effect>
 		</for>
 	</skill>
@@ -287,7 +287,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="2" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="1.33" />
+				<mul stat="pAtkSpd" val="1.33" />
 			</effect>
 		</for>
 	</skill>
@@ -428,7 +428,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="hit_up">
-				<add order="0x40" stat="accCombat" val="4" />
+				<add stat="accCombat" val="4" />
 			</effect>
 		</for>
 	</skill>
@@ -443,7 +443,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="critical_dmg_up">
-				<mul order="0x30" stat="cAtk" val="1.35" />
+				<mul stat="cAtk" val="1.35" />
 			</effect>
 		</for>
 	</skill>
@@ -458,7 +458,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="critical_prob_up">
-				<basemul order="0x30" stat="rCrit" val="0.3" />
+				<basemul stat="rCrit" val="0.3" />
 			</effect>
 		</for>
 	</skill>
@@ -473,7 +473,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="casting_time_down">
-				<mul order="0x30" stat="mAtkSpd" val="1.3" />
+				<mul stat="mAtkSpd" val="1.3" />
 			</effect>
 		</for>
 	</skill>
@@ -485,7 +485,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="3" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="1.33" />
+				<mul stat="pAtkSpd" val="1.33" />
 			</effect>
 		</for>
 	</skill>
@@ -500,7 +500,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="avoid_up">
-				<add order="0x40" stat="rEvas" val="4" />
+				<add stat="rEvas" val="4" />
 			</effect>
 		</for>
 	</skill>
@@ -515,7 +515,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="ma_up">
-				<mul order="0x30" stat="mAtk" val="1.75" />
+				<mul stat="mAtk" val="1.75" />
 			</effect>
 		</for>
 	</skill>
@@ -530,7 +530,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="pa_up">
-				<mul order="0x30" stat="pAtk" val="1.15" />
+				<mul stat="pAtk" val="1.15" />
 			</effect>
 		</for>
 	</skill>
@@ -545,7 +545,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="3" stackType="speed_up">
-				<add order="0x40" stat="runSpd" val="33" />
+				<add stat="runSpd" val="33" />
 			</effect>
 		</for>
 	</skill>
@@ -560,7 +560,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="pd_up">
-				<mul order="0x30" stat="pDef" val="1.15" />
+				<mul stat="pDef" val="1.15" />
 			</effect>
 		</for>
 	</skill>
@@ -608,7 +608,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="mp_regen_up">
-				<add order="0x40" stat="regMp" val="1.82" />
+				<add stat="regMp" val="1.82" />
 			</effect>
 		</for>
 	</skill>
@@ -685,7 +685,7 @@
 		</cond>
 		<for>
 			<effect name="ChanceSkillTrigger" time="10" val="0" stackOrder="1" stackType="mirage" triggeredId="5144" chanceType="ON_ATTACKED" activationChance="80">
-				<mul order="0x30" stat="runSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -713,7 +713,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="400" val="0" stackOrder="2" stackType="max_breath_up">
-				<mul order="0x30" stat="breath" val="5" />
+				<mul stat="breath" val="5" />
 			</effect>
 		</for>
 	</skill>
@@ -728,8 +728,8 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="1" stackType="counter_skill">
-				<add order="0x40" stat="vengeancePdam" val="40" />
-				<mul order="0x30" stat="pDef" val="0.85"/>
+				<add stat="vengeancePdam" val="40" />
+				<mul stat="pDef" val="0.85"/>
 			</effect>
 		</for>
 	</skill>

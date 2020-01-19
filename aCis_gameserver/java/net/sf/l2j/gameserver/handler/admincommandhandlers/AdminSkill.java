@@ -409,7 +409,7 @@ public class AdminSkill implements IAdminCommandHandler
 			return;
 		}
 		
-		player.getClan().addNewSkill(skill);
+		player.getClan().addNewSkill(skill, false);
 		
 		activeChar.sendMessage("You gave " + skill.getName() + " Clan Skill to " + player.getClan().getName() + " clan.");
 		

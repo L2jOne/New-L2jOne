@@ -23,10 +23,10 @@
     <set name="material" val="STEEL" />
     <set name="is_dropable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="1" />
-      <set order="0x08" stat="mAtk" val="1" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="1" />
+      <set stat="mAtk" val="1" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="4203" type="EtcItem" name="Spellbook: Life Leech">
@@ -140,10 +140,10 @@
     <set name="is_sellable" val="false" />
     <set name="is_depositable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="4220" type="Weapon" name="Dream Knife">
@@ -165,11 +165,11 @@
     <set name="is_sellable" val="false" />
     <set name="is_depositable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="27" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
+      <set stat="pAtk" val="27" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
     </for>
   </item>
   <item id="4221" type="Weapon" name="Ubiquitous Axe">
@@ -191,11 +191,11 @@
     <set name="is_sellable" val="false" />
     <set name="is_depositable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="31" />
-      <set order="0x08" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="31" />
+      <set stat="mAtk" val="21" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="4222" type="Armor" name="Dream Shield">
@@ -211,10 +211,10 @@
     <set name="is_sellable" val="false" />
     <set name="is_depositable" val="false" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="90" />
-      <enchant val="0" order="0x0C" stat="sDef" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="90" />
+      <enchant val="0" stat="sDef" />
     </for>
   </item>
   <item id="4223" type="Armor" name="Ubiquitous Shield">
@@ -230,10 +230,10 @@
     <set name="is_sellable" val="false" />
     <set name="is_depositable" val="false" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="90" />
-      <enchant val="0" order="0x0C" stat="sDef" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="90" />
+      <enchant val="0" stat="sDef" />
     </for>
   </item>
   <item id="4224" type="Armor" name="Dream Armor">
@@ -249,7 +249,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="68" />
+      <baseadd stat="pDef" val="68" />
     </for>
   </item>
   <item id="4225" type="Armor" name="Dream Stockings">
@@ -265,7 +265,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="43" />
+      <baseadd stat="pDef" val="43" />
     </for>
   </item>
   <item id="4226" type="Armor" name="Dream Gloves">
@@ -280,7 +280,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="17" />
+      <baseadd stat="pDef" val="17" />
     </for>
   </item>
   <item id="4227" type="Armor" name="Dream Boots">
@@ -295,7 +295,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="17" />
+      <baseadd stat="pDef" val="17" />
     </for>
   </item>
   <item id="4228" type="Armor" name="Ubiquitous Armor">
@@ -311,7 +311,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="68" />
+      <baseadd stat="pDef" val="68" />
     </for>
   </item>
   <item id="4229" type="Armor" name="Ubiquitous Stockings">
@@ -327,7 +327,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="43" />
+      <baseadd stat="pDef" val="43" />
     </for>
   </item>
   <item id="4230" type="Armor" name="Ubiquitous Gloves">
@@ -342,7 +342,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="17" />
+      <baseadd stat="pDef" val="17" />
     </for>
   </item>
   <item id="4231" type="Armor" name="Ubiquitous Boots">
@@ -357,7 +357,7 @@
     <set name="is_destroyable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="pDef" val="17" />
+      <baseadd stat="pDef" val="17" />
     </for>
   </item>
   <item id="4232" type="EtcItem" name="Dice">
@@ -382,13 +382,13 @@
     <set name="soulshots" val="2" />
     <set name="spiritshots" val="2" />
     <for>
-      <set order="0x08" stat="pAtk" val="148" />
-      <set order="0x08" stat="mAtk" val="68" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="148" />
+      <set stat="mAtk" val="68" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4234" type="Armor" name="Hatchling's Level 65 Armor">
@@ -400,8 +400,8 @@
     <set name="weight" val="160" />
     <set name="price" val="5628000" />
     <for>
-      <add order="0x10" stat="pDef" val="50" />
-      <add order="0x10" stat="mDef" val="50" />
+      <baseadd stat="pDef" val="50" />
+      <baseadd stat="mDef" val="50" />
     </for>
   </item>
   <item id="4235" type="Armor" name="Hatchling's Level 75 Armor">
@@ -413,8 +413,8 @@
     <set name="weight" val="160" />
     <set name="price" val="19073000" />
     <for>
-      <add order="0x10" stat="pDef" val="58" />
-      <add order="0x10" stat="mDef" val="58" />
+      <baseadd stat="pDef" val="58" />
+      <baseadd stat="mDef" val="58" />
     </for>
   </item>
   <item id="4236" type="Armor" name="Gara Item">
@@ -426,8 +426,8 @@
     <set name="weight" val="160" />
     <set name="price" val="19073000" />
     <for>
-      <add order="0x10" stat="pDef" val="58" />
-      <add order="0x10" stat="mDef" val="58" />
+      <baseadd stat="pDef" val="58" />
+      <baseadd stat="mDef" val="58" />
     </for>
   </item>
   <item id="4237" type="Weapon" name="Hatchling's Level 65 Weapon">
@@ -443,10 +443,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="24" />
-      <add order="0x10" stat="mAtk" val="32" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="24" />
+      <add stat="mAtk" val="32" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="4238" type="Weapon" name="Hatchling's Level 75 Weapon">
@@ -462,10 +462,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="31" />
-      <add order="0x10" stat="mAtk" val="43" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="31" />
+      <add stat="mAtk" val="43" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="4239" type="EtcItem" name="Blade Mold">

@@ -7,7 +7,6 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.Creature;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class L2SkillElemental extends L2Skill
@@ -103,7 +102,7 @@ public class L2SkillElemental extends L2Skill
 			
 			// activate attacked effects, if any
 			target.stopSkillEffects(getId());
-			getEffects(activeChar, target, new Env(shld, sps, false, bsps));
+			getEffects(activeChar, target, shld, bsps);
 		}
 		
 		activeChar.setChargedShot(bsps ? ShotType.BLESSED_SPIRITSHOT : ShotType.SPIRITSHOT, isStaticReuse());

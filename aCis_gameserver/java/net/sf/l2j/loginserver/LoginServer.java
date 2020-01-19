@@ -58,7 +58,6 @@ public class LoginServer
 		// Factories
 		L2DatabaseFactory.getInstance();
 		
-		StringUtil.printSection("Accounts");
 		AccountTable.getInstance();
 		
 		StringUtil.printSection("LoginController");

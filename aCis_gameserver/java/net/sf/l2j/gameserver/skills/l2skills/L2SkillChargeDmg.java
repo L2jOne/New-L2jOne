@@ -10,7 +10,6 @@ import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class L2SkillChargeDmg extends L2Skill
@@ -84,7 +83,7 @@ public class L2SkillChargeDmg extends L2Skill
 						target.stopSkillEffects(getId());
 						if (Formulas.calcSkillSuccess(caster, target, this, shld, true))
 						{
-							getEffects(caster, target, new Env(shld, false, false, false));
+							getEffects(caster, target, shld, false);
 							target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(this));
 						}
 						else

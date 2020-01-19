@@ -12,7 +12,7 @@ public class L2DatabaseFactory
 {
 	protected static Logger _log = Logger.getLogger(L2DatabaseFactory.class.getName());
 	
-	private static HikariDataSource _source;
+	private static HikariDataSource _hds;
 	
 	public L2DatabaseFactory()
 	{
@@ -34,7 +34,7 @@ public class L2DatabaseFactory
 			config.setIdleTimeout(30000);
 			config.setLeakDetectionThreshold(48);
 			
-			_source = new HikariDataSource(config);
+			_hds = new HikariDataSource(config);
 		}
 		catch (Exception e)
 		{
@@ -46,33 +46,13 @@ public class L2DatabaseFactory
 	{
 		try
 		{
-			_source = null;
-			_source.close();
+			_hds.close();
+			_hds = null;
 		}
 		catch (Exception e)
 		{
 			_log.log(Level.INFO, "", e);
 		}
-	}
-	
-	/**
-	 * Use brace as a safty precaution in case name is a reserved word.
-	 * @param whatToCheck the list of arguments.
-	 * @return the list of arguments between brackets.
-	 */
-	public static final String safetyString(String... whatToCheck)
-	{
-		final StringBuilder sb = new StringBuilder();
-		for (String word : whatToCheck)
-		{
-			if (sb.length() > 0)
-				sb.append(", ");
-			
-			sb.append('`');
-			sb.append(word);
-			sb.append('`');
-		}
-		return sb.toString();
 	}
 	
 	public Connection getConnection()
@@ -83,7 +63,7 @@ public class L2DatabaseFactory
 		{
 			try
 			{
-				con = _source.getConnection();
+				con = _hds.getConnection();
 			}
 			catch (SQLException e)
 			{
@@ -92,7 +72,7 @@ public class L2DatabaseFactory
 		}
 		return con;
 	}
-
+	
 	public static L2DatabaseFactory getInstance()
 	{
 		return SingletonHolder._instance;

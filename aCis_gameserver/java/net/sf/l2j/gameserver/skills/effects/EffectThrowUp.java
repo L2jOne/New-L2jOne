@@ -5,18 +5,19 @@ import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.location.Location;
 import net.sf.l2j.gameserver.network.serverpackets.FlyToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectThrowUp extends L2Effect
 {
 	private int _x, _y, _z;
 	
-	public EffectThrowUp(Env env, EffectTemplate template)
+	public EffectThrowUp(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

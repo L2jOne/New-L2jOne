@@ -1,33 +1,35 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Summon;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncAtkCritical extends Func
 {
-	static final FuncAtkCritical _fac_instance = new FuncAtkCritical();
-	
-	public static Func getInstance()
-	{
-		return _fac_instance;
-	}
+	private static final FuncAtkCritical INSTANCE = new FuncAtkCritical();
 	
 	private FuncAtkCritical()
 	{
-		super(Stats.CRITICAL_RATE, 0x09, null, null);
+		super(null, Stats.CRITICAL_RATE, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		if (!(env.getCharacter() instanceof Summon))
-			env.mulValue(Formulas.DEX_BONUS[env.getCharacter().getDEX()]);
+		if (!(effector instanceof Summon))
+			value *= Formulas.DEX_BONUS[effector.getDEX()];
 		
-		env.mulValue(10);
-		
-		env.setBaseValue(env.getValue());
+		return value * 10;
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

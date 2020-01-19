@@ -12,22 +12,18 @@ import net.sf.l2j.gameserver.model.actor.instance.EffectPoint;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 
-/**
- * @authors Forsaiken, Sami
- */
 public class EffectSignet extends L2Effect
 {
 	private L2Skill _skill;
 	private EffectPoint _actor;
 	private boolean _srcInArena;
 	
-	public EffectSignet(Env env, EffectTemplate template)
+	public EffectSignet(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

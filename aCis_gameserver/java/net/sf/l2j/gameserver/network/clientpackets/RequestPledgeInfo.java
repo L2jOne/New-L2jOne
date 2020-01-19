@@ -4,6 +4,7 @@ import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeInfo;
+import net.sf.l2j.gameserver.network.serverpackets.PledgeStatusChanged;
 
 public final class RequestPledgeInfo extends L2GameClientPacket
 {
@@ -27,6 +28,7 @@ public final class RequestPledgeInfo extends L2GameClientPacket
 			return;
 		
 		player.sendPacket(new PledgeInfo(clan));
+		player.sendPacket(new PledgeStatusChanged(clan));
 	}
 	
 	@Override

@@ -1,32 +1,21 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionLogicNot.
- * @author mkizub
- */
 public class ConditionLogicNot extends Condition
 {
-	
 	private final Condition _condition;
 	
-	/**
-	 * Instantiates a new condition logic not.
-	 * @param condition the condition
-	 */
 	public ConditionLogicNot(Condition condition)
 	{
 		_condition = condition;
+		
 		if (getListener() != null)
 			_condition.setListener(this);
 	}
 	
-	/**
-	 * Sets the listener.
-	 * @param listener the new listener
-	 * @see net.sf.l2j.gameserver.skills.conditions.Condition#setListener(net.sf.l2j.gameserver.skills.conditions.ConditionListener)
-	 */
 	@Override
 	void setListener(ConditionListener listener)
 	{
@@ -34,18 +23,13 @@ public class ConditionLogicNot extends Condition
 			_condition.setListener(this);
 		else
 			_condition.setListener(null);
+		
 		super.setListener(listener);
 	}
 	
-	/**
-	 * Test impl.
-	 * @param env the env
-	 * @return true, if successful
-	 * @see net.sf.l2j.gameserver.skills.conditions.Condition#testImpl(net.sf.l2j.gameserver.skills.Env)
-	 */
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		return !_condition.test(env);
+		return !_condition.test(effector, effected, skill, item);
 	}
 }

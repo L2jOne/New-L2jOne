@@ -112,7 +112,7 @@ public class DonateManager extends Folk
 						player.destroyItemByItemId("", price.getId(), price.getValue(), player, true);
 						
 						for (int i = 370; i <= 391; i++)
-							player.getClan().addNewSkill(SkillTable.getInstance().getInfo(i, SkillTable.getInstance().getMaxLevel(i)));            
+							player.getClan().addNewSkill(SkillTable.getInstance().getInfo(i, SkillTable.getInstance().getMaxLevel(i)), false);            
 						
 						player.sendMessage("Parabéns "+ player.getName() +" você acaba de comprar todas habilidades para o seu clã.");
 						

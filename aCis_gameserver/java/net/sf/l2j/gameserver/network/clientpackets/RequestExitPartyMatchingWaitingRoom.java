@@ -1,7 +1,7 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchWaitingList;
 
 public final class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
 {
@@ -17,6 +17,6 @@ public final class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacke
 		if (player == null)
 			return;
 		
-		PartyMatchWaitingList.getInstance().removePlayer(player);
+		PartyMatchRoomManager.getInstance().removeWaitingPlayer(player);
 	}
 }

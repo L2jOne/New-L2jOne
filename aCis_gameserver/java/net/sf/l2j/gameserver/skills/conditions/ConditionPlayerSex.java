@@ -1,29 +1,22 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionPlayerSex.
- */
 public class ConditionPlayerSex extends Condition
 {
 	private final int _sex;
 	
-	/**
-	 * Instantiates a new condition player sex.
-	 * @param sex the sex
-	 */
 	public ConditionPlayerSex(int sex)
 	{
 		_sex = sex;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (env.getPlayer() == null)
-			return false;
-		
-		return env.getPlayer().getAppearance().getSex().ordinal() == _sex;
+		return effector instanceof Player && ((Player) effector).getAppearance().getSex().ordinal() == _sex;
 	}
 }

@@ -456,7 +456,7 @@ public class Cubic
 				}
 			}
 			else
-				skill.getEffects(activeCubic, target, null);
+				skill.getEffects(activeCubic, target);
 		}
 	}
 	
@@ -497,7 +497,7 @@ public class Cubic
 						target.removeEffect(target.getFirstEffect(skill));
 					
 					if (Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld, bss))
-						skill.getEffects(activeCubic, target, null);
+						skill.getEffects(activeCubic, target);
 				}
 				
 				target.reduceCurrentHp(damage, activeCubic.getOwner(), skill);
@@ -536,7 +536,7 @@ public class Cubic
 							}
 						}
 						else
-							skill.getEffects(activeCubic, target, null);
+							skill.getEffects(activeCubic, target);
 					}
 					break;
 				
@@ -567,7 +567,7 @@ public class Cubic
 						if (target instanceof Attackable)
 							target.getAI().notifyEvent(AiEventType.AGGRESSION, activeCubic.getOwner(), (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 						
-						skill.getEffects(activeCubic, target, null);
+						skill.getEffects(activeCubic, target);
 					}
 					break;
 			}

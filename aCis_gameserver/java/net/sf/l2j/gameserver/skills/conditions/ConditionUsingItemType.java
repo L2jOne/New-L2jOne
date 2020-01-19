@@ -1,11 +1,10 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * @author mkizub
- */
 public final class ConditionUsingItemType extends Condition
 {
 	private final int _mask;
@@ -16,11 +15,8 @@ public final class ConditionUsingItemType extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (!(env.getCharacter() instanceof Player))
-			return false;
-		
-		return (_mask & env.getPlayer().getInventory().getWornMask()) != 0;
+		return effector instanceof Player && (_mask & ((Player) effector).getInventory().getWornMask()) != 0;
 	}
 }

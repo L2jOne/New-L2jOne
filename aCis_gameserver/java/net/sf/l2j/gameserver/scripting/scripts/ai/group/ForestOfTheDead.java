@@ -35,41 +35,16 @@ public class ForestOfTheDead extends L2AttackableAIScript
 	
 	private final List<Npc> _cursedVillageNpcs = new ArrayList<>();
 	
-	private final Npc _lidiaMaid;
+	private Npc _lidiaMaid;
 	
 	public ForestOfTheDead()
 	{
 		super("ai/group");
 		
-		// Initial List feed. NPCs are then unspawned if night is occuring.
-		_cursedVillageNpcs.add(addSpawn(DAY_VIOLET, 59618, -42774, -3000, 5636, false, 0, false));
-		_cursedVillageNpcs.add(addSpawn(DAY_KURSTIN, 58790, -42646, -3000, 240, false, 0, false));
-		_cursedVillageNpcs.add(addSpawn(DAY_MINA, 59626, -41684, -3000, 48457, false, 0, false));
-		_cursedVillageNpcs.add(addSpawn(DAY_DORIAN, 60161, -42086, -3000, 30212, false, 0, false));
-		
-		_lidiaMaid = addSpawn(LIDIA_MAID, 47108, -36189, -1624, -22192, false, 0, false);
-		
 		if (!GameTimeTaskManager.getInstance().isNight())
-		{
-			final BossSpawn bs = RaidBossManager.getInstance().getBossSpawn(HELLMANN);
-			if (bs != null && bs.getStatus() == BossStatus.ALIVE)
-			{
-				final Npc raid = bs.getBoss();
-				
-				raid.getSpawn().setLoc(ForestOfTheDead.HELLMANN_DAY_LOC);
-				raid.teleportTo(ForestOfTheDead.HELLMANN_DAY_LOC, 0);
-			}
-			
-			_lidiaMaid.getSpawn().setRespawnState(false);
-			_lidiaMaid.deleteMe();
-		}
+			handleDay();
 		else
-		{
-			despawnCursedVillageNpcs();
-			
-			_lidiaMaid.getSpawn().setRespawnState(true);
-			_lidiaMaid.getSpawn().doSpawn(false);
-		}
+			handleNight();
 	}
 	
 	@Override
@@ -108,47 +83,55 @@ public class ForestOfTheDead extends L2AttackableAIScript
 	{
 		// Hellmann despawns at day.
 		if (gameTime == 360)
-		{
-			final BossSpawn bs = RaidBossManager.getInstance().getBossSpawn(HELLMANN);
-			if (bs != null && bs.getStatus() == BossStatus.ALIVE)
-			{
-				final Npc raid = bs.getBoss();
-				
-				raid.getSpawn().setLoc(HELLMANN_DAY_LOC);
-				raid.teleportTo(HELLMANN_DAY_LOC, 0);
-			}
-			spawnCursedVillageNpcs();
-		}
+			handleDay();
 		// And spawns at night.
 		else if (gameTime == 0)
-		{
-			final BossSpawn bs = RaidBossManager.getInstance().getBossSpawn(HELLMANN);
-			if (bs != null && bs.getStatus() == BossStatus.ALIVE)
-			{
-				final Npc raid = bs.getBoss();
-				
-				raid.getSpawn().setLoc(HELLMANN_NIGHT_LOC);
-				raid.teleportTo(HELLMANN_NIGHT_LOC, 0);
-			}
-			despawnCursedVillageNpcs();
-		}
+			handleNight();
 	}
 	
-	private void spawnCursedVillageNpcs()
+	private void handleDay()
 	{
-		for (Npc npc : _cursedVillageNpcs)
+		// Spawn Hellmann boss in hidden room.
+		final BossSpawn bs = RaidBossManager.getInstance().getBossSpawn(HELLMANN);
+		if (bs != null && bs.getStatus() == BossStatus.ALIVE)
 		{
-			npc.getSpawn().setRespawnState(true);
-			npc.getSpawn().doSpawn(false);
+			final Npc raid = bs.getBoss();
+			
+			raid.getSpawn().setLoc(HELLMANN_DAY_LOC);
+			raid.teleportTo(HELLMANN_DAY_LOC, 0);
 		}
+		
+		// Despawn Lidia.
+		if (_lidiaMaid != null)
+		{
+			_lidiaMaid.deleteMe();
+			_lidiaMaid = null;
+		}
+		
+		// Spawn Day NPCs in Cursed Village.
+		_cursedVillageNpcs.add(addSpawn(DAY_VIOLET, 59618, -42774, -3000, 5636, false, 0, false));
+		_cursedVillageNpcs.add(addSpawn(DAY_KURSTIN, 58790, -42646, -3000, 240, false, 0, false));
+		_cursedVillageNpcs.add(addSpawn(DAY_MINA, 59626, -41684, -3000, 48457, false, 0, false));
+		_cursedVillageNpcs.add(addSpawn(DAY_DORIAN, 60161, -42086, -3000, 30212, false, 0, false));
 	}
 	
-	private void despawnCursedVillageNpcs()
+	private void handleNight()
 	{
-		for (Npc npc : _cursedVillageNpcs)
+		// Spawn Hellmann boss in Cursed Village.
+		final BossSpawn bs = RaidBossManager.getInstance().getBossSpawn(HELLMANN);
+		if (bs != null && bs.getStatus() == BossStatus.ALIVE)
 		{
-			npc.getSpawn().setRespawnState(false);
-			npc.deleteMe();
+			final Npc raid = bs.getBoss();
+			
+			raid.getSpawn().setLoc(HELLMANN_NIGHT_LOC);
+			raid.teleportTo(HELLMANN_NIGHT_LOC, 0);
 		}
+		
+		// Spawn Lidia.
+		_lidiaMaid = addSpawn(LIDIA_MAID, 47108, -36189, -1624, -22192, false, 0, false);
+		
+		// Despawn Day NPCs in Cursed Village.
+		_cursedVillageNpcs.forEach(Npc::deleteMe);
+		_cursedVillageNpcs.clear();
 	}
 }

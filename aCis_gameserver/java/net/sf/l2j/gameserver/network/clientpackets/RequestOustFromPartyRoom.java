@@ -1,13 +1,10 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.data.xml.MapRegionData;
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchWaitingList;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ExClosePartyRoom;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMatchList;
 
 public final class RequestOustFromPartyRoom extends L2GameClientPacket
@@ -31,31 +28,27 @@ public final class RequestOustFromPartyRoom extends L2GameClientPacket
 		if (target == null)
 			return;
 		
-		final PartyMatchRoom room = PartyMatchRoomList.getInstance().getPlayerRoom(target);
+		final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(target.getPartyRoom());
 		if (room == null)
 			return;
 		
-		if (room.getOwner() != player)
+		// Abort if current Player isn't the leader of the target's PartyMatchRoom.
+		if (!room.isLeader(player))
 			return;
 		
+		// You can't dismiss a Party member.
 		if (player.isInParty() && target.isInParty() && player.getParty().getLeaderObjectId() == target.getParty().getLeaderObjectId())
 			player.sendPacket(SystemMessageId.CANNOT_DISMISS_PARTY_MEMBER);
 		else
 		{
-			room.deleteMember(target);
-			target.setPartyRoom(0);
+			// Remove PartyMatchRoom member.
+			room.removeMember(target);
 			
-			// Close the PartyRoom window
-			target.sendPacket(ExClosePartyRoom.STATIC_PACKET);
+			// Add the Player back on waiting list.
+			PartyMatchRoomManager.getInstance().addWaitingPlayer(target);
 			
-			// Add player back on waiting list
-			PartyMatchWaitingList.getInstance().addPlayer(target);
-			
-			// Send Room list
-			target.sendPacket(new PartyMatchList(target, 0, MapRegionData.getInstance().getClosestLocation(target.getX(), target.getY()), target.getLevel()));
-			
-			// Clean player's LFP title
-			target.broadcastUserInfo();
+			// Send Room list.
+			target.sendPacket(new PartyMatchList(target, 0, 1, target.getLevel())); // TODO implement correctly bbs behavior.
 			
 			target.sendPacket(SystemMessageId.OUSTED_FROM_PARTY_ROOM);
 		}

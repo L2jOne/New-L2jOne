@@ -57,7 +57,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
-import net.sf.l2j.gameserver.network.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.network.serverpackets.QuestList;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.network.serverpackets.SkillCoolTime;
@@ -114,6 +113,12 @@ public class EnterWorld extends L2GameClientPacket
 		// Set dead status if applies
 		if (player.getCurrentHp() < 0.5 && player.isMortal())
 			player.setIsDead(true);
+		
+		player.getMacroList().sendUpdate();
+		player.sendPacket(new ExStorageMaxCount(player));
+		player.sendPacket(new HennaInfo(player));
+		player.updateEffectIcons();
+		player.sendPacket(new EtcStatusUpdate(player));
 		
 		// Clan checks.
 		final Clan clan = player.getClan();
@@ -181,13 +186,11 @@ public class EnterWorld extends L2GameClientPacket
 				}
 			}
 			
+			player.sendPacket(new PledgeShowMemberListUpdate(player));
 			player.sendPacket(new PledgeShowMemberListAll(clan, 0));
 			
 			for (SubPledge sp : clan.getAllSubPledges())
 				player.sendPacket(new PledgeShowMemberListAll(clan, sp.getId()));
-			
-			player.sendPacket(new UserInfo(player));
-			player.sendPacket(new PledgeStatusChanged(clan));
 		}
 		
 		// Updating Seal of Strife Buff/Debuff
@@ -238,22 +241,6 @@ public class EnterWorld extends L2GameClientPacket
 		// if player is DE, check for shadow sense skill at night
 		if (player.getRace() == ClassRace.DARK_ELF && player.hasSkill(L2Skill.SKILL_SHADOW_SENSE))
 			player.sendPacket(SystemMessage.getSystemMessage((GameTimeTaskManager.getInstance().isNight()) ? SystemMessageId.NIGHT_S1_EFFECT_APPLIES : SystemMessageId.DAY_S1_EFFECT_DISAPPEARS).addSkillName(L2Skill.SKILL_SHADOW_SENSE));
-		
-		player.getMacroList().sendUpdate();
-		player.sendPacket(new UserInfo(player));
-		player.sendPacket(new HennaInfo(player));
-		player.sendPacket(new FriendList(player));
-		player.sendPacket(new ItemList(player, false));
-		player.sendPacket(new ShortCutInit(player));
-		player.sendPacket(new ExStorageMaxCount(player));
-		
-		// no broadcast needed since the player will already spawn dead to others
-		if (player.isAlikeDead())
-			player.sendPacket(new Die(player));
-		
-		player.updateEffectIcons();
-		player.sendPacket(new EtcStatusUpdate(player));
-		player.sendSkillList();
 		
 		// Load quests.
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
@@ -306,6 +293,16 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		
 		player.sendPacket(new QuestList(player));
+		
+		player.sendSkillList();
+		player.sendPacket(new FriendList(player));
+		player.sendPacket(new UserInfo(player));
+		player.sendPacket(new ItemList(player, false));
+		player.sendPacket(new ShortCutInit(player));
+		
+		// no broadcast needed since the player will already spawn dead to others
+		if (player.isAlikeDead())
+			player.sendPacket(new Die(player));
 		
 		// Unread mails make a popup appears.
 		if (Config.ENABLE_COMMUNITY_BOARD && MailBBSManager.getInstance().checkUnreadMail(player) > 0)

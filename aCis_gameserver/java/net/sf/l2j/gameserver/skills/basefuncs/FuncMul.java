@@ -1,19 +1,28 @@
 package net.sf.l2j.gameserver.skills.basefuncs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.skills.conditions.Condition;
 
+/**
+ * @see Func
+ */
 public class FuncMul extends Func
 {
-	public FuncMul(Stats pStat, int pOrder, Object owner, Lambda lambda)
+	public FuncMul(Object owner, Stats stat, double value, Condition cond)
 	{
-		super(pStat, pOrder, owner, lambda);
+		super(owner, stat, 20, value, cond);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		if (cond == null || cond.test(env))
-			env.mulValue(_lambda.calc(env));
+		// Condition does not exist or it fails, no change.
+		if (getCond() != null && !getCond().test(effector, effected, skill))
+			return value;
+		
+		// Update value.
+		return value * getValue();
 	}
 }

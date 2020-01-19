@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="2100" levels="1" name="Escape: 1 second">
 		<set name="target" val="TARGET_SELF" />
@@ -453,8 +453,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="10" val="0" stackOrder="99" stackType="hp_regen_up">
-				<mul order="0x30" stat="regHp" val="1.4" />
-				<mul order="0x30" stat="regMp" val="1.2" />
+				<mul stat="regHp" val="1.4" />
+				<mul stat="regMp" val="1.2" />
 			</effect>
 		</for>
 	</skill>
@@ -660,7 +660,7 @@
 		</cond>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="casting_time_down">
-				<mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
+				<mul stat="mAtkSpd" val="#mAtkSpd" />
 			</effect>
 		</for>
 	</skill>

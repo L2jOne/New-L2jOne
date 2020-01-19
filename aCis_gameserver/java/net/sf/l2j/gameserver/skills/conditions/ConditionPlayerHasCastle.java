@@ -1,37 +1,27 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.model.pledge.Clan;
-import net.sf.l2j.gameserver.skills.Env;
 
-/**
- * The Class ConditionPlayerHasCastle.
- * @author MrPoke
- */
 public final class ConditionPlayerHasCastle extends Condition
 {
 	private final int _castle;
 	
-	/**
-	 * Instantiates a new condition player has castle.
-	 * @param castle the castle
-	 */
 	public ConditionPlayerHasCastle(int castle)
 	{
 		_castle = castle;
 	}
 	
-	/**
-	 * @param env the env
-	 * @return true, if successful
-	 * @see net.sf.l2j.gameserver.skills.conditions.Condition#testImpl(net.sf.l2j.gameserver.skills.Env)
-	 */
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (env.getPlayer() == null)
+		if (!(effector instanceof Player))
 			return false;
 		
-		Clan clan = env.getPlayer().getClan();
+		final Clan clan = ((Player) effector).getClan();
 		if (clan == null)
 			return _castle == 0;
 		

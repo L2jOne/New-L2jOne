@@ -10,7 +10,6 @@ import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Mdam implements ISkillHandler
@@ -71,7 +70,7 @@ public class Mdam implements ISkillHandler
 						// activate attacked effects, if any
 						target.stopSkillEffects(skill.getId());
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
-							skill.getEffects(activeChar, target, new Env(shld, sps, false, bsps));
+							skill.getEffects(activeChar, target, shld, bsps);
 						else
 							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
 					}

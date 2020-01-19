@@ -639,10 +639,10 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="1" />
-      <set order="0x08" stat="mAtk" val="1" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="1" />
+      <set stat="mAtk" val="1" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="7561" type="EtcItem" name="Fishing Manual">
@@ -797,13 +797,13 @@
     <set name="mp_consume" val="11" />
     <set name="reuse_delay" val="1500" />
     <for>
-      <set order="0x08" stat="pAtk" val="581" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="581" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="7576" type="Weapon" name="Draconic Bow - Cheap Shot">
@@ -826,13 +826,13 @@
     <set name="reuse_delay" val="1500" />
     <set name="item_skill" val="3552-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="581" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="581" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="7577" type="Weapon" name="Draconic Bow - Focus">
@@ -854,13 +854,13 @@
     <set name="reuse_delay" val="1500" />
     <set name="item_skill" val="3567-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="581" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="581" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="7578" type="Weapon" name="Draconic Bow - Critical Slow">
@@ -884,13 +884,13 @@
     <set name="oncrit_skill" val="3574-1" />
     <set name="item_skill" val="3552-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="581" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="581" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="7579" type="EtcItem" name="Draconic Bow Shaft">

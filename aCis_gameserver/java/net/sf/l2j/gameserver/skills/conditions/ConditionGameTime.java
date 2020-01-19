@@ -1,11 +1,10 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.taskmanager.GameTimeTaskManager;
 
-/**
- * @author mkizub
- */
 public class ConditionGameTime extends Condition
 {
 	private final boolean _night;
@@ -16,7 +15,7 @@ public class ConditionGameTime extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
 		return GameTimeTaskManager.getInstance().isNight() == _night;
 	}

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="7000" levels="1" name="NPC Default">
 		<set name="target" val="TARGET_SELF" />
@@ -60,7 +60,7 @@
 		<set name="aggroPoints" val="655" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="4" stackType="vampiric_attack">
-				<add order="0x40" stat="absorbDam" val="18" /> <!-- absorb 18% HP from damage inflicted on enemies -->
+				<add stat="absorbDam" val="18" /> <!-- absorb 18% HP from damage inflicted on enemies -->
 			</effect>
 		</for>
 	</skill>
@@ -113,11 +113,11 @@
 		<set name="target" val="TARGET_SELF" />
 		<for>
 			<effect count="0x7fffffff" name="ManaDamOverTime" time="10" val="0">
-				<mul order="0x30" stat="pAtkSpd" val="#amount" />
-				<mul order="0x30" stat="runSpd" val="#amount" />
-				<mul order="0x30" stat="mAtkSpd" val="#amount" />
-				<mul order="0x30" stat="pReuse" val="#reuse" />
-				<mul order="0x30" stat="mReuse" val="#reuse" />
+				<mul stat="pAtkSpd" val="#amount" />
+				<mul stat="runSpd" val="#amount" />
+				<mul stat="mAtkSpd" val="#amount" />
+				<mul stat="pReuse" val="#reuse" />
+				<mul stat="mReuse" val="#reuse" />
 			</effect>
 		</for>
 	</skill>

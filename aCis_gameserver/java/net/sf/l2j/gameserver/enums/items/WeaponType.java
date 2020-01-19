@@ -17,6 +17,8 @@ public enum WeaponType implements ItemType
 	BIGBLUNT(40),
 	PET(40);
 	
+	public static final WeaponType[] VALUES = values();
+	
 	private final int _mask;
 	private final int _range;
 	

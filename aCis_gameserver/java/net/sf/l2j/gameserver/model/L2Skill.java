@@ -10,7 +10,6 @@ import net.sf.l2j.commons.math.MathUtil;
 import net.sf.l2j.commons.util.ArraysUtil;
 import net.sf.l2j.commons.util.StatsSet;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.enums.items.ArmorType;
@@ -42,7 +41,6 @@ import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.model.pledge.ClanMember;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncTemplate;
@@ -1080,11 +1078,6 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		return _isHeroSkill;
 	}
 
-	public final boolean isAioSkill()
-	{
-		return Config.LIST_AIO_SKILLS.length == getId();
-	}
-	
 	public final int getNumCharges()
 	{
 		return _numCharges;
@@ -1186,22 +1179,16 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		return false;
 	}
 	
-	public boolean checkCondition(Creature activeChar, WorldObject target, boolean itemOrWeapon)
+	public boolean checkCondition(Creature activeChar, WorldObject object, boolean itemOrWeapon)
 	{
 		final List<Condition> preCondition = (itemOrWeapon) ? _itemPreCondition : _preCondition;
 		if (preCondition == null || preCondition.isEmpty())
 			return true;
 		
-		final Env env = new Env();
-		env.setCharacter(activeChar);
-		if (target instanceof Creature)
-			env.setTarget((Creature) target);
-		
-		env.setSkill(this);
-		
+		final Creature target = (object instanceof Creature) ? (Creature) object : null;
 		for (Condition cond : preCondition)
 		{
-			if (!cond.test(env))
+			if (!cond.test(activeChar, target, this))
 			{
 				final int msgId = cond.getMessageId();
 				if (msgId != 0)
@@ -2118,13 +2105,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		
 		final List<Func> funcs = new ArrayList<>(_funcTemplates.size());
 		
-		final Env env = new Env();
-		env.setCharacter(player);
-		env.setSkill(this);
-		
 		for (FuncTemplate t : _funcTemplates)
 		{
-			final Func f = t.getFunc(env, this); // skill is owner
+			final Func f = t.getFunc(player, null, this, this);
 			if (f != null)
 				funcs.add(f);
 		}
@@ -2146,13 +2129,19 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		return (_effectTemplatesSelf != null && !_effectTemplatesSelf.isEmpty());
 	}
 	
+	public final List<L2Effect> getEffects(Creature effector, Creature effected)
+	{
+		return getEffects(effector, effected, Formulas.SHIELD_DEFENSE_FAILED, false);
+	}
+	
 	/**
 	 * @param effector
 	 * @param effected
-	 * @param env parameters for secondary effects (shield and ss/bss/bsss)
+	 * @param shield
+	 * @param isBlessedSpiritShot
 	 * @return an array with the effects that have been added to effector
 	 */
-	public final List<L2Effect> getEffects(Creature effector, Creature effected, Env env)
+	public final List<L2Effect> getEffects(Creature effector, Creature effected, byte shield, boolean isBlessedSpiritShot)
 	{
 		if (!hasEffects() || isPassive())
 			return Collections.emptyList();
@@ -2176,48 +2165,38 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 		}
 		
+		// Perfect block, don't bother going further.
+		if (shield == Formulas.SHIELD_DEFENSE_PERFECT_BLOCK)
+			return Collections.emptyList();
+		
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplates.size());
 		
-		if (env == null)
-			env = new Env();
-		
-		env.setSkillMastery(Formulas.calcSkillMastery(effector, this));
-		env.setCharacter(effector);
-		env.setTarget(effected);
-		env.setSkill(this);
-		
-		for (EffectTemplate et : _effectTemplates)
+		for (EffectTemplate template : _effectTemplates)
 		{
 			boolean success = true;
 			
-			if (et.effectPower > -1)
-				success = Formulas.calcEffectSuccess(effector, effected, et, this, env.getShield(), env.isBlessedSpiritShot());
+			if (template.effectPower > -1)
+				success = Formulas.calcEffectSuccess(effector, effected, template, this, isBlessedSpiritShot);
 			
 			if (success)
 			{
-				final L2Effect e = et.getEffect(env);
-				if (e != null)
+				final L2Effect effect = template.getEffect(effector, effected, this);
+				if (effect != null)
 				{
-					e.scheduleEffect();
-					effects.add(e);
+					effect.scheduleEffect();
+					effects.add(effect);
 				}
 			}
 			// display fail message only for effects with icons
-			else if (et.icon && effector instanceof Player)
+			else if (template.icon && effector instanceof Player)
 				((Player) effector).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(effected).addSkillName(this));
 		}
 		return effects;
 	}
 	
-	/**
-	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
-	 * @param effector
-	 * @param effected
-	 * @return An array of L2Effect.
-	 */
-	public final List<L2Effect> getEffects(Creature effector, Creature effected)
+	public final List<L2Effect> getEffects(Cubic effector, Creature effected)
 	{
-		return getEffects(effector, effected, null);
+		return getEffects(effector, effected, Formulas.SHIELD_DEFENSE_FAILED, false);
 	}
 	
 	/**
@@ -2229,10 +2208,11 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	 * <li>If main skill fails, secondary effect always fail</li>
 	 * @param effector
 	 * @param effected
-	 * @param env parameters for secondary effects (shield and ss/bss/bsss)
+	 * @param shield
+	 * @param isBlessedSpiritShot
 	 * @return An array of L2Effect.
 	 */
-	public final List<L2Effect> getEffects(Cubic effector, Creature effected, Env env)
+	public final List<L2Effect> getEffects(Cubic effector, Creature effected, byte shield, boolean isBlessedSpiritShot)
 	{
 		if (!hasEffects() || isPassive())
 			return Collections.emptyList();
@@ -2249,29 +2229,25 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 		}
 		
+		// Perfect block, don't bother going further.
+		if (shield == Formulas.SHIELD_DEFENSE_PERFECT_BLOCK)
+			return Collections.emptyList();
+		
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplates.size());
 		
-		if (env == null)
-			env = new Env();
-		
-		env.setCharacter(effector.getOwner());
-		env.setCubic(effector);
-		env.setTarget(effected);
-		env.setSkill(this);
-		
-		for (EffectTemplate et : _effectTemplates)
+		for (EffectTemplate template : _effectTemplates)
 		{
 			boolean success = true;
-			if (et.effectPower > -1)
-				success = Formulas.calcEffectSuccess(effector.getOwner(), effected, et, this, env.getShield(), env.isBlessedSpiritShot());
+			if (template.effectPower > -1)
+				success = Formulas.calcEffectSuccess(effector.getOwner(), effected, template, this, isBlessedSpiritShot);
 			
 			if (success)
 			{
-				final L2Effect e = et.getEffect(env);
-				if (e != null)
+				final L2Effect effect = template.getEffect(effector.getOwner(), effected, this);
+				if (effect != null)
 				{
-					e.scheduleEffect();
-					effects.add(e);
+					effect.scheduleEffect();
+					effects.add(effect);
 				}
 			}
 		}
@@ -2285,14 +2261,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplatesSelf.size());
 		
-		final Env env = new Env();
-		env.setCharacter(effector);
-		env.setTarget(effector);
-		env.setSkill(this);
-		
 		for (EffectTemplate et : _effectTemplatesSelf)
 		{
-			final L2Effect e = et.getEffect(env);
+			final L2Effect e = et.getEffect(effector, effector, this);
 			if (e != null)
 			{
 				e.setSelfEffect();

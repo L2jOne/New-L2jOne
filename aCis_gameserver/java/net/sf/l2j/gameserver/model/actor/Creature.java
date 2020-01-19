@@ -369,11 +369,6 @@ public abstract class Creature extends WorldObject
 		// default implementation
 	}
 
-	public boolean isVip()
-	{
-		return true;
-	}
-	
 	/**
 	 * Instantly teleport this {@link Creature} to defined coordinates X/Y/Z.<br>
 	 * <br>
@@ -2522,16 +2517,16 @@ public abstract class Creature extends WorldObject
 	protected Future<?> _skillCast2;
 	
 	/**
-	 * Add a Func to the Calculator set of the Creature.
-	 * @param f The Func object to add to the Calculator corresponding to the state affected
+	 * Add a {@link Func} to the {@link Calculator} set on this {@link Creature}.
+	 * @param function : The {@link Func} corresponding to the affected stat.
 	 */
-	public final void addStatFunc(Func f)
+	public final void addStatFunc(Func function)
 	{
-		if (f == null)
+		if (function == null)
 			return;
 		
 		// Select the Calculator of the affected state in the Calculator set
-		int stat = f.stat.ordinal();
+		final int stat = function.getStat().ordinal();
 		
 		synchronized (_calculators)
 		{
@@ -2539,28 +2534,28 @@ public abstract class Creature extends WorldObject
 				_calculators[stat] = new Calculator();
 			
 			// Add the Func to the calculator corresponding to the state
-			_calculators[stat].addFunc(f);
+			_calculators[stat].addFunc(function);
 		}
 	}
 	
 	/**
-	 * Add a list of Funcs to the Calculator set of the Creature.
-	 * @param funcs The list of Func objects to add to the Calculator corresponding to the state affected
+	 * Add a {@link List} of {@link Func}s to the {@link Calculator} set on this {@link Creature}.
+	 * @param funcs : The {@link List} of {@link Func}s corresponding to the affected stat.
 	 */
 	public final void addStatFuncs(List<Func> funcs)
 	{
-		List<Stats> modifiedStats = new ArrayList<>();
+		final List<Stats> modifiedStats = new ArrayList<>();
 		for (Func f : funcs)
 		{
-			modifiedStats.add(f.stat);
+			modifiedStats.add(f.getStat());
 			addStatFunc(f);
 		}
 		broadcastModifiedStats(modifiedStats);
 	}
 	
 	/**
-	 * Remove all Func objects with the selected owner from the Calculator set of the Creature.
-	 * @param owner The Object(Skill, Item...) that has created the effect
+	 * Remove all {@link Func} associated to an {@link Object} owner from the {@link Calculator} set on this {@link Creature}.
+	 * @param owner : The {@link Object} owner.
 	 */
 	public final void removeStatsByOwner(Object owner)
 	{
@@ -3155,9 +3150,12 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// Launch weapon Special ability effect if available
-		final Weapon activeWeapon = getActiveWeaponItem();
-		if (activeWeapon != null)
-			activeWeapon.castSkillOnCrit(this, target, crit);
+		if (crit)
+		{
+			final Weapon activeWeapon = getActiveWeaponItem();
+			if (activeWeapon != null)
+				activeWeapon.castSkillOnCrit(this, target);
+		}
 	}
 	
 	/**

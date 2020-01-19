@@ -629,13 +629,13 @@
     <set name="soulshots" val="2" />
     <set name="spiritshots" val="2" />
     <for>
-      <set order="0x08" stat="pAtk" val="5" />
-      <set order="0x08" stat="mAtk" val="5" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="433" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="5" />
+      <set stat="mAtk" val="5" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="433" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="1472" type="Weapon" name="Dreadbane">
@@ -655,13 +655,13 @@
     <set name="spiritshots" val="2" />
     <set name="item_skill" val="3599-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="50" />
-      <set order="0x08" stat="mAtk" val="26" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="50" />
+      <set stat="mAtk" val="26" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="1473" type="EtcItem" name="Kasha Wolf Fang">

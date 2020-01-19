@@ -4,7 +4,8 @@ import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.ChanceCondition;
 import net.sf.l2j.gameserver.model.IChanceSkillTrigger;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 
 public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTrigger
 {
@@ -12,9 +13,9 @@ public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTr
 	private final int _triggeredLevel;
 	private final ChanceCondition _chanceCondition;
 	
-	public EffectChanceSkillTrigger(Env env, EffectTemplate template)
+	public EffectChanceSkillTrigger(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 		
 		_triggeredId = template.triggeredId;
 		_triggeredLevel = template.triggeredLevel;

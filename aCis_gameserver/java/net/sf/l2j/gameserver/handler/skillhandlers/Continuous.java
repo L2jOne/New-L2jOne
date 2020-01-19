@@ -18,7 +18,6 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.ClanHallManagerNpc;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Continuous implements ISkillHandler
@@ -55,8 +54,6 @@ public class Continuous implements ISkillHandler
 				skill = sk;
 		}
 		
-		final boolean ss = activeChar.isChargedShot(ShotType.SOULSHOT);
-		final boolean sps = activeChar.isChargedShot(ShotType.SPIRITSHOT);
 		final boolean bsps = activeChar.isChargedShot(ShotType.BLESSED_SPIRITSHOT);
 		
 		for (WorldObject obj : targets)
@@ -119,12 +116,12 @@ public class Continuous implements ISkillHandler
 				if (target instanceof Player && ((Player) target).isInDuel() && (skill.getSkillType() == L2SkillType.DEBUFF || skill.getSkillType() == L2SkillType.BUFF) && player != null && player.getDuelId() == ((Player) target).getDuelId())
 				{
 					DuelManager dm = DuelManager.getInstance();
-					for (L2Effect buff : skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps)))
+					for (L2Effect buff : skill.getEffects(activeChar, target, shld, bsps))
 						if (buff != null)
 							dm.onBuff(((Player) target), buff);
 				}
 				else
-					skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+					skill.getEffects(activeChar, target, shld, bsps);
 				
 				if (skill.getSkillType() == L2SkillType.AGGDEBUFF)
 				{

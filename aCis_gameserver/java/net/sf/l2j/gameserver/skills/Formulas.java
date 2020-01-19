@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.Cubic;
 import net.sf.l2j.gameserver.model.actor.instance.Door;
 import net.sf.l2j.gameserver.model.clanhall.ClanHall;
+import net.sf.l2j.gameserver.model.clanhall.ClanHallFunction;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.item.kind.Armor;
 import net.sf.l2j.gameserver.model.item.kind.Item;
@@ -160,8 +161,12 @@ public final class Formulas
 				if (chId > 0)
 				{
 					final ClanHall ch = ClanHallManager.getInstance().getClanHall(chId);
-					if (ch != null && ch.getFunction(ClanHall.FUNC_RESTORE_HP) != null)
-						hpRegenMultiplier *= 1 + ch.getFunction(ClanHall.FUNC_RESTORE_HP).getLvl() / 100;
+					if (ch != null)
+					{
+						final ClanHallFunction chf = ch.getFunction(ClanHall.FUNC_RESTORE_HP);
+						if (chf != null)
+							hpRegenMultiplier *= 1 + chf.getLvl() / 100.0;
+					}
 				}
 			}
 			
@@ -221,8 +226,12 @@ public final class Formulas
 				if (chId > 0)
 				{
 					final ClanHall ch = ClanHallManager.getInstance().getClanHall(chId);
-					if (ch != null && ch.getFunction(ClanHall.FUNC_RESTORE_MP) != null)
-						mpRegenMultiplier *= 1 + ch.getFunction(ClanHall.FUNC_RESTORE_MP).getLvl() / 100;
+					if (ch != null)
+					{
+						final ClanHallFunction chf = ch.getFunction(ClanHall.FUNC_RESTORE_MP);
+						if (chf != null)
+							mpRegenMultiplier *= 1 + chf.getLvl() / 100.0;
+					}
 				}
 			}
 			
@@ -1060,11 +1069,8 @@ public final class Formulas
 		return mAtkModifier;
 	}
 	
-	public static boolean calcEffectSuccess(Creature attacker, Creature target, EffectTemplate effect, L2Skill skill, byte shld, boolean bss)
+	public static boolean calcEffectSuccess(Creature attacker, Creature target, EffectTemplate effect, L2Skill skill, boolean bss)
 	{
-		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
-			return false;
-		
 		final L2SkillType type = effect.effectType;
 		final double baseChance = effect.effectPower;
 		

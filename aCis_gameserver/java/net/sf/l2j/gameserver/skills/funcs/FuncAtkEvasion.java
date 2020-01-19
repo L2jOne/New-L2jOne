@@ -1,27 +1,31 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncAtkEvasion extends Func
 {
-	static final FuncAtkEvasion _fae_instance = new FuncAtkEvasion();
-	
-	public static Func getInstance()
-	{
-		return _fae_instance;
-	}
+	private static final FuncAtkEvasion INSTANCE = new FuncAtkEvasion();
 	
 	private FuncAtkEvasion()
 	{
-		super(Stats.EVASION_RATE, 0x10, null, null);
+		super(null, Stats.EVASION_RATE, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		env.addValue(Formulas.BASE_EVASION_ACCURACY[env.getCharacter().getDEX()] + env.getCharacter().getLevel());
+		return value + Formulas.BASE_EVASION_ACCURACY[effector.getDEX()] + effector.getLevel();
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

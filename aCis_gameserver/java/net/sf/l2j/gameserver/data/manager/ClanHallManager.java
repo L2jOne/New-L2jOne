@@ -115,7 +115,7 @@ public class ClanHallManager implements IXmlReader
 					}
 					
 					// Set Clan variable.
-					clan.setClanHall(id);
+					clan.setClanHallId(id);
 					
 					// Set ClanHall variables.
 					ch.setOwnerId(ownerId);

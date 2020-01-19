@@ -44,9 +44,9 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="bowWpnVuln" val="0.3" />
-			<mul order="0x30" stat="daggerWpnVuln" val="0.7" />
-			<mul order="0x30" stat="bluntWpnVuln" val="1.1" />
+			<mul stat="bowWpnVuln" val="0.3" />
+			<mul stat="daggerWpnVuln" val="0.7" />
+			<mul stat="bluntWpnVuln" val="1.1" />
 		</for>
 	</skill>
 	<skill id="4004" levels="1" name="Fragile Skull">
@@ -55,7 +55,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="bluntWpnVuln" val="1.1" />
+			<mul stat="bluntWpnVuln" val="1.1" />
 		</for>
 	</skill>
 	<skill id="4005" levels="1" name="Floating Target">
@@ -64,8 +64,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<subDiv order="0x40" stat="windRes" val="15" />
-			<mul order="0x30" stat="bowWpnVuln" val="1.1" />
+			<subDiv stat="windRes" val="15" />
+			<mul stat="bowWpnVuln" val="1.1" />
 		</for>
 	</skill>
 	<skill id="4006" levels="1" name="Blazing Log">
@@ -74,8 +74,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<subDiv order="0x40" stat="fireRes" val="15" />
-			<addMul order="0x40" stat="poisonVuln" val="50" />
+			<subDiv stat="fireRes" val="15" />
+			<addMul stat="poisonVuln" val="50" />
 		</for>
 	</skill>
 	<skill id="4007" levels="1" name="Immortal Life">
@@ -84,8 +84,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul order="0x40" stat="holyRes" val="20" />
-			<sub order="0x40" stat="darkPower" val="20" />
+			<addMul stat="holyRes" val="20" />
+			<sub stat="darkPower" val="20" />
 		</for>
 	</skill>
 	<skill id="4008" levels="1" name="Insect Skin">
@@ -94,7 +94,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<subDiv order="0x40" stat="fireRes" val="15" />
+			<subDiv stat="fireRes" val="15" />
 		</for>
 	</skill>
 	<skill id="4009" levels="5" name="Resist Fire">
@@ -103,7 +103,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="fireRes" val="#res" order="0x40" />
+			<addMul stat="fireRes" val="#res" />
 		</for>
 	</skill>
 	<skill id="4010" levels="5" name="Resist Water">
@@ -112,7 +112,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="waterRes" val="#res" order="0x40" />
+			<addMul stat="waterRes" val="#res" />
 		</for>
 	</skill>
 	<skill id="4011" levels="5" name="Resist Wind">
@@ -121,7 +121,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="windRes" val="#res" order="0x40" />
+			<addMul stat="windRes" val="#res" />
 		</for>
 	</skill>
 	<skill id="4012" levels="5" name="Resist Earth">
@@ -130,7 +130,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="earthRes" val="#res" order="0x40" />
+			<addMul stat="earthRes" val="#res" />
 		</for>
 	</skill>
 	<skill id="4013" levels="1" name="Resistance To Fire, Vulnerable To Water">
@@ -138,8 +138,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="fireRes" val="10" order="0x40" />
-			<subDiv stat="waterRes" val="10" order="0x40" />
+			<addMul stat="fireRes" val="10" />
+			<subDiv stat="waterRes" val="10" />
 		</for>
 	</skill>
 	<skill id="4014" levels="1" name="Resistance To Water, Vulnerable To Fire">
@@ -147,8 +147,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="waterRes" val="10" order="0x40" />
-			<subDiv stat="fireRes" val="10" order="0x40" />
+			<addMul stat="waterRes" val="10" />
+			<subDiv stat="fireRes" val="10" />
 		</for>
 	</skill>
 	<skill id="4015" levels="1" name="Resistance To Wind, Vulnerable To Earth">
@@ -156,8 +156,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="windRes" val="10" order="0x40" />
-			<subDiv stat="earthRes" val="10" order="0x40" />
+			<addMul stat="windRes" val="10" />
+			<subDiv stat="earthRes" val="10" />
 		</for>
 	</skill>
 	<skill id="4016" levels="1" name="Resistance To Earth, Vulnerable To Wind">
@@ -165,8 +165,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<addMul stat="earthRes" val="10" order="0x40" />
-			<subDiv stat="windRes" val="10" order="0x40" />
+			<addMul stat="earthRes" val="10" />
+			<subDiv stat="windRes" val="10" />
 		</for>
 	</skill>
 	<skill id="4017" levels="1" name="Queen Ant Brandish">
@@ -193,7 +193,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="30" val="0" effectType="DEBUFF" effectPower="70" stackOrder="3" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.5" />
+				<mul stat="runSpd" val="0.5" />
 			</effect>
 		</for>
 	</skill>
@@ -211,7 +211,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="30" val="0" effectType="DEBUFF" effectPower="70" stackOrder="3" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.5" />
+				<mul stat="runSpd" val="0.5" />
 			</effect>
 		</for>
 	</skill>
@@ -233,8 +233,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="target" val="TARGET_SELF" />
 		<for>
-			<subDiv stat="fireRes" val="50" order="0x40" />
-			<mul order="0x30" stat="bowWpnVuln" val="0.2" />
+			<subDiv stat="fireRes" val="50" />
+			<mul stat="bowWpnVuln" val="0.2" />
 		</for>
 	</skill>
 	<skill id="4022" levels="1" name="Body Of Nurse Ant">
@@ -324,7 +324,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pa_up">
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
+				<mul stat="pAtk" val="#pAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -343,7 +343,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pd_up">
-				<mul order="0x30" stat="pDef" val="#pDef" />
+				<mul stat="pDef" val="#pDef" />
 			</effect>
 		</for>
 	</skill>
@@ -365,7 +365,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pa_up">
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
+				<mul stat="pAtk" val="#pAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -387,7 +387,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pd_up">
-				<mul order="0x30" stat="pDef" val="#pDef" />
+				<mul stat="pDef" val="#pDef" />
 			</effect>
 		</for>
 	</skill>
@@ -445,7 +445,7 @@
 		<set name="coolTime" val="200" />
 		<for>
 			<effect name="Debuff" time="30" val="0" effectPower="60" effectType="DEBUFF" stackOrder="2" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -516,7 +516,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="#stackOrder" stackType="pa_down">
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
+				<mul stat="pAtk" val="#pAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -541,7 +541,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="#time" val="0" stackOrder="#stackOrder" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
+				<mul stat="pAtkSpd" val="#pAtkSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -644,11 +644,11 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="rootVuln" val="0.1" />
-			<mul order="0x30" stat="sleepVuln" val="0.1" />
-			<mul order="0x30" stat="stunVuln" val="0.1" />
-			<mul order="0x30" stat="paralyzeVuln" val="0.1" />
-			<mul order="0x30" stat="derangementVuln" val="0.0" />
+			<mul stat="rootVuln" val="0.1" />
+			<mul stat="sleepVuln" val="0.1" />
+			<mul stat="stunVuln" val="0.1" />
+			<mul stat="paralyzeVuln" val="0.1" />
+			<mul stat="derangementVuln" val="0.0" />
 		</for>
 	</skill>
 	<skill id="4046" levels="12" name="Sleep">
@@ -701,7 +701,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="20" val="0" stackOrder="1" stackType="speed_up_special">
-				<mul order="0x30" stat="runSpd" val="#runSpd" />
+				<mul stat="runSpd" val="#runSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -768,7 +768,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="3" stackType="pa_down">
-				<mul order="0x30" stat="pAtk" val="0.77" />
+				<mul stat="pAtk" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -784,7 +784,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="3" stackType="pd_down">
-				<mul order="0x30" stat="pDef" val="0.77" />
+				<mul stat="pDef" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -800,7 +800,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="3" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77" />
+				<mul stat="pAtkSpd" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -815,7 +815,7 @@
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<sub order="0x40" stat="pDef-insects" val="15" />
+			<sub stat="pDef-insects" val="15" />
 		</for>
 	</skill>
 	<skill id="4058" levels="1" name="Plant Weak Point">
@@ -824,7 +824,7 @@
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<sub order="0x40" stat="pDef-animals" val="15" />
+			<sub stat="pDef-animals" val="15" />
 		</for>
 	</skill>
 	<skill id="4059" levels="1" name="Animal Weak Point">
@@ -833,7 +833,7 @@
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<sub order="0x40" stat="pDef-plants" val="15" />
+			<sub stat="pDef-plants" val="15" />
 		</for>
 	</skill>
 	<skill id="4060" levels="1" name="Beast Weak Point">
@@ -842,7 +842,7 @@
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<sub order="0x40" stat="pDef-monsters" val="15" />
+			<sub stat="pDef-monsters" val="15" />
 		</for>
 	</skill>
 	<skill id="4061" levels="1" name="Dragon Weak Point">
@@ -851,7 +851,7 @@
 		<set name="magicLvl" val="1" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<sub order="0x40" stat="pDef-dragons" val="15" />
+			<sub stat="pDef-dragons" val="15" />
 		</for>
 	</skill>
 	<skill id="4062" levels="1" name="Orfen">
@@ -860,8 +860,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="target" val="TARGET_SELF" />
 		<for>
-			<subDiv stat="fireRes" val="50" order="0x40" />
-			<mul order="0x30" stat="bowWpnVuln" val="0.2" />
+			<subDiv stat="fireRes" val="50" />
+			<mul stat="bowWpnVuln" val="0.2" />
 		</for>
 	</skill>
 	<skill id="4063" levels="1" name="Paralysis">
@@ -983,7 +983,7 @@
 		<set name="target" val="TARGET_ONE" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="3" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77" />
+				<mul stat="pAtkSpd" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -993,7 +993,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="bowWpnVuln" val="#vuln" />
+			<mul stat="bowWpnVuln" val="#vuln" />
 		</for>
 	</skill>
 	<skill id="4072" levels="12" name="Shock">
@@ -1055,7 +1055,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
+				<mul stat="pAtkSpd" val="#pAtkSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -1099,7 +1099,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="#runSpd" />
+				<mul stat="runSpd" val="#runSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -1209,7 +1209,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="pDef" val="#pDef" />
+			<mul stat="pDef" val="#pDef" />
 		</for>
 	</skill>
 	<skill id="4085" levels="1" name="Critical Power">
@@ -1217,7 +1217,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="cAtk" val="1.25" />
+			<mul stat="cAtk" val="1.25" />
 		</for>
 	</skill>
 	<skill id="4086" levels="1" name="Critical Chance">
@@ -1225,7 +1225,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<basemul order="0x30" stat="rCrit" val="0.5" />
+			<basemul stat="rCrit" val="0.5" />
 		</for>
 	</skill>
 	<skill id="4087" levels="12" name="NPC Blaze">
@@ -1280,8 +1280,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="runSpd" val="0.85" />
-				<mul order="0x30" stat="pAtk" val="1.15" />
+				<mul stat="runSpd" val="0.85" />
+				<mul stat="pAtk" val="1.15" />
 			</effect>
 		</for>
 	</skill>
@@ -1294,7 +1294,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="runSpd" val="1.4" />
+				<mul stat="runSpd" val="1.4" />
 			</effect>
 		</for>
 		<set name="mpConsume" val="18" />
@@ -1309,10 +1309,10 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="runSpd" val="0.85" />
-				<mul order="0x30" stat="mDef" val="1.1" />
-				<mul order="0x30" stat="pDef" val="1.1" />
-				<sub order="0x40" stat="rEvas" val="10" />
+				<mul stat="runSpd" val="0.85" />
+				<mul stat="mDef" val="1.1" />
+				<mul stat="pDef" val="1.1" />
+				<sub stat="rEvas" val="10" />
 			</effect>
 		</for>
 	</skill>
@@ -1326,9 +1326,9 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="pAtkSpd" val="1.3" />
-				<add order="0x40" stat="rEvas" val="4" />
-				<mul order="0x30" stat="pDef" val="0.8" />
+				<mul stat="pAtkSpd" val="1.3" />
+				<add stat="rEvas" val="4" />
+				<mul stat="pDef" val="0.8" />
 			</effect>
 		</for>
 	</skill>
@@ -1337,7 +1337,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<add order="0x40" stat="rEvas" val="4" />
+			<add stat="rEvas" val="4" />
 		</for>
 	</skill>
 	<skill id="4094" levels="12" name="NPC Cancel Magic">
@@ -1364,7 +1364,7 @@
 		<set name="skillType" val="REFLECT" />
 		<set name="target" val="TARGET_SELF" />
 		<for>
-			<add order="0x40" stat="reflectDam" val="20" />
+			<add stat="reflectDam" val="20" />
 		</for>
 	</skill>
 	<skill id="4096" levels="3" name="NPC Hawkeye">
@@ -1382,8 +1382,8 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="#stackOrder" stackType="ab_hawk_eye">
-				<add order="0x40" stat="accCombat" val="#accCombat" />
-				<mul order="0x30" stat="pDef" val="0.9" />
+				<add stat="accCombat" val="#accCombat" />
+				<mul stat="pDef" val="0.9" />
 			</effect>
 		</for>
 	</skill>
@@ -1452,14 +1452,14 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="berserker">
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
-				<mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
-				<mul order="0x30" stat="mAtk" val="#mAtk" />
-				<mul order="0x30" stat="mAtkSpd" val="#pAtkSpd" />
-				<add order="0x40" stat="runSpd" val="#runSpd" />
-				<mul order="0x30" stat="pDef" val="#pDef" />
-				<mul order="0x30" stat="mDef" val="#mDef" />
-				<sub order="0x40" stat="rEvas" val="#rEvas" />
+				<mul stat="pAtk" val="#pAtk" />
+				<mul stat="pAtkSpd" val="#pAtkSpd" />
+				<mul stat="mAtk" val="#mAtk" />
+				<mul stat="mAtkSpd" val="#pAtkSpd" />
+				<add stat="runSpd" val="#runSpd" />
+				<mul stat="pDef" val="#pDef" />
+				<mul stat="mDef" val="#mDef" />
+				<sub stat="rEvas" val="#rEvas" />
 			</effect>
 		</for>
 	</skill>

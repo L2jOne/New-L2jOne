@@ -7,11 +7,11 @@ import net.sf.l2j.gameserver.enums.skills.FlyType;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.location.Location;
 import net.sf.l2j.gameserver.network.serverpackets.FlyToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
-import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * This class handles warp effects, disappear and quickly turn up in a near location. If geodata enabled and an object is between initial and final point, flight is stopped just before colliding with object. Flight course and radius are set as skill properties (flyCourse and flyRadius):
@@ -20,16 +20,15 @@ import net.sf.l2j.gameserver.skills.Env;
  * <br>
  * If target is effector, put in XML self = "1". This will make _actor = getEffector(). This, combined with target type, allows more complex actions like flying target's backwards or player's backwards.<br>
  * <br>
- * @author House
  */
 public class EffectWarp extends L2Effect
 {
 	private int x, y, z;
 	private Creature _actor;
 	
-	public EffectWarp(Env env, EffectTemplate template)
+	public EffectWarp(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

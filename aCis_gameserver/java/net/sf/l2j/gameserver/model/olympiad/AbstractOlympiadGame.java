@@ -386,6 +386,15 @@ public abstract class AbstractOlympiadGame
 				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(1086));
 			}
 		}
+		else
+		{
+			skill = SkillTable.getInstance().getInfo(1085, 1); // Acumen 1
+			if (skill != null)
+			{
+				skill.getEffects(player, player);
+				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(1085));
+			}
+		}
 	}
 	
 	/**
@@ -446,16 +455,16 @@ public abstract class AbstractOlympiadGame
 		if (summon != null && !summon.isDead())
 			summon.stopAllEffectsExceptThoseThatLastThroughDeath();
 		
-		// Add Clan Skills
+		// Add Clan skills.
 		if (player.getClan() != null)
 		{
-			player.getClan().addSkillEffects(player);
+			player.getClan().addClanSkillsTo(player);
 			
 			// heal again after adding clan skills
 			healPlayer(player);
 		}
 		
-		// Add Hero Skills
+		// Add Hero skills.
 		if (player.isHero())
 		{
 			for (L2Skill skill : SkillTable.getHeroSkills())

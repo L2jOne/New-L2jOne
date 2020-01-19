@@ -4,16 +4,17 @@ import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectRelax extends L2Effect
 {
-	public EffectRelax(Env env, EffectTemplate template)
+	public EffectRelax(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -60,9 +61,7 @@ public class EffectRelax extends L2Effect
 			}
 		}
 		
-		double manaDam = calc();
-		
-		if (manaDam > getEffected().getCurrentMp())
+		if (getValue() > getEffected().getCurrentMp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -71,7 +70,7 @@ public class EffectRelax extends L2Effect
 			}
 		}
 		
-		getEffected().reduceCurrentMp(manaDam);
+		getEffected().reduceCurrentMp(getValue());
 		return true;
 	}
 	

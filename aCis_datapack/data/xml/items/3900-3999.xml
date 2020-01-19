@@ -9,8 +9,8 @@
     <set name="weight" val="160" />
     <set name="price" val="640000" />
     <for>
-      <add order="0x10" stat="pDef" val="43" />
-      <add order="0x10" stat="mDef" val="38" />
+      <baseadd stat="pDef" val="43" />
+      <baseadd stat="mDef" val="38" />
     </for>
   </item>
   <item id="3901" type="Armor" name="Wolf's Mithril Armor">
@@ -22,8 +22,8 @@
     <set name="weight" val="160" />
     <set name="price" val="940000" />
     <for>
-      <add order="0x10" stat="pDef" val="47" />
-      <add order="0x10" stat="mDef" val="41" />
+      <baseadd stat="pDef" val="47" />
+      <baseadd stat="mDef" val="41" />
     </for>
   </item>
   <item id="3902" type="Weapon" name="Ghost Canine">
@@ -40,10 +40,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="11" />
-      <add order="0x10" stat="mAtk" val="10" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="11" />
+      <add stat="mAtk" val="10" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3903" type="Weapon" name="Mithril Canine">
@@ -60,10 +60,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="16" />
-      <add order="0x10" stat="mAtk" val="14" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="16" />
+      <add stat="mAtk" val="14" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3904" type="Weapon" name="Sylvan Canine">
@@ -80,10 +80,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="23" />
-      <add order="0x10" stat="mAtk" val="18" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="23" />
+      <add stat="mAtk" val="18" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3905" type="Weapon" name="Orikarukon Canine">
@@ -100,10 +100,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="31" />
-      <add order="0x10" stat="mAtk" val="24" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="31" />
+      <add stat="mAtk" val="24" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3906" type="Weapon" name="Fang of Saltydog">
@@ -120,10 +120,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="40" />
-      <add order="0x10" stat="mAtk" val="30" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="40" />
+      <add stat="mAtk" val="30" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3907" type="Weapon" name="Fang of Cerberus">
@@ -140,10 +140,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="49" />
-      <add order="0x10" stat="mAtk" val="36" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="49" />
+      <add stat="mAtk" val="36" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3908" type="Weapon" name="Fang of Coyote">
@@ -160,10 +160,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="58" />
-      <add order="0x10" stat="mAtk" val="42" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="58" />
+      <add stat="mAtk" val="42" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3909" type="Weapon" name="Crystalized Ice Canine">
@@ -180,10 +180,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="69" />
-      <add order="0x10" stat="mAtk" val="50" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="69" />
+      <add stat="mAtk" val="50" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3910" type="Weapon" name="Fang of The Blue Wolf">
@@ -200,10 +200,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="80" />
-      <add order="0x10" stat="mAtk" val="58" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="80" />
+      <add stat="mAtk" val="58" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3911" type="Weapon" name="Fang of Fenril">
@@ -220,10 +220,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="93" />
-      <add order="0x10" stat="mAtk" val="66" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="93" />
+      <add stat="mAtk" val="66" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3912" type="Armor" name="Hatchling's Soft Leather">
@@ -235,8 +235,8 @@
     <set name="weight" val="160" />
     <set name="price" val="200000" />
     <for>
-      <add order="0x10" stat="pDef" val="26" />
-      <add order="0x10" stat="mDef" val="26" />
+      <baseadd stat="pDef" val="26" />
+      <baseadd stat="mDef" val="26" />
     </for>
   </item>
   <item id="3913" type="Armor" name="Hatchling's Scale Mail">
@@ -248,8 +248,8 @@
     <set name="weight" val="160" />
     <set name="price" val="310000" />
     <for>
-      <add order="0x10" stat="pDef" val="29" />
-      <add order="0x10" stat="mDef" val="29" />
+      <baseadd stat="pDef" val="29" />
+      <baseadd stat="mDef" val="29" />
     </for>
   </item>
   <item id="3914" type="Armor" name="Hatchling's Brigandine">
@@ -261,8 +261,8 @@
     <set name="weight" val="160" />
     <set name="price" val="420000" />
     <for>
-      <add order="0x10" stat="pDef" val="31" />
-      <add order="0x10" stat="mDef" val="31" />
+      <baseadd stat="pDef" val="31" />
+      <baseadd stat="mDef" val="31" />
     </for>
   </item>
   <item id="3915" type="Armor" name="Hatchling's Bronze Coat">
@@ -274,8 +274,8 @@
     <set name="weight" val="160" />
     <set name="price" val="570000" />
     <for>
-      <add order="0x10" stat="pDef" val="33" />
-      <add order="0x10" stat="mDef" val="33" />
+      <baseadd stat="pDef" val="33" />
+      <baseadd stat="mDef" val="33" />
     </for>
   </item>
   <item id="3916" type="Armor" name="Hatchling's Steel Coat">
@@ -287,8 +287,8 @@
     <set name="weight" val="160" />
     <set name="price" val="760000" />
     <for>
-      <add order="0x10" stat="pDef" val="36" />
-      <add order="0x10" stat="mDef" val="36" />
+      <baseadd stat="pDef" val="36" />
+      <baseadd stat="mDef" val="36" />
     </for>
   </item>
   <item id="3917" type="Armor" name="Hatchling's Shadowplate">
@@ -300,8 +300,8 @@
     <set name="weight" val="160" />
     <set name="price" val="1100000" />
     <for>
-      <add order="0x10" stat="pDef" val="38" />
-      <add order="0x10" stat="mDef" val="38" />
+      <baseadd stat="pDef" val="38" />
+      <baseadd stat="mDef" val="38" />
     </for>
   </item>
   <item id="3918" type="Armor" name="Hatchling's Mithril Coat">
@@ -313,8 +313,8 @@
     <set name="weight" val="160" />
     <set name="price" val="1600000" />
     <for>
-      <add order="0x10" stat="pDef" val="41" />
-      <add order="0x10" stat="mDef" val="41" />
+      <baseadd stat="pDef" val="41" />
+      <baseadd stat="mDef" val="41" />
     </for>
   </item>
   <item id="3919" type="Weapon" name="Serpent Fang">
@@ -331,10 +331,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="8" />
-      <add order="0x10" stat="mAtk" val="7" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="8" />
+      <add stat="mAtk" val="7" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3920" type="Weapon" name="Viperbite">
@@ -351,10 +351,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="9" />
-      <add order="0x10" stat="mAtk" val="10" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="9" />
+      <add stat="mAtk" val="10" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3921" type="Weapon" name="Shadow Fang">
@@ -371,10 +371,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="10" />
-      <add order="0x10" stat="mAtk" val="11" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="10" />
+      <add stat="mAtk" val="11" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3922" type="Weapon" name="Alya Fang">
@@ -391,10 +391,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="12" />
-      <add order="0x10" stat="mAtk" val="13" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="12" />
+      <add stat="mAtk" val="13" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3923" type="Weapon" name="Torturer">
@@ -411,10 +411,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="13" />
-      <add order="0x10" stat="mAtk" val="16" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="13" />
+      <add stat="mAtk" val="16" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3924" type="Weapon" name="Unuk Alhay Fang">
@@ -431,10 +431,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="15" />
-      <add order="0x10" stat="mAtk" val="18" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="15" />
+      <add stat="mAtk" val="18" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3925" type="Weapon" name="Antiplague">
@@ -451,10 +451,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <add order="0x10" stat="pAtk" val="17" />
-      <add order="0x10" stat="mAtk" val="21" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="277" />
+      <add stat="pAtk" val="17" />
+      <add stat="mAtk" val="21" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="277" />
     </for>
   </item>
   <item id="3926" type="EtcItem" name="L2Day - Scroll of Guidance">
@@ -606,13 +606,13 @@
     <set name="spiritshots" val="2" />
     <set name="item_skill" val="3599-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="50" />
-      <set order="0x08" stat="mAtk" val="26" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="50" />
+      <set stat="mAtk" val="26" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="3938" type="Weapon" name="Giant Rod">
@@ -632,13 +632,13 @@
     <set name="spiritshots" val="2" />
     <set name="item_skill" val="3599-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="50" />
-      <set order="0x08" stat="mAtk" val="26" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="50" />
+      <set stat="mAtk" val="26" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="3939" type="Weapon" name="Lady's Fan">
@@ -658,13 +658,13 @@
     <set name="spiritshots" val="2" />
     <set name="item_skill" val="3599-1" />
     <for>
-      <set order="0x08" stat="pAtk" val="50" />
-      <set order="0x08" stat="mAtk" val="26" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="50" />
+      <set stat="mAtk" val="26" />
+      <set stat="rCrit" val="8" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="3940" type="EtcItem" name="Blueprint: Summon Siege Golem">

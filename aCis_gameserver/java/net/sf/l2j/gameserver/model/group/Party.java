@@ -14,6 +14,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.manager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.data.manager.DuelManager;
 import net.sf.l2j.gameserver.data.manager.FestivalOfDarknessManager;
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.enums.LootRule;
 import net.sf.l2j.gameserver.enums.MessageType;
 import net.sf.l2j.gameserver.model.WorldObject;
@@ -25,8 +26,6 @@ import net.sf.l2j.gameserver.model.actor.container.player.BlockList;
 import net.sf.l2j.gameserver.model.actor.instance.Servitor;
 import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
 import net.sf.l2j.gameserver.model.rift.DimensionalRift;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
@@ -491,10 +490,12 @@ public class Party extends AbstractGroup
 		setLeader(player);
 		broadcastNewLeaderStatus();
 		
+		// If in PartyRoom, change the leader of the room.
 		if (player.isInPartyMatchRoom())
 		{
-			final PartyMatchRoom room = PartyMatchRoomList.getInstance().getPlayerRoom(player);
-			room.changeLeader(player);
+			final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(player.getPartyRoom());
+			if (room != null)
+				room.changeLeader(player);
 		}
 	}
 	

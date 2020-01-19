@@ -12,10 +12,10 @@
 	<target name="dist" depends="jar">
 		<copy todir="${build.dist.login}/libs">
 			<fileset dir="${src}/../lib">
-				<include name="HikariCP-3.3.1.jar" />
-				<include name="mariadb-java-client-2.5.2.jar" />
-				<include name="slf4j-api-1.7.25.jar" />
-				<include name="slf4j-nop-1.7.25.jar" />
+				<include name="HikariCP-3.4.2.jar" />
+				<include name="mariadb-java-client-2.5.3.jar" />
+				<include name="slf4j-api-1.7.30.jar" />
+				<include name="slf4j-nop-1.7.30.jar" />
 			</fileset>
 		</copy>
 		<copy todir="${build.dist.game}/libs">
@@ -104,8 +104,8 @@
 
 	<target name="checkRequirements" description="Check requirements.">
 		<echo message="Verification of your JDK version."/>
-		<available classname="java.util.stream.Stream" property="JDK13.present" />
-		<fail unless="JDK13.present" message="JDK13 is required, but your version is Java ${ant.java.version}. Install latest JDK." />
+		<available classname="java.util.stream.Stream" property="JDK11.present" />
+		<fail unless="JDK11.present" message="JDK11 is required, but your version is Java ${ant.java.version}. Install latest JDK." />
 	</target>
 	
 	<path id="classpath">

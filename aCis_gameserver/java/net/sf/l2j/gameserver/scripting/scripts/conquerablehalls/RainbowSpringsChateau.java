@@ -687,7 +687,7 @@ public final class RainbowSpringsChateau extends ClanHallSiege
 				{
 					_rainbow.free();
 					
-					owner.setClanHall(0);
+					owner.setClanHallId(0);
 					
 					_acceptedClans.add(owner);
 					

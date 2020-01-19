@@ -1,18 +1,16 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- * Format: (ch) dd
- * @author -Wooden-
- */
+import net.sf.l2j.gameserver.model.L2Skill;
+
 public class PledgeSkillListAdd extends L2GameServerPacket
 {
 	private final int _id;
 	private final int _lvl;
 	
-	public PledgeSkillListAdd(int id, int lvl)
+	public PledgeSkillListAdd(L2Skill skill)
 	{
-		_id = id;
-		_lvl = lvl;
+		_id = skill.getId();
+		_lvl = skill.getLevel();
 	}
 	
 	@Override

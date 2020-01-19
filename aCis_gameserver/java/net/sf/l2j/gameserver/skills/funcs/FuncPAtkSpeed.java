@@ -1,27 +1,31 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncPAtkSpeed extends Func
 {
-	static final FuncPAtkSpeed _fas_instance = new FuncPAtkSpeed();
-	
-	public static Func getInstance()
-	{
-		return _fas_instance;
-	}
+	private static final FuncPAtkSpeed INSTANCE = new FuncPAtkSpeed();
 	
 	private FuncPAtkSpeed()
 	{
-		super(Stats.POWER_ATTACK_SPEED, 0x20, null, null);
+		super(null, Stats.POWER_ATTACK_SPEED, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		env.mulValue(Formulas.DEX_BONUS[env.getCharacter().getDEX()]);
+		return value * Formulas.DEX_BONUS[effector.getDEX()];
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

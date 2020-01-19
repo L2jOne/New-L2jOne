@@ -1,9 +1,9 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.group.Party;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 import net.sf.l2j.gameserver.network.serverpackets.ExManagePartyRoomMember;
 import net.sf.l2j.gameserver.network.serverpackets.JoinParty;
 
@@ -40,32 +40,18 @@ public final class RequestAnswerJoinParty extends L2GameClientPacket
 			
 			if (requestor.isInPartyMatchRoom())
 			{
-				final PartyMatchRoomList list = PartyMatchRoomList.getInstance();
-				if (list != null)
+				final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(requestor.getPartyRoom());
+				if (room != null)
 				{
-					final PartyMatchRoom room = list.getPlayerRoom(requestor);
-					if (room != null)
+					if (player.isInPartyMatchRoom())
 					{
-						if (player.isInPartyMatchRoom())
-						{
-							if (list.getPlayerRoomId(requestor) == list.getPlayerRoomId(player))
-							{
-								final ExManagePartyRoomMember packet = new ExManagePartyRoomMember(player, room, 1);
-								for (Player member : room.getPartyMembers())
-									member.sendPacket(packet);
-							}
-						}
-						else
-						{
-							room.addMember(player);
-							
-							final ExManagePartyRoomMember packet = new ExManagePartyRoomMember(player, room, 1);
-							for (Player member : room.getPartyMembers())
-								member.sendPacket(packet);
-							
-							player.setPartyRoom(room.getId());
-							player.broadcastUserInfo();
-						}
+						if (requestor.getPartyRoom() == player.getPartyRoom())
+							room.broadcastPacket(new ExManagePartyRoomMember(player, room, 1));
+					}
+					else
+					{
+						room.addMember(player, room.getId());
+						room.broadcastPacket(new ExManagePartyRoomMember(player, room, 1));
 					}
 				}
 			}

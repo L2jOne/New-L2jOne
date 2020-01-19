@@ -11,14 +11,11 @@ import net.sf.l2j.gameserver.enums.skills.AbnormalEffect;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
 import net.sf.l2j.gameserver.model.ChanceCondition;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncTemplate;
-import net.sf.l2j.gameserver.skills.basefuncs.Lambda;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
 
-/**
- * @author mkizub
- */
 public final class EffectTemplate
 {
 	static Logger _log = Logger.getLogger(EffectTemplate.class.getName());
@@ -28,7 +25,7 @@ public final class EffectTemplate
 	
 	public final Condition attachCond;
 	public final Condition applayCond;
-	public final Lambda lambda;
+	public final double value;
 	public final int counter;
 	public final int period; // in seconds
 	public final AbnormalEffect abnormalEffect;
@@ -43,11 +40,11 @@ public final class EffectTemplate
 	public final int triggeredLevel;
 	public final ChanceCondition chanceCondition;
 	
-	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, AbnormalEffect pAbnormalEffect, String pStackType, float pStackOrder, boolean showicon, double ePower, L2SkillType eType, int trigId, int trigLvl, ChanceCondition chanceCond)
+	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, double pValue, int pCounter, int pPeriod, AbnormalEffect pAbnormalEffect, String pStackType, float pStackOrder, boolean showicon, double ePower, L2SkillType eType, int trigId, int trigLvl, ChanceCondition chanceCond)
 	{
 		attachCond = pAttachCond;
 		applayCond = pApplayCond;
-		lambda = pLambda;
+		value = pValue;
 		counter = pCounter;
 		period = pPeriod;
 		abnormalEffect = pAbnormalEffect;
@@ -72,7 +69,7 @@ public final class EffectTemplate
 		
 		try
 		{
-			_constructor = _func.getConstructor(Env.class, EffectTemplate.class);
+			_constructor = _func.getConstructor(EffectTemplate.class, L2Skill.class, Creature.class, Creature.class);
 		}
 		catch (NoSuchMethodException e)
 		{
@@ -80,14 +77,14 @@ public final class EffectTemplate
 		}
 	}
 	
-	public L2Effect getEffect(Env env)
+	public L2Effect getEffect(Creature caster, Creature target, L2Skill skill)
 	{
-		if (attachCond != null && !attachCond.test(env))
+		if (attachCond != null && !attachCond.test(caster, target, skill))
 			return null;
+		
 		try
 		{
-			L2Effect effect = (L2Effect) _constructor.newInstance(env, this);
-			return effect;
+			return (L2Effect) _constructor.newInstance(this, skill, target, caster);
 		}
 		catch (IllegalAccessException e)
 		{

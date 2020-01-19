@@ -4,9 +4,6 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.model.pledge.ClanMember;
 
-/**
- * format dSS dddddddddSdd d (Sddddd) dddSS dddddddddSdd d (Sdddddd)
- */
 public class PledgeShowMemberListAll extends L2GameServerPacket
 {
 	private final Clan _clan;

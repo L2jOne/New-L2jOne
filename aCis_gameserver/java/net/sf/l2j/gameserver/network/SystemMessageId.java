@@ -8846,13 +8846,13 @@ public final class SystemMessageId
 	 * ID: 1533<br>
 	 * Message: Attention: $s1 has picked up $s2.
 	 */
-	public static final SystemMessageId ATTENTION_S1_PICKED_UP_S2;
+	public static final SystemMessageId ATTENTION_S1_PICKED_UP_S2_S3;
 	
 	/**
 	 * ID: 1534<br>
 	 * Message: Attention: $s1 has picked up +$s2$s3.
 	 */
-	public static final SystemMessageId ATTENTION_S1_PICKED_UP_S2_S3;
+	public static final SystemMessageId ATTENTION_S1_PICKED_UP_S2_S3_S4;
 	
 	/**
 	 * ID: 1535<br>
@@ -13272,8 +13272,8 @@ public final class SystemMessageId
 		SELECT_TARGET_OR_ENTER_NAME = new SystemMessageId(1530);
 		ENTER_CLAN_NAME_TO_DECLARE_WAR2 = new SystemMessageId(1531);
 		ENTER_CLAN_NAME_TO_CEASE_FIRE = new SystemMessageId(1532);
-		ATTENTION_S1_PICKED_UP_S2 = new SystemMessageId(1533);
-		ATTENTION_S1_PICKED_UP_S2_S3 = new SystemMessageId(1534);
+		ATTENTION_S1_PICKED_UP_S2_S3 = new SystemMessageId(1533);
+		ATTENTION_S1_PICKED_UP_S2_S3_S4 = new SystemMessageId(1534);
 		ATTENTION_S1_PET_PICKED_UP_S2 = new SystemMessageId(1535);
 		ATTENTION_S1_PET_PICKED_UP_S2_S3 = new SystemMessageId(1536);
 		LOC_RUNE_S1_S2_S3 = new SystemMessageId(1537);

@@ -4,18 +4,16 @@ import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.Summon;
-import net.sf.l2j.gameserver.skills.Env;
 
-/**
- * @author decad
- */
 final class EffectBetray extends L2Effect
 {
-	public EffectBetray(Env env, EffectTemplate template)
+	public EffectBetray(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -24,7 +22,6 @@ final class EffectBetray extends L2Effect
 		return L2EffectType.BETRAY;
 	}
 	
-	/** Notify started */
 	@Override
 	public boolean onStart()
 	{
@@ -37,7 +34,6 @@ final class EffectBetray extends L2Effect
 		return false;
 	}
 	
-	/** Notify exited */
 	@Override
 	public void onExit()
 	{

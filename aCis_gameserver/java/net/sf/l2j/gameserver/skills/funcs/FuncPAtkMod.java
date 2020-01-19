@@ -1,27 +1,31 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncPAtkMod extends Func
 {
-	static final FuncPAtkMod _fpa_instance = new FuncPAtkMod();
-	
-	public static Func getInstance()
-	{
-		return _fpa_instance;
-	}
+	private static final FuncPAtkMod INSTANCE = new FuncPAtkMod();
 	
 	private FuncPAtkMod()
 	{
-		super(Stats.POWER_ATTACK, 0x30, null, null);
+		super(null, Stats.POWER_ATTACK, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		env.mulValue(Formulas.STR_BONUS[env.getCharacter().getSTR()] * env.getCharacter().getLevelMod());
+		return value * Formulas.STR_BONUS[effector.getSTR()] * effector.getLevelMod();
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

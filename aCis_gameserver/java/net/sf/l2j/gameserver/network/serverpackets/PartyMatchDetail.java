@@ -1,10 +1,7 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 
-/**
- * @author Gnacik
- */
 public class PartyMatchDetail extends L2GameServerPacket
 {
 	private final PartyMatchRoom _room;
@@ -18,12 +15,12 @@ public class PartyMatchDetail extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x97);
-		writeD(_room.getId()); // Room ID
-		writeD(_room.getMaxMembers()); // Max Members
-		writeD(_room.getMinLvl()); // Level Min
-		writeD(_room.getMaxLvl()); // Level Max
-		writeD(_room.getLootType()); // Loot Type
-		writeD(_room.getLocation()); // Room Location
-		writeS(_room.getTitle()); // Room title
+		writeD(_room.getId());
+		writeD(_room.getMaxMembers());
+		writeD(_room.getMinLvl());
+		writeD(_room.getMaxLvl());
+		writeD(_room.getLootType());
+		writeD(_room.getLocation());
+		writeS(_room.getTitle());
 	}
 }

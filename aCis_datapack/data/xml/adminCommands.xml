@@ -46,6 +46,9 @@
 	<aCar name="admin_camera" accessLevel="7"/>
 	<aCar name="admin_cameramode" accessLevel="7"/>
 	
+	<!-- CLAN FULL -->
+	<aCar name="admin_clanfull" accessLevel="7"/>
+	
 	<!-- CLANHALL -->
 	<aCar name="admin_ch" accessLevel="7"/>
 
@@ -55,6 +58,9 @@
 	<aCar name="admin_create_set" accessLevel="7"/>
 	<aCar name="admin_create_coin" accessLevel="7"/>
 	<aCar name="admin_reward_all" accessLevel="7"/>
+
+	<!-- CLEANUP INVENTORY -->
+	<aCar name="admin_inventory_cleanup" accessLevel="7"/>
 
 	<!-- CURSED WEAPONS -->
 	<aCar name="admin_cw" accessLevel="7"/>

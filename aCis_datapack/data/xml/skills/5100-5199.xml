@@ -36,7 +36,7 @@
 		<set name="castRange" val="1000"/>
   		<for>
     		<effect count="0x7fffffff" name="Fusion" time="15" val="15" stackOrder="0" stackType="BattleForce">
-    		   <mul order="0x30" stat="pAtk" val="1.10"/> 
+    		   <mul stat="pAtk" val="1.10"/> 
     		</effect>
   		</for>
 	</skill>
@@ -47,7 +47,7 @@
   		<set name="castRange" val="1000"/>
   		<for>
     		<effect count="0x7fffffff" name="Fusion" time="15" val="15" stackOrder="0" stackType="SpellForce">
-      			<mul order="0x30" stat="mAtk" val="1.10"/>
+      			<mul stat="mAtk" val="1.10"/>
     		</effect>
   		</for>
 	</skill>
@@ -60,8 +60,8 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="#stackOrder" stackType="seizure_a">
-				<mul order="0x30" stat="runSpd" val="0.7" />
-				<mul order="0x30" stat="pAtkSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
+				<mul stat="pAtkSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -74,8 +74,8 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="#stackOrder" stackType="seizure_b">
-				<mul order="0x30" stat="runSpd" val="0.7" />
-				<mul order="0x30" stat="pAtkSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
+				<mul stat="pAtkSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -88,8 +88,8 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect count="0x7fffffff" name="Fusion" time="600" val="15" stackOrder="#stackOrder" stackType="seizure_c">
-				<mul order="0x30" stat="runSpd" val="0.7" />
-				<mul order="0x30" stat="pAtkSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
+				<mul stat="pAtkSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -283,7 +283,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="99" stackType="pa_up">
-				<mul order="0x30" stat="pAtk" val="1.5" />
+				<mul stat="pAtk" val="1.5" />
 			</effect>
 		</for>
 	</skill>
@@ -294,9 +294,9 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<add order="0x40" stat="pDef" val="1000" />
-				<add order="0x40" stat="mDef" val="800" />
-				<addMul order="0x40" stat="cancelVuln" val="80" />
+				<add stat="pDef" val="1000" />
+				<add stat="mDef" val="800" />
+				<addMul stat="cancelVuln" val="80" />
 			</effect>
 		</for>
 	</skill>
@@ -313,7 +313,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<addMul order="0x40" stat="debuffVuln" val="60" />
+				<addMul stat="debuffVuln" val="60" />
 			</effect>
 		</for>
 	</skill>
@@ -324,8 +324,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<mul order="0x30" stat="regHp" val="1.4" />
-				<mul order="0x30" stat="regCp" val="1.4" />
+				<mul stat="regHp" val="1.4" />
+				<mul stat="regCp" val="1.4" />
 			</effect>
 		</for>
 	</skill>
@@ -336,7 +336,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<mul order="0x30" stat="pAtk" val="1.2" />
+				<mul stat="pAtk" val="1.2" />
 			</effect>
 			<effect count="7" name="IncreaseCharges" val="1" />
 		</for>
@@ -348,10 +348,10 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<mul order="0x30" stat="pAtk" val="1.2">
+				<mul stat="pAtk" val="1.2">
 					<using kind="BOW" />
 				</mul>
-				<add order="0x40" stat="accCombat" val="10">
+				<add stat="accCombat" val="10">
 					<using kind="BOW" />
 				</add>
 			</effect>
@@ -364,8 +364,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="7" val="0" stackOrder="1" stackType="combination">
-				<add order="0x40" stat="rEvas" val="15" />
-				<mul order="0x30" stat="blowRate" val="1.2" />
+				<add stat="rEvas" val="15" />
+				<mul stat="blowRate" val="1.2" />
 			</effect>
 		</for>
 	</skill>
@@ -501,7 +501,7 @@
 		<set name="target" val="TARGET_AURA" />
 		<for>
 			<effect count="10" name="DamOverTime" time="3" val="327" abnormal="poison" stackOrder="3" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77" />
+				<mul stat="pAtkSpd" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -573,17 +573,17 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="1" stackType="multi_debuff">
-				<mul order="0x30" stat="pAtk" val="0.5" />
-				<mul order="0x30" stat="pDef" val="0.5" />
-				<mul order="0x30" stat="runSpd" val="0.5" />
-				<mul order="0x30" stat="MagicalMpConsumeRate" val="3" />
-				<mul order="0x30" stat="PhysicalMpConsumeRate" val="3" />
-				<mul order="0x30" stat="DanceMpConsumeRate" val="3" />
-				<subDiv order="0x40" stat="fireRes" val="50" />
-				<subDiv order="0x40" stat="windRes" val="50" />
-				<subDiv order="0x40" stat="waterRes" val="50" />
-				<subDiv order="0x40" stat="earthRes" val="50" />
-				<mul order="0x30" stat="regHp" val="0.1" />
+				<mul stat="pAtk" val="0.5" />
+				<mul stat="pDef" val="0.5" />
+				<mul stat="runSpd" val="0.5" />
+				<mul stat="MagicalMpConsumeRate" val="3" />
+				<mul stat="PhysicalMpConsumeRate" val="3" />
+				<mul stat="DanceMpConsumeRate" val="3" />
+				<subDiv stat="fireRes" val="50" />
+				<subDiv stat="windRes" val="50" />
+				<subDiv stat="waterRes" val="50" />
+				<subDiv stat="earthRes" val="50" />
+				<mul stat="regHp" val="0.1" />
 			</effect>
 			<effect name="BlockBuff" time="120" noicon="1" val="0" stackOrder="3" stackType="abnormal_buff_invincibility" />
 		</for>
@@ -612,7 +612,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="maxHp" val="#maxHp" />
+				<add stat="maxHp" val="#maxHp" />
 			</effect>
 		</for>
 	</skill>
@@ -627,7 +627,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="gainHp" val="1.04" />
+				<mul stat="gainHp" val="1.04" />
 			</effect>
 		</for>
 	</skill>
@@ -655,7 +655,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="maxMp" val="#maxMp" />
+				<add stat="maxMp" val="#maxMp" />
 			</effect>
 		</for>
 	</skill>
@@ -670,7 +670,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="gainMp" val="1" />
+				<add stat="gainMp" val="1" />
 			</effect>
 		</for>
 	</skill>
@@ -698,7 +698,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="maxCp" val="#power" />
+				<add stat="maxCp" val="#power" />
 			</effect>
 		</for>
 	</skill>
@@ -714,7 +714,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
+				<mul stat="pAtk" val="#pAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -730,7 +730,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="mAtk" val="#mAtk" />
+				<mul stat="mAtk" val="#mAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -746,8 +746,8 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
-				<mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpBonus" />
+				<mul stat="pvpPhysDmg" val="#pvpBonus" />
+				<mul stat="pvpPhysSkillsDmg" val="#pvpBonus" />
 			</effect>
 		</for>
 	</skill>
@@ -763,7 +763,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="pDef" val="#pDef" />
+				<mul stat="pDef" val="#pDef" />
 			</effect>
 		</for>
 	</skill>
@@ -779,7 +779,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="mDef" val="#mDef" />
+				<mul stat="mDef" val="#mDef" />
 			</effect>
 		</for>
 	</skill>
@@ -800,8 +800,8 @@
 		<set name="effectRange" val="400" />
 		<for>
 			<effect name="Debuff" time="60" val="0" stackOrder="1" stackType="pvp_dmg_down">
-				<mul order="0x30" stat="pvpPhysDmg" val="#pvpWeakness" />
-				<mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpWeakness" />
+				<mul stat="pvpPhysDmg" val="#pvpWeakness" />
+				<mul stat="pvpPhysSkillsDmg" val="#pvpWeakness" />
 			</effect>
 		</for>
 	</skill>
@@ -817,7 +817,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="rEvas" val="#rate" />
+				<add stat="rEvas" val="#rate" />
 			</effect>
 		</for>
 	</skill>
@@ -833,7 +833,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="accCombat" val="#rate" />
+				<add stat="accCombat" val="#rate" />
 			</effect>
 		</for>
 	</skill>
@@ -849,7 +849,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<basemul order="0x30" stat="rCrit" val="#rCrit" />
+				<basemul stat="rCrit" val="#rCrit" />
 			</effect>
 		</for>
 	</skill>
@@ -865,7 +865,7 @@
 		<set name="staticHitTime" val="true" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<basemul order="0x10" stat="mCritRate" val="#rate" />
+				<basemul stat="mCritRate" val="#rate" />
 			</effect>
 		</for>
 	</skill>
@@ -898,7 +898,7 @@
 		<set name="effectRange" val="400" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="3" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -916,7 +916,7 @@
 		<set name="effectRange" val="400" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="3" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77" />
+				<mul stat="pAtkSpd" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -1173,7 +1173,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
+				<mul stat="pAtkSpd" val="#pAtkSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -1198,7 +1198,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="vampiric_attack">
-				<add order="0x40" stat="absorbDam" val="#absorbDam" />
+				<add stat="absorbDam" val="#absorbDam" />
 			</effect>
 		</for>
 	</skill>
@@ -1223,7 +1223,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="hp_regen_up">
-				<mul order="0x30" stat="regHp" val="#rate" />
+				<mul stat="regHp" val="#rate" />
 			</effect>
 		</for>
 	</skill>
@@ -1248,7 +1248,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="max_hp_up">
-				<mul order="0x30" stat="maxHp" val="#maxHp" />
+				<mul stat="maxHp" val="#maxHp" />
 			</effect>
 		</for>
 	</skill>
@@ -1273,7 +1273,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="max_mp_up">
-				<mul order="0x30" stat="maxMp" val="#maxMp" />
+				<mul stat="maxMp" val="#maxMp" />
 			</effect>
 		</for>
 	</skill>
@@ -1296,7 +1296,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="hit_up">
-				<add order="0x40" stat="accCombat" val="#accCombat" />
+				<add stat="accCombat" val="#accCombat" />
 			</effect>
 		</for>
 	</skill>
@@ -1321,7 +1321,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="speed_up">
-				<add order="0x40" stat="runSpd" val="#runSpd" />
+				<add stat="runSpd" val="#runSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -1346,7 +1346,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="casting_time_down">
-				<mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
+				<mul stat="mAtkSpd" val="#mAtkSpd" />
 			</effect>
 		</for>
 	</skill>
@@ -1371,7 +1371,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="ma_up">
-				<mul order="0x30" stat="mAtk" val="#mAtk" />
+				<mul stat="mAtk" val="#mAtk" />
 			</effect>
 		</for>
 	</skill>
@@ -1413,7 +1413,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="3" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77" />
+				<mul stat="pAtkSpd" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -1437,7 +1437,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="3" stackType="pd_down">
-				<mul order="0x30" stat="pDef" val="0.77" />
+				<mul stat="pDef" val="0.77" />
 			</effect>
 		</for>
 	</skill>
@@ -1461,7 +1461,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="3" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.7" />
+				<mul stat="runSpd" val="0.7" />
 			</effect>
 		</for>
 	</skill>
@@ -1484,7 +1484,7 @@
 		<set name="effectRange" val="1400" />
 		<for>
 			<effect name="Debuff" time="15" val="0" stackOrder="3" stackType="md_down">
-				<mul order="0x30" stat="mDef" val="0.77" />
+				<mul stat="mDef" val="0.77" />
 			</effect>
 		</for>
 	</skill>

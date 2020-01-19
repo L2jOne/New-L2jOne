@@ -1,27 +1,31 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncMaxMpMul extends Func
 {
-	static final FuncMaxMpMul _fmmm_instance = new FuncMaxMpMul();
-	
-	public static Func getInstance()
-	{
-		return _fmmm_instance;
-	}
+	private static final FuncMaxMpMul INSTANCE = new FuncMaxMpMul();
 	
 	private FuncMaxMpMul()
 	{
-		super(Stats.MAX_MP, 0x20, null, null);
+		super(null, Stats.MAX_MP, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		env.mulValue(Formulas.MEN_BONUS[env.getCharacter().getMEN()]);
+		return value * Formulas.MEN_BONUS[effector.getMEN()];
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

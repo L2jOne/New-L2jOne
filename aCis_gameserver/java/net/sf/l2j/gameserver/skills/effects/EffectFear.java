@@ -4,17 +4,18 @@ import net.sf.l2j.gameserver.enums.AiEventType;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.Folk;
 import net.sf.l2j.gameserver.model.actor.instance.SiegeFlag;
 import net.sf.l2j.gameserver.model.actor.instance.SiegeSummon;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectFear extends L2Effect
 {
-	public EffectFear(Env env, EffectTemplate template)
+	public EffectFear(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

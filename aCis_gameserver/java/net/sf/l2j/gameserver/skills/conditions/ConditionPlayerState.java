@@ -1,9 +1,10 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.enums.skills.PlayerState;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
 public class ConditionPlayerState extends Condition
 {
@@ -17,10 +18,9 @@ public class ConditionPlayerState extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		final Creature character = env.getCharacter();
-		final Player player = env.getPlayer();
+		final Player player = (effector instanceof Player) ? (Player) effector : null;
 		
 		switch (_check)
 		{
@@ -28,22 +28,22 @@ public class ConditionPlayerState extends Condition
 				return (player == null) ? !_required : player.isSitting() == _required;
 			
 			case MOVING:
-				return character.isMoving() == _required;
+				return effector.isMoving() == _required;
 			
 			case RUNNING:
-				return character.isMoving() == _required && character.isRunning() == _required;
+				return effector.isMoving() == _required && effector.isRunning() == _required;
 			
 			case RIDING:
-				return character.isRiding() == _required;
+				return effector.isRiding() == _required;
 			
 			case FLYING:
-				return character.isFlying() == _required;
+				return effector.isFlying() == _required;
 			
 			case BEHIND:
-				return character.isBehindTarget() == _required;
+				return effector.isBehindTarget() == _required;
 			
 			case FRONT:
-				return character.isInFrontOfTarget() == _required;
+				return effector.isInFrontOfTarget() == _required;
 			
 			case OLYMPIAD:
 				return (player == null) ? !_required : player.isInOlympiadMode() == _required;

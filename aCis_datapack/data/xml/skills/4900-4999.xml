@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="4900" levels="1" name="Raid Boss - Level 78">
 		<set name="target" val="TARGET_SELF" />
@@ -613,7 +613,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="3600" val="0">
-				<mul order="0x30" stat="regHp" val="1.4" />
+				<mul stat="regHp" val="1.4" />
 			</effect>
 		</for>
 	</skill>

@@ -3,8 +3,11 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import net.sf.l2j.commons.math.MathUtil;
+
 import net.sf.l2j.gameserver.data.xml.MapRegionData.TeleportType;
 import net.sf.l2j.gameserver.enums.IntentionType;
+import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.WorldObject;
@@ -12,6 +15,7 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.group.Party;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 
 /**
  * This class handles teleport admin commands
@@ -84,6 +88,17 @@ public class AdminTeleport implements IAdminCommandHandler
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
+			}
+		}
+		else if (command.startsWith("admin_recallall"))
+		{
+			for (Player player : World.getInstance().getPlayers())
+			{ 
+				if (!activeChar.checkSummonTargetStatus(player) || (player.isInsideZone(ZoneId.BOSS) && !player.isGM()))
+					continue;
+				
+				if (!MathUtil.checkIfInRange(0, activeChar, player, false))
+					player.sendPacket(new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()).addString(activeChar.getName()).addZoneName(activeChar.getPosition()).addTime(15000).addRequesterId(activeChar.getObjectId()));
 			}
 		}
 		else if (command.startsWith("admin_recall_party"))

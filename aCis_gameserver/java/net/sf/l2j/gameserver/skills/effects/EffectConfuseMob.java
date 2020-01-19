@@ -9,23 +9,22 @@ import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.Attackable;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.instance.Chest;
-import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * This effect changes the target of the victim. It adds some random aggro aswell to force the monster to keep attacking. As the added aggro is random, the victim can often change of target.<br>
  * <br>
  * Only others mobs can fill the aggroList of the victim. For a more generic use, consider using EffectConfusion.
- * @author littlecrow, Tryskell
  */
 public class EffectConfuseMob extends L2Effect
 {
-	public EffectConfuseMob(Env env, EffectTemplate template)
+	public EffectConfuseMob(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -34,7 +33,6 @@ public class EffectConfuseMob extends L2Effect
 		return L2EffectType.CONFUSE_MOB_ONLY;
 	}
 	
-	/** Notify started */
 	@Override
 	public boolean onStart()
 	{
@@ -43,7 +41,6 @@ public class EffectConfuseMob extends L2Effect
 		return true;
 	}
 	
-	/** Notify exited */
 	@Override
 	public void onExit()
 	{

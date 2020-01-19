@@ -154,10 +154,14 @@ public class RequestAcquireSkill extends L2GameClientPacket
 					return;
 				}
 				
-				player.getClan().takeReputationScore(csn.getCost());
+				// Remove reputation score.
+				final boolean needRefresh = player.getClan().takeReputationScore(csn.getCost());
+				
+				// Send message to Player.
 				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber(csn.getCost()));
 				
-				player.getClan().addNewSkill(skill);
+				// Reward Player's Clan with new skill. Keep track of the refresh.
+				player.getClan().addNewSkill(skill, needRefresh);
 				
 				VillageMaster.showPledgeSkillList(player);
 				return;

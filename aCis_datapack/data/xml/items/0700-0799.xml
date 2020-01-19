@@ -100,8 +100,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="50" />
-      <add order="0x10" stat="pDef" val="75" />
+      <baseadd stat="mDef" val="50" />
+      <baseadd stat="pDef" val="75" />
     </for>
   </item>
   <item id="710" type="Armor" name="Hard Leather Shirt">
@@ -114,8 +114,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="52" />
-      <add order="0x10" stat="pDef" val="77" />
+      <baseadd stat="mDef" val="52" />
+      <baseadd stat="pDef" val="77" />
     </for>
   </item>
   <item id="711" type="Armor" name="Piece Bone Breastplate">
@@ -128,8 +128,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <add order="0x10" stat="pDef" val="79" />
+      <baseadd stat="mDef" val="54" />
+      <baseadd stat="pDef" val="79" />
     </for>
   </item>
   <item id="712" type="Armor" name="Half Plate Armor">
@@ -142,8 +142,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="56" />
-      <add order="0x10" stat="pDef" val="81" />
+      <baseadd stat="mDef" val="56" />
+      <baseadd stat="pDef" val="81" />
     </for>
   </item>
   <item id="713" type="Armor" name="Leather Pants">
@@ -156,8 +156,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="30" />
-      <add order="0x10" stat="pDef" val="45" />
+      <baseadd stat="mDef" val="30" />
+      <baseadd stat="pDef" val="45" />
     </for>
   </item>
   <item id="714" type="Armor" name="Hard Leather Pants">
@@ -170,8 +170,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="32" />
-      <add order="0x10" stat="pDef" val="47" />
+      <baseadd stat="mDef" val="32" />
+      <baseadd stat="pDef" val="47" />
     </for>
   </item>
   <item id="715" type="Armor" name="Piece Bone Gaiters">
@@ -184,8 +184,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="34" />
-      <add order="0x10" stat="pDef" val="49" />
+      <baseadd stat="mDef" val="34" />
+      <baseadd stat="pDef" val="49" />
     </for>
   </item>
   <item id="716" type="Armor" name="Plate Gaiters">
@@ -198,8 +198,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <add order="0x10" stat="pDef" val="51" />
+      <baseadd stat="mDef" val="36" />
+      <baseadd stat="pDef" val="51" />
     </for>
   </item>
   <item id="717" type="Armor" name="Leather Gloves">
@@ -212,8 +212,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="20" />
-      <add order="0x10" stat="pDef" val="30" />
+      <baseadd stat="mDef" val="20" />
+      <baseadd stat="pDef" val="30" />
     </for>
   </item>
   <item id="718" type="Armor" name="Hard Leather Gloves">
@@ -226,8 +226,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="22" />
-      <add order="0x10" stat="pDef" val="32" />
+      <baseadd stat="mDef" val="22" />
+      <baseadd stat="pDef" val="32" />
     </for>
   </item>
   <item id="719" type="Armor" name="Crafted Leather Gloves">
@@ -240,8 +240,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="24" />
-      <add order="0x10" stat="pDef" val="34" />
+      <baseadd stat="mDef" val="24" />
+      <baseadd stat="pDef" val="34" />
     </for>
   </item>
   <item id="720" type="Armor" name="Reinforced Gloves">
@@ -254,8 +254,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="26" />
-      <add order="0x10" stat="pDef" val="36" />
+      <baseadd stat="mDef" val="26" />
+      <baseadd stat="pDef" val="36" />
     </for>
   </item>
   <item id="721" type="Armor" name="Leather Boots">
@@ -268,8 +268,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="20" />
-      <add order="0x10" stat="pDef" val="30" />
+      <baseadd stat="mDef" val="20" />
+      <baseadd stat="pDef" val="30" />
     </for>
   </item>
   <item id="722" type="Armor" name="Hard Leather Boots">
@@ -282,8 +282,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="22" />
-      <add order="0x10" stat="pDef" val="32" />
+      <baseadd stat="mDef" val="22" />
+      <baseadd stat="pDef" val="32" />
     </for>
   </item>
   <item id="723" type="Armor" name="Crafted Leather Boots">
@@ -296,8 +296,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="24" />
-      <add order="0x10" stat="pDef" val="34" />
+      <baseadd stat="mDef" val="24" />
+      <baseadd stat="pDef" val="34" />
     </for>
   </item>
   <item id="724" type="Armor" name="Reinforced Boots">
@@ -310,8 +310,8 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <add order="0x10" stat="mDef" val="26" />
-      <add order="0x10" stat="pDef" val="36" />
+      <baseadd stat="mDef" val="26" />
+      <baseadd stat="pDef" val="36" />
     </for>
   </item>
   <item id="725" type="EtcItem" name="Healing Drug">
@@ -482,10 +482,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="12" />
-      <set order="0x08" stat="mAtk" val="9" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="12" />
+      <set stat="mAtk" val="9" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="739" type="EtcItem" name="Broken Sword Handle">
@@ -542,10 +542,10 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="14" />
-      <set order="0x08" stat="mAtk" val="11" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="14" />
+      <set stat="mAtk" val="11" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="744" type="Weapon" name="Staff of Sentinel">
@@ -563,11 +563,11 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="13" />
-      <set order="0x08" stat="mAtk" val="14" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="13" />
+      <set stat="mAtk" val="14" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="745" type="EtcItem" name="Cobendell Medicine">
@@ -605,11 +605,11 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="11" />
-      <set order="0x08" stat="mAtk" val="13" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="11" />
+      <set stat="mAtk" val="13" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="748" type="Weapon" name="Gallint's Oak Wand">
@@ -629,11 +629,11 @@
     <set name="is_dropable" val="false" />
     <set name="is_sellable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="10" />
-      <set order="0x08" stat="mAtk" val="10" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="10" />
+      <set stat="mAtk" val="10" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="749" type="Weapon" name="0">
@@ -651,13 +651,13 @@
     <set name="price" val="35800" />
     <set name="is_dropable" val="false" />
     <for>
-      <set order="0x08" stat="pAtk" val="21" />
-      <set order="0x08" stat="mAtk" val="32" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="21" />
+      <set stat="mAtk" val="32" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="750" type="EtcItem" name="Kinship Crystal">
@@ -715,11 +715,11 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="13" />
-      <set order="0x08" stat="mAtk" val="13" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="13" />
+      <set stat="mAtk" val="13" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="755" type="EtcItem" name="Colleen's Letter">

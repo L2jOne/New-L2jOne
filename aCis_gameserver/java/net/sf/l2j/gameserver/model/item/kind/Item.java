@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.scripting.Quest;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncTemplate;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
@@ -401,16 +400,11 @@ public abstract class Item
 		
 		final List<Func> funcs = new ArrayList<>(_funcTemplates.size());
 		
-		final Env env = new Env();
-		env.setCharacter(player);
-		env.setTarget(player);
-		env.setItem(item);
-		
-		for (FuncTemplate t : _funcTemplates)
+		for (FuncTemplate template : _funcTemplates)
 		{
-			final Func f = t.getFunc(env, item);
-			if (f != null)
-				funcs.add(f);
+			final Func func = template.getFunc(player, player, item, item);
+			if (func != null)
+				funcs.add(func);
 		}
 		return funcs;
 	}
@@ -445,7 +439,7 @@ public abstract class Item
 		return _skillHolder;
 	}
 	
-	public boolean checkCondition(Creature creature, WorldObject target, boolean sendMessage)
+	public boolean checkCondition(Creature creature, WorldObject object, boolean sendMessage)
 	{
 		// Don't allow hero equipment and restricted items during Olympiad
 		if ((isOlyRestrictedItem() || isHeroItem()) && (creature instanceof Player && creature.getActingPlayer().isInOlympiadMode()))
@@ -461,17 +455,13 @@ public abstract class Item
 		if (_preConditions == null)
 			return true;
 		
-		final Env env = new Env();
-		env.setCharacter(creature);
-		if (target instanceof Creature)
-			env.setTarget((Creature) target);
-		
+		final Creature target = (object instanceof Creature) ? (Creature) object : null;
 		for (Condition preCondition : _preConditions)
 		{
 			if (preCondition == null)
 				continue;
 			
-			if (!preCondition.test(env))
+			if (!preCondition.test(creature, target, null, null))
 			{
 				if (creature instanceof Summon)
 				{

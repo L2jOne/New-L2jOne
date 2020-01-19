@@ -343,61 +343,6 @@ public class MapRegionData implements IXmlReader
 	}
 	
 	/**
-	 * @param x : The X value (part of 2D point) to check.
-	 * @param y : The Y value (part of 2D point) to check.
-	 * @return the closest regionId based on X/Y points.
-	 */
-	public final int getClosestLocation(int x, int y)
-	{
-		switch (getMapRegion(x, y))
-		{
-			case 0: // TI
-				return 1;
-			
-			case 1: // Elven
-				return 4;
-			
-			case 2: // DE
-				return 3;
-			
-			case 3: // Orc
-			case 4: // Dwarven
-			case 16:// Schuttgart
-				return 9;
-			
-			case 5: // Gludio
-			case 6: // Gludin
-				return 2;
-			
-			case 7: // Dion
-				return 5;
-			
-			case 8: // Giran
-			case 12: // Giran Harbor
-				return 6;
-			
-			case 9: // Oren
-				return 10;
-			
-			case 10: // Aden
-				return 13;
-			
-			case 11: // HV
-				return 11;
-			
-			case 13: // Heine
-				return 12;
-			
-			case 14: // Rune
-				return 14;
-			
-			case 15: // Goddard
-				return 15;
-		}
-		return 0;
-	}
-	
-	/**
 	 * @param townId : the townId to match.
 	 * @return a {@link TownZone} based on the overall list of existing towns, matching the townId.
 	 */

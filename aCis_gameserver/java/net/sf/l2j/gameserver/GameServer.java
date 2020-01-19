@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.data.manager.GrandBossManager;
 import net.sf.l2j.gameserver.data.manager.HeroManager;
 import net.sf.l2j.gameserver.data.manager.LotteryManager;
 import net.sf.l2j.gameserver.data.manager.MovieMakerManager;
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.data.manager.PetitionManager;
 import net.sf.l2j.gameserver.data.manager.RaidBossInfoManager;
 import net.sf.l2j.gameserver.data.manager.RaidBossManager;
@@ -95,12 +96,11 @@ import net.sf.l2j.gameserver.model.boat.BoatRunePrimeval;
 import net.sf.l2j.gameserver.model.boat.BoatTalkingGludin;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadGameManager;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchWaitingList;
 import net.sf.l2j.gameserver.network.GameClient;
 import net.sf.l2j.gameserver.network.GamePacketHandler;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
+import net.sf.l2j.gameserver.taskmanager.DoubleRatesTaskManager;
 import net.sf.l2j.gameserver.taskmanager.GameTimeTaskManager;
 import net.sf.l2j.gameserver.taskmanager.ItemsOnGroundTaskManager;
 import net.sf.l2j.gameserver.taskmanager.PcCafeTaskManager;
@@ -194,8 +194,7 @@ public class GameServer
 		NewbieBuffData.getInstance();
 		TeleportLocationData.getInstance();
 		HtmCache.getInstance();
-		PartyMatchWaitingList.getInstance();
-		PartyMatchRoomList.getInstance();
+		PartyMatchRoomManager.getInstance();
 		RaidPointManager.getInstance();
 		PvPData.getInstance();
 		
@@ -290,6 +289,9 @@ public class GameServer
 
 		if (Config.ALLOW_WEDDING)
 			CoupleManager.getInstance();
+	
+		if (Config.TIME_DOUBLE_RATES > 0)
+			DoubleRatesTaskManager.getInstance();
 
 		if (Config.PCB_INTERVAL > 0)
 			PcCafeTaskManager.getInstance();

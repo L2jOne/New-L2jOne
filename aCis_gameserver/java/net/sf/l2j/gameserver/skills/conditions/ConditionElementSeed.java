@@ -1,19 +1,19 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.skills.effects.EffectSeed;
 
-/**
- * @author Advi
- */
 public class ConditionElementSeed extends Condition
 {
-	private static int[] SEED_SKILLS =
+	private static final int[] SEED_SKILLS =
 	{
 		1285,
 		1286,
 		1287
 	};
+	
 	private final int[] _requiredSeeds;
 	
 	public ConditionElementSeed(int[] seeds)
@@ -22,12 +22,12 @@ public class ConditionElementSeed extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
 		int[] Seeds = new int[3];
 		for (int i = 0; i < Seeds.length; i++)
 		{
-			Seeds[i] = (env.getCharacter().getFirstEffect(SEED_SKILLS[i]) instanceof EffectSeed ? ((EffectSeed) env.getCharacter().getFirstEffect(SEED_SKILLS[i])).getPower() : 0);
+			Seeds[i] = (effector.getFirstEffect(SEED_SKILLS[i]) instanceof EffectSeed ? ((EffectSeed) effector.getFirstEffect(SEED_SKILLS[i])).getPower() : 0);
 			if (Seeds[i] >= _requiredSeeds[i])
 				Seeds[i] -= _requiredSeeds[i];
 			else

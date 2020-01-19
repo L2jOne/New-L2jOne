@@ -1,27 +1,31 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncMAtkSpeed extends Func
 {
-	static final FuncMAtkSpeed _fas_instance = new FuncMAtkSpeed();
-	
-	public static Func getInstance()
-	{
-		return _fas_instance;
-	}
+	private static final FuncMAtkSpeed INSTANCE = new FuncMAtkSpeed();
 	
 	private FuncMAtkSpeed()
 	{
-		super(Stats.MAGIC_ATTACK_SPEED, 0x20, null, null);
+		super(null, Stats.MAGIC_ATTACK_SPEED, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		env.mulValue(Formulas.WIT_BONUS[env.getCharacter().getWIT()]);
+		return value * Formulas.WIT_BONUS[effector.getWIT()];
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

@@ -46,7 +46,7 @@ public class RequestServerList extends L2LoginClientPacket
 			getClient().close(LoginFail.REASON_ACCESS_FAILED);
 			return;
 		}
-			
+		
 		if (!getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
 		{
 			getClient().close(LoginFail.REASON_ACCESS_FAILED);

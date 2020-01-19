@@ -177,7 +177,7 @@ public class Monster extends Attackable
 					// Calculate the difference of level between this attacker and the L2Attackable.
 					final int levelDiff = attacker.getLevel() - getLevel();
 					
-					final int[] expSp = calculateExpAndSp(levelDiff, damage, totalDamage);
+					final int[] expSp = calculateExpAndSp(levelDiff, damage, totalDamage, attacker);
 					long exp = expSp[0];
 					int sp = expSp[1];
 					
@@ -257,7 +257,7 @@ public class Monster extends Attackable
 				final int levelDiff = partyLvl - getLevel();
 				
 				// Calculate Exp and SP rewards
-				final int[] expSp = calculateExpAndSp(levelDiff, partyDmg, totalDamage);
+				final int[] expSp = calculateExpAndSp(levelDiff, partyDmg, totalDamage, attacker);
 				long exp = expSp[0];
 				int sp = expSp[1];
 				
@@ -477,9 +477,10 @@ public class Monster extends Attackable
 	 * @param diff : The difference of level between the attacker and the Monster.
 	 * @param damage : The damages done by the attacker.
 	 * @param totalDamage : The total damage done.
+	 * @param player 
 	 * @return an array consisting of xp and sp values.
 	 */
-	private int[] calculateExpAndSp(int diff, int damage, long totalDamage)
+	private int[] calculateExpAndSp(int diff, int damage, long totalDamage, Player player)
 	{
 		// Calculate damage ratio.
 		double xp = (double) getExpReward() * damage / totalDamage;
@@ -500,7 +501,7 @@ public class Monster extends Attackable
 			sp *= Config.CHAMPION_REWARDS;
 		}
 		
-		if (isVip())
+		if (player.isVip())
 		{
 			xp *= Config.VIP_RATE_XP;
 			sp *= Config.VIP_RATE_SP;
@@ -584,9 +585,10 @@ public class Monster extends Attackable
 	 * @param drop The L2DropData count is being calculated for
 	 * @param levelModifier level modifier in %'s (will be subtracted from drop chance)
 	 * @param isSweep if true, use spoil drop chance.
+	 * @param player 
 	 * @return the ItemHolder.
 	 */
-	private IntIntHolder calculateRewardItem(DropData drop, int levelModifier, boolean isSweep)
+	private IntIntHolder calculateRewardItem(DropData drop, int levelModifier, boolean isSweep, Player player)
 	{
 		// Get default drop chance
 		double dropChance = drop.getChance();
@@ -614,21 +616,21 @@ public class Monster extends Attackable
 		// Applies Drop rates
 		if (drop.getItemId() == 57)
 		{
-			if (isVip())
+			if (player.isVip())
 				dropChance *= Config.VIP_ADENA_RATES;
 			else
 				dropChance *= Config.RATE_DROP_ADENA;
 		}
 		else if (isSweep)
 		{
-			if (isVip())
+			if (player.isVip())
 				dropChance *= Config.VIP_SPOIL_RATES;
 			else
 				dropChance *= Config.RATE_DROP_SPOIL;
 		}
 		else
 		{
-			if (isVip())
+			if (player.isVip())
 				dropChance *= Config.VIP_DROP_RATES;
 			else
 				dropChance *= (isRaidBoss()) ? Config.RATE_DROP_ITEMS_BY_RAID : Config.RATE_DROP_ITEMS;
@@ -679,9 +681,10 @@ public class Monster extends Attackable
 	 * Only a max of ONE item from a category is allowed to be dropped.
 	 * @param categoryDrops The category to make checks on.
 	 * @param levelModifier level modifier in %'s (will be subtracted from drop chance)
+	 * @param player 
 	 * @return the ItemHolder.
 	 */
-	private IntIntHolder calculateCategorizedRewardItem(DropCategory categoryDrops, int levelModifier)
+	private IntIntHolder calculateCategorizedRewardItem(DropCategory categoryDrops, int levelModifier, Player player)
 	{
 		if (categoryDrops == null)
 			return null;
@@ -732,14 +735,14 @@ public class Monster extends Attackable
 			double dropChance = drop.getChance();
 			if (drop.getItemId() == 57)
 			{
-				if (isVip())
+				if (player.isVip())
 					dropChance *= Config.VIP_ADENA_RATES;
 				else
 					dropChance *= Config.RATE_DROP_ADENA;
 			}
 			else
 			{
-				if (isVip())
+				if (player.isVip())
 					dropChance *= Config.VIP_DROP_RATES;
 				else
 					dropChance *= (isRaidBoss()) ? Config.RATE_DROP_ITEMS_BY_RAID : Config.RATE_DROP_ITEMS;
@@ -931,7 +934,7 @@ public class Monster extends Attackable
 				{
 					for (DropData drop : cat.getAllDrops())
 					{
-						item = calculateRewardItem(drop, levelModifier, true);
+						item = calculateRewardItem(drop, levelModifier, true, player);
 						if (item == null)
 							continue;
 						
@@ -947,10 +950,10 @@ public class Monster extends Attackable
 					if (drop == null)
 						continue;
 					
-					item = calculateRewardItem(drop, levelModifier, false);
+					item = calculateRewardItem(drop, levelModifier, false, player);
 				}
 				else
-					item = calculateCategorizedRewardItem(cat, levelModifier);
+					item = calculateCategorizedRewardItem(cat, levelModifier, player);
 				
 				if (item != null)
 				{
@@ -974,7 +977,7 @@ public class Monster extends Attackable
 				int rewardItem = Rnd.get(entry.getValue().get(1), entry.getValue().get(2));
 				int dropChance = entry.getValue().get(0);
 				
-				if (isVip())
+				if (player.isVip())
 					rewardItem *= Config.VIP_DROP_RATES;
 				
 				// Apply level modifier, if any/wanted.

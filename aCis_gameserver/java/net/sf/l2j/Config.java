@@ -118,6 +118,10 @@ public final class Config
 	// Events settings
 	// --------------------------------------------------
 
+	/** Double Rates */
+	public static int TIME_DOUBLE_RATES;
+	public static double RATE_MULTIPLER;
+	
 	/** Character Killing Monument settings */
 	public static boolean CKM_ENABLED;
 	public static long CKM_CYCLE_LENGTH;
@@ -849,6 +853,9 @@ public final class Config
 	private static final void loadEvents()
 	{
 		final ExProperties events = initProperties(EVENTS_FILE);
+		TIME_DOUBLE_RATES = events.getProperty("DoubleRatesTime", 18);
+		RATE_MULTIPLER = events.getProperty("RateMultipler", 2.);
+		
 		CKM_ENABLED = events.getProperty("CKMEnabled", false);
 		CKM_CYCLE_LENGTH = events.getProperty("CKMCycleLength", 86400000);
 		CKM_PVP_NPC_TITLE = events.getProperty("CKMPvPNpcTitle", "%kills% PvPs in the last 24h");

@@ -19,13 +19,13 @@
     <set name="oncast_chance" val="20" />
     <set name="oncast_skill" val="1077-3" />
     <for>
-      <set order="0x08" stat="pAtk" val="189" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="189" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4901" type="Weapon" name="Staff of Evil Spirits - Bodily Blessing">
@@ -47,13 +47,13 @@
     <set name="oncast_chance" val="20" />
     <set name="oncast_skill" val="1045-5" />
     <for>
-      <set order="0x08" stat="pAtk" val="189" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="189" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4902" type="Weapon" name="Staff of Evil Spirits - Magic Poison">
@@ -75,13 +75,13 @@
     <set name="oncast_chance" val="6" />
     <set name="oncast_skill" val="1168-6" />
     <for>
-      <set order="0x08" stat="pAtk" val="189" />
-      <set order="0x08" stat="mAtk" val="132" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="189" />
+      <set stat="mAtk" val="132" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4903" type="Weapon" name="Dasparion's Staff">
@@ -101,13 +101,13 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="207" />
-      <set order="0x08" stat="mAtk" val="143" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="207" />
+      <set stat="mAtk" val="143" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4904" type="Weapon" name="Dasparion's Staff">
@@ -129,13 +129,13 @@
     <set name="oncast_chance" val="4" />
     <set name="oncast_skill" val="1164-14" />
     <for>
-      <set order="0x08" stat="pAtk" val="207" />
-      <set order="0x08" stat="mAtk" val="143" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="207" />
+      <set stat="mAtk" val="143" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4905" type="Weapon" name="Dasparion's Staff">
@@ -157,13 +157,13 @@
     <set name="oncast_chance" val="4" />
     <set name="oncast_skill" val="1222-10" />
     <for>
-      <set order="0x08" stat="pAtk" val="207" />
-      <set order="0x08" stat="mAtk" val="143" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="207" />
+      <set stat="mAtk" val="143" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="4906" type="EtcItem" name="Spellbook: Solar Spark">

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="5200" levels="3" name="Pet Recharge">
 		<table name="#magicLvl"> 65 67 69 75 80 85 90 95 </table>
@@ -41,7 +41,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="#stackOrder" stackType="cancel_prob_down" >
-				<sub order="0x40" stat="cancel" val="#cancel" />
+				<sub stat="cancel" val="#cancel" />
 			</effect>
 		</for>
 	</skill>
@@ -113,7 +113,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="1" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="0.5"/>
+				<mul stat="runSpd" val="0.5"/>
 			</effect>
 		</for>
 	</skill>
@@ -134,7 +134,7 @@
 		<set name="effectRange" val="1100" />
 		<for>
 			<effect name="Debuff" time="120" val="0" stackOrder="1" stackType="attack_time_up">
-				<mul order="0x30" stat="pAtkSpd" val="0.77"/>
+				<mul stat="pAtkSpd" val="0.77"/>
 			</effect>
 		</for>
 	</skill>
@@ -148,7 +148,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="3" stackType="speed_up">
-				<add order="0x40" stat="runSpd" val="33"/>
+				<add stat="runSpd" val="33"/>
 			</effect>
 		</for>
 	</skill>
@@ -162,7 +162,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="pd_up" >
-				<mul order="0x30" stat="pDef" val="1.15"/>
+				<mul stat="pDef" val="1.15"/>
 			</effect>
 		</for>
 	</skill>
@@ -176,7 +176,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="7" stackType="max_hp_up" >
-				<mul order="0x30" stat="maxHp" val="1.35"/>
+				<mul stat="maxHp" val="1.35"/>
 			</effect>
 		</for>
 	</skill>
@@ -190,7 +190,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="5" stackType="vampiric_attack" >
-				<add order="0x40" stat="absorbDam" val="9"/>
+				<add stat="absorbDam" val="9"/>
 			</effect>
 		</for>
 	</skill>
@@ -204,7 +204,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="hp_regen_up" >
-				<mul order="0x30" stat="regHp" val="1.2"/>
+				<mul stat="regHp" val="1.2"/>
 			</effect>
 		</for>
 	</skill>
@@ -218,7 +218,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="2" stackType="attack_time_down" >
-				<mul order="0x30" stat="pAtkSpd" val="1.15"/>
+				<mul stat="pAtkSpd" val="1.15"/>
 			</effect>
 		</for>
 	</skill>
@@ -232,7 +232,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="7" stackType="max_mp_up" >
-				<mul order="0x30" stat="maxMp" val="1.35"/>
+				<mul stat="maxMp" val="1.35"/>
 			</effect>
 		</for>
 	</skill>
@@ -246,7 +246,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="4" stackType="casting_time_down" >
-				<mul order="0x30" stat="mAtkSpd" val="1.30"/>
+				<mul stat="mAtkSpd" val="1.30"/>
 			</effect>
 		</for>
 	</skill>
@@ -260,7 +260,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="2" stackType="cancel_prob_down" >
-				<sub order="0x40" stat="cancel" val="18"/>
+				<sub stat="cancel" val="18"/>
 			</effect>
 		</for>
 	</skill>
@@ -274,7 +274,7 @@
 		<set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="3600" val="0" stackOrder="2" stackType="ma_up" >
-				<mul order="0x30" stat="mAtk" val="1.55"/>
+				<mul stat="mAtk" val="1.55"/>
 			</effect>
 		</for>
 	</skill>

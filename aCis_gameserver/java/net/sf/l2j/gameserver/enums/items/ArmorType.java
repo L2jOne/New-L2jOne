@@ -9,7 +9,9 @@ public enum ArmorType implements ItemType
 	PET,
 	SHIELD;
 	
-	final int _mask;
+	public static final ArmorType[] VALUES = values();
+	
+	private final int _mask;
 	
 	private ArmorType()
 	{

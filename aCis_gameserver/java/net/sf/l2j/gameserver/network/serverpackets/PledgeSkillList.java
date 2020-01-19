@@ -7,27 +7,25 @@ import net.sf.l2j.gameserver.model.pledge.Clan;
 
 public class PledgeSkillList extends L2GameServerPacket
 {
-	private final Clan _clan;
+	private final Collection<L2Skill> _skills;
 	
 	public PledgeSkillList(Clan clan)
 	{
-		_clan = clan;
+		_skills = clan.getClanSkills().values();
 	}
 	
 	@Override
 	protected void writeImpl()
 	{
-		Collection<L2Skill> skills = _clan.getClanSkills().values();
-		
 		writeC(0xfe);
 		writeH(0x39);
 		
-		writeD(skills.size());
+		writeD(_skills.size());
 		
-		for (L2Skill sk : skills)
+		for (L2Skill skill : _skills)
 		{
-			writeD(sk.getId());
-			writeD(sk.getLevel());
+			writeD(skill.getId());
+			writeD(skill.getLevel());
 		}
 	}
 }

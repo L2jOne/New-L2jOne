@@ -349,7 +349,7 @@ public class DerbyTrackManager
 	 * Setup lane bet, based on previous value (if any).
 	 * @param lane : The lane to edit.
 	 * @param amount : The amount to add.
-	 * @param saveOnDb : Should it be saved on db or not.
+	 * @param saveOnDb : Should it be saved on the database or not.
 	 */
 	public void setBetOnLane(int lane, long amount, boolean saveOnDb)
 	{

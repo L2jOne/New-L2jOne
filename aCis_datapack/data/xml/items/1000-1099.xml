@@ -8,7 +8,7 @@
     <set name="weight" val="60" />
     <set name="price" val="37" />
     <for>
-      <add order="0x10" stat="pDef" val="9" />
+      <baseadd stat="pDef" val="9" />
     </for>
   </item>
   <item id="1001" type="EtcItem" name="Book of Aklantoth - Part 4">

@@ -11,7 +11,6 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.holder.Timestamp;
 import net.sf.l2j.gameserver.network.serverpackets.SkillCoolTime;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncAdd;
-import net.sf.l2j.gameserver.skills.basefuncs.LambdaConst;
 
 /**
  * A container used to store an Augmentation.<br>
@@ -139,7 +138,7 @@ public final class Augmentation
 				return;
 			
 			for (int i = 0; i < _stats.length; i++)
-				((Creature) player).addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i])));
+				((Creature) player).addStatFunc(new FuncAdd(this, _stats[i], _values[i], null));
 			
 			_active = true;
 		}

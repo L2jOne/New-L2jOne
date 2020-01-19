@@ -1,8 +1,7 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.data.xml.MapRegionData;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 
 public class ExPartyRoomMember extends L2GameServerPacket
 {
@@ -21,19 +20,21 @@ public class ExPartyRoomMember extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0x0e);
 		writeD(_mode);
-		writeD(_room.getMembers());
-		for (Player member : _room.getPartyMembers())
+		writeD(_room.getMembersCount());
+		
+		for (Player member : _room.getMembers())
 		{
 			writeD(member.getObjectId());
 			writeS(member.getName());
 			writeD(member.getActiveClass());
 			writeD(member.getLevel());
-			writeD(MapRegionData.getInstance().getClosestLocation(member.getX(), member.getY()));
-			if (_room.getOwner().equals(member))
+			writeD(1); // TODO implement correctly bbs behavior.
+			
+			if (_room.isLeader(member))
 				writeD(1);
 			else
 			{
-				if ((_room.getOwner().isInParty() && member.isInParty()) && (_room.getOwner().getParty().getLeaderObjectId() == member.getParty().getLeaderObjectId()))
+				if ((_room.getLeader().isInParty() && member.isInParty()) && (_room.getLeader().getParty().getLeaderObjectId() == member.getParty().getLeaderObjectId()))
 					writeD(2);
 				else
 					writeD(0);

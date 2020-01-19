@@ -1,29 +1,22 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionPlayerPkCount.
- */
 public class ConditionPlayerPkCount extends Condition
 {
 	public final int _pk;
 	
-	/**
-	 * Instantiates a new condition player pk count.
-	 * @param pk the pk
-	 */
 	public ConditionPlayerPkCount(int pk)
 	{
 		_pk = pk;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (env.getPlayer() == null)
-			return false;
-		
-		return env.getPlayer().getPkKills() <= _pk;
+		return effector instanceof Player && ((Player) effector).getPkKills() <= _pk;
 	}
 }

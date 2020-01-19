@@ -136,11 +136,11 @@
     <set name="mp_consume" val="1" />
     <set name="reuse_delay" val="1500" />
     <for>
-      <set order="0x08" stat="pAtk" val="16" />
-      <set order="0x08" stat="mAtk" val="6" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
+      <set stat="pAtk" val="16" />
+      <set stat="mAtk" val="6" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
     </for>
   </item>
   <item id="6716" type="Weapon" name="Monster Only(Silenos Shaman)">
@@ -158,11 +158,11 @@
     <set name="soulshots" val="1" />
     <set name="spiritshots" val="1" />
     <for>
-      <set order="0x08" stat="pAtk" val="11" />
-      <set order="0x08" stat="mAtk" val="12" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="11" />
+      <set stat="mAtk" val="12" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="6717" type="Weapon" name="Monster Only(Einhasad Warrior)">
@@ -179,10 +179,10 @@
     <set name="soulshots" val="2" />
     <set name="spiritshots" val="2" />
     <for>
-      <set order="0x08" stat="pAtk" val="24" />
-      <set order="0x08" stat="mAtk" val="17" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="379" />
+      <set stat="pAtk" val="24" />
+      <set stat="mAtk" val="17" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="379" />
     </for>
   </item>
   <item id="6718" type="Weapon" name="Monster Only(Einhasad Shaman)">
@@ -199,11 +199,11 @@
     <set name="soulshots" val="2" />
     <set name="spiritshots" val="2" />
     <for>
-      <set order="0x08" stat="pAtk" val="24" />
-      <set order="0x08" stat="mAtk" val="17" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
+      <set stat="pAtk" val="24" />
+      <set stat="mAtk" val="17" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
     </for>
   </item>
   <item id="6719" type="Weapon" name="Monster Only(Ketra Orc Chieftain)">
@@ -223,13 +223,13 @@
     <set name="soulshots" val="3" />
     <set name="spiritshots" val="3" />
     <for>
-      <set order="0x08" stat="pAtk" val="141" />
-      <set order="0x08" stat="mAtk" val="104" />
-      <set order="0x08" stat="rCrit" val="4" />
-      <add order="0x10" stat="accCombat" val="4" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="141" />
+      <set stat="mAtk" val="104" />
+      <set stat="rCrit" val="4" />
+      <add stat="accCombat" val="4" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="6720" type="Weapon" name="Monster Only(Shadow of Halisha)">
@@ -248,11 +248,11 @@
     <set name="mp_consume" val="1" />
     <set name="reuse_delay" val="1500" />
     <for>
-      <set order="0x08" stat="pAtk" val="16" />
-      <set order="0x08" stat="mAtk" val="6" />
-      <set order="0x08" stat="rCrit" val="12" />
-      <sub order="0x10" stat="accCombat" val="3" />
-      <set order="0x08" stat="pAtkSpd" val="293" />
+      <set stat="pAtk" val="16" />
+      <set stat="mAtk" val="6" />
+      <set stat="rCrit" val="12" />
+      <sub stat="accCombat" val="3" />
+      <set stat="pAtkSpd" val="293" />
     </for>
   </item>
   <item id="6721" type="Armor" name="Monster Only(Shield of Imperial Warlord Zombie)">
@@ -263,9 +263,9 @@
     <set name="weight" val="1430" />
     <set name="price" val="39" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="47" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="47" />
     </for>
   </item>
   <item id="6722" type="Weapon" name="Monster Only(Ahrimanes)">
@@ -285,12 +285,12 @@
     <set name="spiritshots" val="1" />
     <set name="enchant4_skill" val="3045-14" />
     <for>
-      <set order="0x08" stat="pAtk" val="236" />
-      <set order="0x08" stat="mAtk" val="99" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="236" />
+      <set stat="mAtk" val="99" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="6723" type="Weapon" name="Monster Only(Vampire Warrior)">
@@ -309,12 +309,12 @@
     <set name="soulshots" val="3" />
     <set name="spiritshots" val="3" />
     <for>
-      <set order="0x08" stat="pAtk" val="112" />
-      <set order="0x08" stat="mAtk" val="54" />
-      <set order="0x08" stat="rCrit" val="8" />
-      <set order="0x08" stat="pAtkSpd" val="325" />
-      <enchant val="0" order="0x0C" stat="pAtk" />
-      <enchant val="0" order="0x0C" stat="mAtk" />
+      <set stat="pAtk" val="112" />
+      <set stat="mAtk" val="54" />
+      <set stat="rCrit" val="8" />
+      <set stat="pAtkSpd" val="325" />
+      <enchant val="0" stat="pAtk" />
+      <enchant val="0" stat="mAtk" />
     </for>
   </item>
   <item id="6724" type="Armor" name="Sealed Tateossian Earring">
@@ -327,8 +327,8 @@
     <set name="weight" val="150" />
     <set name="price" val="3700000" />
     <for>
-      <add order="0x10" stat="mDef" val="68" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="68" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="6725" type="Armor" name="Sealed Tateossian Ring">
@@ -341,8 +341,8 @@
     <set name="weight" val="150" />
     <set name="price" val="2470000" />
     <for>
-      <add order="0x10" stat="mDef" val="46" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="46" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="6726" type="Armor" name="Sealed Tateossian Necklace">
@@ -355,8 +355,8 @@
     <set name="weight" val="150" />
     <set name="price" val="4940000" />
     <for>
-      <add order="0x10" stat="mDef" val="91" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="91" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="6727" type="EtcItem" name="Seed: Alternative Great Coba">

@@ -27,7 +27,7 @@
 	<script path="quests.Q022_TragedyInVonHellmannForest"/>
 	<script path="quests.Q023_LidiasHeart"/>
 	<script path="quests.Q024_InhabitantsOfTheForestOfTheDead"/>
-<!-- 	<script path="quests.Q025_HidingBehindTheTruth"/> -->
+	<script path="quests.Q025_HidingBehindTheTruth"/>
 	<script path="quests.Q027_ChestCaughtWithABaitOfWind"/>
 	<script path="quests.Q028_ChestCaughtWithABaitOfIcyAir"/>
 	<script path="quests.Q029_ChestCaughtWithABaitOfEarth"/>
@@ -206,7 +206,7 @@
 	<script path="quests.Q331_ArrowOfVengeance"/>
 	<script path="quests.Q333_HuntOfTheBlackLion"/>
 	<script path="quests.Q334_TheWishingPotion"/>
-<!-- 	<script path="quests.Q335_SongOfTheHunter"/> -->
+	<script path="quests.Q335_SongOfTheHunter"/>
 	<script path="quests.Q336_CoinsOfMagic"/>
 	<script path="quests.Q337_AudienceWithTheLandDragon"/>
 	<script path="quests.Q338_AlligatorHunter"/>

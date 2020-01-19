@@ -162,7 +162,9 @@ public enum Stats
 	// Skill mastery
 	SKILL_MASTERY("skillMastery");
 	
-	public static final int NUM_STATS = values().length;
+	public static final Stats[] VALUES = values();
+	
+	public static final int NUM_STATS = VALUES.length;
 	
 	private String _value;
 	
@@ -179,12 +181,11 @@ public enum Stats
 	public static Stats valueOfXml(String name)
 	{
 		name = name.intern();
-		for (Stats s : values())
+		for (Stats stat : VALUES)
 		{
-			if (s.getValue().equals(name))
-				return s;
+			if (stat.getValue().equals(name))
+				return stat;
 		}
-		
-		throw new NoSuchElementException("Unknown name '" + name + "' for enum BaseStats");
+		throw new NoSuchElementException("Unknown name '" + name + "' for enum Stats");
 	}
 }

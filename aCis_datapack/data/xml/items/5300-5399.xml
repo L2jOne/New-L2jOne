@@ -10,8 +10,8 @@
     <set name="weight" val="1110" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5301" type="Armor" name="Sealed Tallum Leather Armor">
@@ -25,8 +25,8 @@
     <set name="weight" val="5400" />
     <set name="price" val="5080000" />
     <for>
-      <add order="0x10" stat="pDef" val="209" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="209" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5302" type="Armor" name="Sealed Gust Bracer">
@@ -39,8 +39,8 @@
     <set name="weight" val="580" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5303" type="Armor" name="Sealed Gust Boots">
@@ -53,8 +53,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5304" type="Armor" name="Sealed Tallum Tunic">
@@ -68,9 +68,9 @@
     <set name="weight" val="1860" />
     <set name="price" val="3470000" />
     <for>
-      <add order="0x10" stat="pDef" val="86" />
-      <add order="0x40" stat="maxMp" val="409" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="86" />
+      <add stat="maxMp" val="409" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5305" type="Armor" name="Sealed Tallum Stockings">
@@ -84,9 +84,9 @@
     <set name="weight" val="920" />
     <set name="price" val="2170000" />
     <for>
-      <add order="0x10" stat="pDef" val="53" />
-      <add order="0x40" stat="maxMp" val="256" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="53" />
+      <add stat="maxMp" val="256" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5306" type="Armor" name="Sealed Gloves of Black Ore">
@@ -99,8 +99,8 @@
     <set name="weight" val="570" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5307" type="Armor" name="Sealed Red Flame Boots">
@@ -113,8 +113,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5308" type="Armor" name="Sealed Dark Crystal Robe">
@@ -128,9 +128,9 @@
     <set name="weight" val="2450" />
     <set name="price" val="5080000" />
     <for>
-      <add order="0x10" stat="pDef" val="139" />
-      <add order="0x40" stat="maxMp" val="665" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="139" />
+      <add stat="maxMp" val="665" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5309" type="Armor" name="Sealed Phoenix Gloves">
@@ -143,8 +143,8 @@
     <set name="weight" val="570" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5310" type="Armor" name="Sealed Phoenix Boots">
@@ -157,8 +157,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1070000" />
     <for>
-      <add order="0x10" stat="pDef" val="45" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="45" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5311" type="Armor" name="Sealed Armor of Nightmare">
@@ -172,8 +172,8 @@
     <set name="weight" val="9580" />
     <set name="price" val="10300000" />
     <for>
-      <add order="0x10" stat="pDef" val="293" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="293" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5312" type="Armor" name="Sealed Helm of Nightmare">
@@ -186,8 +186,8 @@
     <set name="weight" val="560" />
     <set name="price" val="2640000" />
     <for>
-      <add order="0x10" stat="pDef" val="73" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="73" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5313" type="Armor" name="Sealed Gauntlets of Nightmare">
@@ -200,8 +200,8 @@
     <set name="weight" val="550" />
     <set name="price" val="1760000" />
     <for>
-      <add order="0x10" stat="pDef" val="49" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="49" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5314" type="Armor" name="Sealed Boots of Nightmare">
@@ -214,8 +214,8 @@
     <set name="weight" val="1110" />
     <set name="price" val="1760000" />
     <for>
-      <add order="0x10" stat="pDef" val="49" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="49" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5315" type="Armor" name="Sealed Shield of Nightmare">
@@ -228,10 +228,10 @@
     <set name="weight" val="1180" />
     <set name="price" val="1850000" />
     <for>
-      <sub order="0x10" stat="rEvas" val="8" />
-      <set order="0x08" stat="rShld" val="20" />
-      <set order="0x08" stat="sDef" val="256" />
-      <enchant val="0" order="0x0C" stat="sDef" />
+      <sub stat="rEvas" val="8" />
+      <set stat="rShld" val="20" />
+      <set stat="sDef" val="256" />
+      <enchant val="0" stat="sDef" />
     </for>
   </item>
   <item id="5316" type="Armor" name="Sealed Majestic Plate Armor">
@@ -245,8 +245,8 @@
     <set name="weight" val="9200" />
     <set name="price" val="10300000" />
     <for>
-      <add order="0x10" stat="pDef" val="293" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="293" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5317" type="Armor" name="Sealed Majestic Circlet">
@@ -259,8 +259,8 @@
     <set name="weight" val="550" />
     <set name="price" val="2640000" />
     <for>
-      <add order="0x10" stat="pDef" val="73" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="73" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5318" type="Armor" name="Sealed Majestic Gauntlets">
@@ -273,8 +273,8 @@
     <set name="weight" val="540" />
     <set name="price" val="1760000" />
     <for>
-      <add order="0x10" stat="pDef" val="49" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="49" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5319" type="Armor" name="Sealed Majestic Boots">
@@ -287,8 +287,8 @@
     <set name="weight" val="1110" />
     <set name="price" val="1760000" />
     <for>
-      <add order="0x10" stat="pDef" val="49" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="49" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5320" type="Armor" name="Sealed Leather Armor of Nightmare">
@@ -302,8 +302,8 @@
     <set name="weight" val="5300" />
     <set name="price" val="7730000" />
     <for>
-      <add order="0x10" stat="pDef" val="220" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="220" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5321" type="Armor" name="Sealed Dark Legion Gloves">
@@ -316,8 +316,8 @@
     <set name="weight" val="560" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5322" type="Armor" name="Sealed Dark Legion Boots">
@@ -330,8 +330,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5323" type="Armor" name="Sealed Majestic Leather Armor">
@@ -345,8 +345,8 @@
     <set name="weight" val="5350" />
     <set name="price" val="7730000" />
     <for>
-      <add order="0x10" stat="pDef" val="220" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="220" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5324" type="Armor" name="Sealed Gloves of Phantom">
@@ -359,8 +359,8 @@
     <set name="weight" val="560" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5325" type="Armor" name="Sealed Boots of Phantom">
@@ -373,8 +373,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5326" type="Armor" name="Sealed Nightmare Robe">
@@ -388,9 +388,9 @@
     <set name="weight" val="2300" />
     <set name="price" val="7730000" />
     <for>
-      <add order="0x10" stat="pDef" val="147" />
-      <add order="0x40" stat="maxMp" val="718" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="147" />
+      <add stat="maxMp" val="718" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5327" type="Armor" name="Sealed Cerberus Gloves">
@@ -403,8 +403,8 @@
     <set name="weight" val="540" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5328" type="Armor" name="Sealed Cerberus Boots">
@@ -417,8 +417,8 @@
     <set name="weight" val="1120" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5329" type="Armor" name="Sealed Majestic Robe">
@@ -432,9 +432,9 @@
     <set name="weight" val="2330" />
     <set name="price" val="7730000" />
     <for>
-      <add order="0x10" stat="pDef" val="147" />
-      <add order="0x40" stat="maxMp" val="718" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="147" />
+      <add stat="maxMp" val="718" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5330" type="Armor" name="Sealed Dasparion's Gloves">
@@ -447,8 +447,8 @@
     <set name="weight" val="550" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5331" type="Armor" name="Sealed Dasparion's Boots">
@@ -461,8 +461,8 @@
     <set name="weight" val="1100" />
     <set name="price" val="1630000" />
     <for>
-      <add order="0x10" stat="pDef" val="48" />
-      <enchant order="0x0C" stat="pDef" val="0" />
+      <baseadd stat="pDef" val="48" />
+      <enchant stat="pDef" val="0" />
     </for>
   </item>
   <item id="5332" type="EtcItem" name="Recipe: Sealed Dark Crystal Leather Armor(60%)">

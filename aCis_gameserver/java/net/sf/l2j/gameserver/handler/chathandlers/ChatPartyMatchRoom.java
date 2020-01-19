@@ -1,10 +1,10 @@
 package net.sf.l2j.gameserver.handler.chathandlers;
 
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.enums.SayType;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 public class ChatPartyMatchRoom implements IChatHandler
@@ -20,13 +20,11 @@ public class ChatPartyMatchRoom implements IChatHandler
 		if (!activeChar.isInPartyMatchRoom())
 			return;
 		
-		final PartyMatchRoom room = PartyMatchRoomList.getInstance().getPlayerRoom(activeChar);
+		final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(activeChar.getPartyRoom());
 		if (room == null)
 			return;
 		
-		final CreatureSay cs = new CreatureSay(activeChar, type, text);
-		for (Player member : room.getPartyMembers())
-			member.sendPacket(cs);
+		room.broadcastPacket(new CreatureSay(activeChar, type, text));
 	}
 	
 	@Override

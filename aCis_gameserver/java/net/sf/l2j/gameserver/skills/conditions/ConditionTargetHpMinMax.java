@@ -1,11 +1,9 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * Used for Trap skills.
- * @author Tryskell
- */
 public class ConditionTargetHpMinMax extends Condition
 {
 	private final int _minHp, _maxHp;
@@ -17,12 +15,12 @@ public class ConditionTargetHpMinMax extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (env.getTarget() == null)
+		if (effected == null)
 			return false;
 		
-		int _currentHp = (int) env.getTarget().getCurrentHp() * 100 / env.getTarget().getMaxHp();
-		return _currentHp >= _minHp && _currentHp <= _maxHp;
+		final int currentHp = (int) effected.getCurrentHp() * 100 / effected.getMaxHp();
+		return currentHp >= _minHp && currentHp <= _maxHp;
 	}
 }

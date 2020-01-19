@@ -8,7 +8,6 @@ import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class CpDamPercent implements ISkillHandler
@@ -24,8 +23,6 @@ public class CpDamPercent implements ISkillHandler
 		if (activeChar.isAlikeDead())
 			return;
 		
-		final boolean ss = activeChar.isChargedShot(ShotType.SOULSHOT);
-		final boolean sps = activeChar.isChargedShot(ShotType.SPIRITSHOT);
 		final boolean bsps = activeChar.isChargedShot(ShotType.BLESSED_SPIRITSHOT);
 		
 		for (WorldObject obj : targets)
@@ -44,7 +41,7 @@ public class CpDamPercent implements ISkillHandler
 			// Manage cast break of the target (calculating rate, sending message...)
 			Formulas.calcCastBreak(target, damage);
 			
-			skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+			skill.getEffects(activeChar, target, shld, bsps);
 			activeChar.sendDamageMessage(target, damage, false, false, false);
 			target.setCurrentCp(target.getCurrentCp() - damage);
 			

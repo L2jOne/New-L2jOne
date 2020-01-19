@@ -1,33 +1,27 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * The Class ConditionPlayerWeight.
- * @author Kerberos
- */
 public class ConditionPlayerWeight extends Condition
 {
 	private final int _weight;
 	
-	/**
-	 * Instantiates a new condition player weight.
-	 * @param weight the weight
-	 */
 	public ConditionPlayerWeight(int weight)
 	{
 		_weight = weight;
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		final Player player = env.getPlayer();
-		if (player != null && player.getMaxLoad() > 0)
+		if (effector instanceof Player)
 		{
-			int weightproc = player.getCurrentLoad() * 100 / player.getMaxLoad();
-			return weightproc < _weight;
+			final Player player = (Player) effector;
+			if (player.getMaxLoad() > 0)
+				return player.getCurrentLoad() * 100 / player.getMaxLoad() < _weight;
 		}
 		return true;
 	}

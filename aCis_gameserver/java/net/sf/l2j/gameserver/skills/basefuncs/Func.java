@@ -1,74 +1,84 @@
 package net.sf.l2j.gameserver.skills.basefuncs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
+import net.sf.l2j.gameserver.skills.funcs.FuncMDefMod;
+import net.sf.l2j.gameserver.skills.funcs.FuncPAtkMod;
 
 /**
- * A Func object is a component of a Calculator created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...).<br>
- * In fact, each calculator is a table of Func object in which each Func represents a mathematics function:<br>
- * FuncAtkAccuracy -> Math.sqrt(_player.getDEX())*6+_player.getLevel()<br>
- * When the calc method of a calculator is launched, each mathematics function is called according to its priority <B>_order</B>.<br>
- * Indeed, Func with lowest priority order is executed first and Funcs with the same order are executed in unspecified order.<br>
- * The result of the calculation is stored in the value property of an Env class instance.
+ * A super class for all functions. {@link Func} is container used to calculate a {@link Stats}'s value. It contains the {@link Stats}, order and the value itself.<br>
+ * <br>
+ * When the calculation is required (via {@link Calculator}), each {@link Func} is called sequentially by its order. Lowest priority order is executed first, while same order are executed in unspecified order.<br>
+ * <ul>
+ * The order is defined by each inherited {@link Func}, as following:
+ * <li>The base for all calculation is given from template.</li>
+ * <li>0 = {@link FuncSet} is overriding the base (template value). E.g. weapon's P.Atk.</li>
+ * <li>1 = {@link FuncBaseMul} is adding a flat ratio of base value to the result. Used by skills for critical chance only.</li>
+ * <li>2 = {@link FuncBaseAdd} is adding a value to the result. Used by items's P.Def. and M.Def.</li>
+ * <li>3 = {@link FuncEnchant} is adding a value to the result, based on enchant level of owned item. Used by items.</li>
+ * <li>10 = Finalization of base value calculation, prior to other calculations. E.g {@link FuncPAtkMod}, {@link FuncMDefMod}, etc. Used by default in {@link Creature}.</li>
+ * <li>20 = {@link FuncMul} and {@link FuncDiv} are providing multiplication operation of the result and value. E.g. skills' percentage bonuses.</li>
+ * <li>30 = {@link FuncAdd} and {@link FuncSub} are providing summary operation of the result and value. E.g. skills' bonuses.</li>
+ * <li>40 = {@link FuncAddMul} and {@link FuncSubDiv} are providing multiplication operation of the result and percent value. E.g. skills affecting resistances.</li>
+ * </ul>
  */
 public abstract class Func
 {
-	/**
-	 * Statistics, that is affected by this function (See Creature.CALCULATOR_XXX constants)
-	 */
-	public final Stats stat;
+	private final Object _owner;
 	
-	/**
-	 * Order of functions calculation.<br>
-	 * Functions with lower order are executed first.<br>
-	 * Functions with the same order are executed in unspecified order.<br>
-	 * Usually add/subtract functions has lowest order,<br>
-	 * then bonus/penalty functions (multiply/divide) are applied, then functions that do more complex<br>
-	 * calculations (non-linear functions).
-	 */
-	public final int order;
+	private final Stats _stat;
+	private final int _order;
+	private final double _value;
 	
-	/**
-	 * Owner can be an armor, weapon, skill, system event, quest, etc.<br>
-	 * Used to remove all functions added by this owner.
-	 */
-	public final Object funcOwner;
+	private final Condition _condition;
 	
-	/**
-	 * Function may be disabled by attached condition.
-	 */
-	public Condition cond;
-	
-	public Lambda _lambda;
-	
-	/**
-	 * Constructor of Func.
-	 * @param pStat
-	 * @param pOrder
-	 * @param owner
-	 * @param lambda
-	 */
-	public Func(Stats pStat, int pOrder, Object owner, Lambda lambda)
+	public Func(Object owner, Stats stat, int order, double value, Condition condition)
 	{
-		stat = pStat;
-		order = pOrder;
-		funcOwner = owner;
-		_lambda = lambda;
+		_owner = owner;
+		
+		_stat = stat;
+		_order = order;
+		_value = value;
+		
+		_condition = condition;
 	}
 	
 	/**
-	 * Add a condition to the Func.
-	 * @param pCond
+	 * Run the mathematics function of the {@link Func}.
+	 * @param effector : The {@link Creature} who launches the effect.
+	 * @param effected : The {@link Creature} who receives the effect.
+	 * @param skill : The {@link L2Skill} used to calculate.
+	 * @param base : The base value prior any calculation.
+	 * @param value : The continuously updated result.
+	 * @return The calculated value.
 	 */
-	public void setCondition(Condition pCond)
+	public abstract double calc(Creature effector, Creature effected, L2Skill skill, double base, double value);
+	
+	public final Stats getStat()
 	{
-		cond = pCond;
+		return _stat;
 	}
 	
-	/**
-	 * Run the mathematics function of the Func.
-	 * @param env
-	 */
-	public abstract void calc(Env env);
+	public final int getOrder()
+	{
+		return _order;
+	}
+	
+	public final Object getFuncOwner()
+	{
+		return _owner;
+	}
+	
+	public final double getValue()
+	{
+		return _value;
+	}
+	
+	public final Condition getCond()
+	{
+		return _condition;
+	}
 }

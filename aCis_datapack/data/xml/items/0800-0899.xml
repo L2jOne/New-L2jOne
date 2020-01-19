@@ -458,7 +458,7 @@
     <set name="weight" val="150" />
     <set name="price" val="8890" />
     <for>
-      <add order="0x10" stat="mDef" val="19" />
+      <baseadd stat="mDef" val="19" />
     </for>
   </item>
   <item id="846" type="Armor" name="Coral Earring">
@@ -469,7 +469,7 @@
     <set name="weight" val="150" />
     <set name="price" val="16000" />
     <for>
-      <add order="0x10" stat="mDef" val="21" />
+      <baseadd stat="mDef" val="21" />
     </for>
   </item>
   <item id="847" type="Armor" name="Red Crescent Earring">
@@ -482,8 +482,8 @@
     <set name="weight" val="150" />
     <set name="price" val="26900" />
     <for>
-      <add order="0x10" stat="mDef" val="24" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="24" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="848" type="Armor" name="Enchanted Earring">
@@ -496,8 +496,8 @@
     <set name="weight" val="150" />
     <set name="price" val="42600" />
     <for>
-      <add order="0x10" stat="mDef" val="27" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="27" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="849" type="Armor" name="Tiger's Eye Earring">
@@ -510,8 +510,8 @@
     <set name="weight" val="150" />
     <set name="price" val="64300" />
     <for>
-      <add order="0x10" stat="mDef" val="30" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="30" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="850" type="Armor" name="Elven Earring">
@@ -524,8 +524,8 @@
     <set name="weight" val="150" />
     <set name="price" val="93400" />
     <for>
-      <add order="0x10" stat="mDef" val="34" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="34" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="851" type="Armor" name="Omen Beast's Eye Earring">
@@ -538,8 +538,8 @@
     <set name="weight" val="150" />
     <set name="price" val="121000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="852" type="Armor" name="Moonstone Earring">
@@ -552,8 +552,8 @@
     <set name="weight" val="150" />
     <set name="price" val="155000" />
     <for>
-      <add order="0x10" stat="mDef" val="39" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="39" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="853" type="Armor" name="Earring of Protection">
@@ -566,8 +566,8 @@
     <set name="weight" val="150" />
     <set name="price" val="196000" />
     <for>
-      <add order="0x10" stat="mDef" val="42" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="42" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="854" type="Armor" name="Earring of Binding">
@@ -580,8 +580,8 @@
     <set name="weight" val="150" />
     <set name="price" val="295000" />
     <for>
-      <add order="0x10" stat="mDef" val="45" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="45" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="855" type="Armor" name="Nassen's Earring">
@@ -594,8 +594,8 @@
     <set name="weight" val="150" />
     <set name="price" val="424000" />
     <for>
-      <add order="0x10" stat="mDef" val="48" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="48" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="856" type="Armor" name="Adamantite Earring">
@@ -608,8 +608,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="857" type="Armor" name="Blessed Earring">
@@ -622,8 +622,8 @@
     <set name="weight" val="150" />
     <set name="price" val="424000" />
     <for>
-      <add order="0x10" stat="mDef" val="48" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="48" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="858" type="Armor" name="Tateossian Earring">
@@ -636,9 +636,9 @@
     <set name="weight" val="150" />
     <set name="price" val="4440000" />
     <for>
-      <add order="0x10" stat="mDef" val="71" />
-      <add order="0x40" stat="maxMp" val="31" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="71" />
+      <add stat="maxMp" val="31" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="859" type="Armor" name="Earring of Mana">
@@ -651,8 +651,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="860" type="Armor" name="Sage's Earring">
@@ -665,8 +665,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="861" type="Armor" name="Paradia Earring">
@@ -679,8 +679,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="862" type="Armor" name="Majestic Earring">
@@ -693,9 +693,9 @@
     <set name="weight" val="150" />
     <set name="price" val="2590000" />
     <for>
-      <add order="0x10" stat="mDef" val="63" />
-      <add order="0x40" stat="maxMp" val="25" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="63" />
+      <add stat="maxMp" val="25" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="863" type="Armor" name="Earring of Solar Eclipse">
@@ -708,8 +708,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="864" type="Armor" name="Earring of Black Ore">
@@ -722,8 +722,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="865" type="Armor" name="Earring of Summoning">
@@ -736,8 +736,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="866" type="Armor" name="Otherworldly Earring">
@@ -750,8 +750,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="867" type="Armor" name="Elemental Earring">
@@ -764,8 +764,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="868" type="Armor" name="Earring of Phantom">
@@ -778,8 +778,8 @@
     <set name="weight" val="150" />
     <set name="price" val="1950000" />
     <for>
-      <add order="0x10" stat="mDef" val="60" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="60" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="869" type="Armor" name="Earring of Grace">
@@ -792,8 +792,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="870" type="Armor" name="Earring of Holy Spirit">
@@ -806,8 +806,8 @@
     <set name="weight" val="150" />
     <set name="price" val="924000" />
     <for>
-      <add order="0x10" stat="mDef" val="54" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="54" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="871" type="Armor" name="Phoenix Earring">
@@ -820,9 +820,9 @@
     <set name="weight" val="150" />
     <set name="price" val="1950000" />
     <for>
-      <add order="0x10" stat="mDef" val="60" />
-      <add order="0x40" stat="maxMp" val="20" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="60" />
+      <add stat="maxMp" val="20" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="872" type="Armor" name="Cerberus Earring">
@@ -835,8 +835,8 @@
     <set name="weight" val="150" />
     <set name="price" val="1950000" />
     <for>
-      <add order="0x10" stat="mDef" val="60" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="60" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="873" type="Armor" name="Earring of Aid">
@@ -849,8 +849,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="874" type="Armor" name="Earring of Blessing">
@@ -863,8 +863,8 @@
     <set name="weight" val="150" />
     <set name="price" val="606000" />
     <for>
-      <add order="0x10" stat="mDef" val="51" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="51" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="875" type="Armor" name="Ring of Knowledge">
@@ -875,7 +875,7 @@
     <set name="weight" val="150" />
     <set name="price" val="540" />
     <for>
-      <add order="0x10" stat="mDef" val="9" />
+      <baseadd stat="mDef" val="9" />
     </for>
   </item>
   <item id="876" type="Armor" name="Ring of Anguish">
@@ -886,7 +886,7 @@
     <set name="weight" val="150" />
     <set name="price" val="2340" />
     <for>
-      <add order="0x10" stat="mDef" val="11" />
+      <baseadd stat="mDef" val="11" />
     </for>
   </item>
   <item id="877" type="Armor" name="Ring of Wisdom">
@@ -897,7 +897,7 @@
     <set name="weight" val="150" />
     <set name="price" val="5920" />
     <for>
-      <add order="0x10" stat="mDef" val="12" />
+      <baseadd stat="mDef" val="12" />
     </for>
   </item>
   <item id="878" type="Armor" name="Blue Coral Ring">
@@ -908,7 +908,7 @@
     <set name="weight" val="150" />
     <set name="price" val="10700" />
     <for>
-      <add order="0x10" stat="mDef" val="14" />
+      <baseadd stat="mDef" val="14" />
     </for>
   </item>
   <item id="879" type="Armor" name="Enchanted Ring">
@@ -921,8 +921,8 @@
     <set name="weight" val="150" />
     <set name="price" val="28400" />
     <for>
-      <add order="0x10" stat="mDef" val="18" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="18" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="880" type="Armor" name="Black Pearl Ring">
@@ -935,8 +935,8 @@
     <set name="weight" val="150" />
     <set name="price" val="42800" />
     <for>
-      <add order="0x10" stat="mDef" val="20" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="20" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="881" type="Armor" name="Elven Ring">
@@ -949,8 +949,8 @@
     <set name="weight" val="150" />
     <set name="price" val="62300" />
     <for>
-      <add order="0x10" stat="mDef" val="22" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="22" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="882" type="Armor" name="Mithril Ring">
@@ -963,8 +963,8 @@
     <set name="weight" val="150" />
     <set name="price" val="80800" />
     <for>
-      <add order="0x10" stat="mDef" val="24" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="24" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="883" type="Armor" name="Aquastone Ring">
@@ -977,8 +977,8 @@
     <set name="weight" val="150" />
     <set name="price" val="103000" />
     <for>
-      <add order="0x10" stat="mDef" val="26" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="26" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="884" type="Armor" name="Ring of Protection">
@@ -991,8 +991,8 @@
     <set name="weight" val="150" />
     <set name="price" val="130000" />
     <for>
-      <add order="0x10" stat="mDef" val="28" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="28" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="885" type="Armor" name="Ring of Ages">
@@ -1005,8 +1005,8 @@
     <set name="weight" val="150" />
     <set name="price" val="196000" />
     <for>
-      <add order="0x10" stat="mDef" val="30" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="30" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="886" type="Armor" name="Ring of Binding">
@@ -1019,8 +1019,8 @@
     <set name="weight" val="150" />
     <set name="price" val="282000" />
     <for>
-      <add order="0x10" stat="mDef" val="32" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="32" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="887" type="Armor" name="Adamantite Ring">
@@ -1033,8 +1033,8 @@
     <set name="weight" val="150" />
     <set name="price" val="404000" />
     <for>
-      <add order="0x10" stat="mDef" val="34" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="34" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="888" type="Armor" name="Blessed Ring">
@@ -1047,8 +1047,8 @@
     <set name="weight" val="150" />
     <set name="price" val="282000" />
     <for>
-      <add order="0x10" stat="mDef" val="32" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="32" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="889" type="Armor" name="Tateossian Ring">
@@ -1061,9 +1061,9 @@
     <set name="weight" val="150" />
     <set name="price" val="2960000" />
     <for>
-      <add order="0x10" stat="mDef" val="48" />
-      <add order="0x40" stat="maxMp" val="21" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="48" />
+      <add stat="maxMp" val="21" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="890" type="Armor" name="Ring of Devotion">
@@ -1076,8 +1076,8 @@
     <set name="weight" val="150" />
     <set name="price" val="18000" />
     <for>
-      <add order="0x10" stat="mDef" val="16" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="16" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="891" type="Armor" name="Sage's Ring">
@@ -1090,8 +1090,8 @@
     <set name="weight" val="150" />
     <set name="price" val="616000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="892" type="Armor" name="Paradia Ring">
@@ -1104,8 +1104,8 @@
     <set name="weight" val="150" />
     <set name="price" val="616000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="893" type="Armor" name="Majestic Ring">
@@ -1118,9 +1118,9 @@
     <set name="weight" val="150" />
     <set name="price" val="1730000" />
     <for>
-      <add order="0x10" stat="mDef" val="42" />
-      <add order="0x40" stat="maxMp" val="17" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="42" />
+      <add stat="maxMp" val="17" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="894" type="Armor" name="Ring of Solar Eclipse">
@@ -1133,8 +1133,8 @@
     <set name="weight" val="150" />
     <set name="price" val="404000" />
     <for>
-      <add order="0x10" stat="mDef" val="34" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="34" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="895" type="Armor" name="Ring of Black Ore">
@@ -1147,8 +1147,8 @@
     <set name="weight" val="150" />
     <set name="price" val="616000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="896" type="Armor" name="Ring of Summoning">
@@ -1161,8 +1161,8 @@
     <set name="weight" val="150" />
     <set name="price" val="404000" />
     <for>
-      <add order="0x10" stat="mDef" val="34" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="34" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="897" type="Armor" name="Otherworldly Ring">
@@ -1175,8 +1175,8 @@
     <set name="weight" val="150" />
     <set name="price" val="616000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="898" type="Armor" name="Elemental Ring">
@@ -1189,8 +1189,8 @@
     <set name="weight" val="150" />
     <set name="price" val="616000" />
     <for>
-      <add order="0x10" stat="mDef" val="36" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="36" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
   <item id="899" type="Armor" name="Ring of Phantom">
@@ -1203,8 +1203,8 @@
     <set name="weight" val="150" />
     <set name="price" val="1300000" />
     <for>
-      <add order="0x10" stat="mDef" val="40" />
-      <enchant order="0x0C" stat="mDef" val="0" />
+      <baseadd stat="mDef" val="40" />
+      <enchant stat="mDef" val="0" />
     </for>
   </item>
 </list>

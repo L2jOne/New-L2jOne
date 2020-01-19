@@ -1,10 +1,9 @@
 package net.sf.l2j.gameserver.skills.conditions;
 
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * @author mr
- */
 public class ConditionPlayerHp extends Condition
 {
 	private final int _hp;
@@ -15,8 +14,8 @@ public class ConditionPlayerHp extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		return env.getCharacter().getCurrentHp() * 100 / env.getCharacter().getMaxHp() <= _hp;
+		return effector.getCurrentHp() * 100 / effector.getMaxHp() <= _hp;
 	}
 }

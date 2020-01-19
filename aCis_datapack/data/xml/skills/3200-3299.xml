@@ -17,7 +17,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="mReuse" val="#mReuse" />
+				<mul stat="mReuse" val="#mReuse" />
 			</effect>
 		</for>
 	</skill>
@@ -38,7 +38,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="pReuse" val="#pReuse" />
+				<mul stat="pReuse" val="#pReuse" />
 			</effect>
 		</for>
 	</skill>
@@ -59,8 +59,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="1" stackType="abnormal_item">
-				<mul order="0x30" stat="mReuse" val="#reUse" />
-				<mul order="0x30" stat="pReuse" val="#reUse" />
+				<mul stat="mReuse" val="#reUse" />
+				<mul stat="pReuse" val="#reUse" />
 			</effect>
 		</for>
 	</skill>
@@ -93,7 +93,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="1" stackType="abnormal_item">
-				<add order="0x40" stat="reflectDam" val="#reflectDam" />
+				<add stat="reflectDam" val="#reflectDam" />
 			</effect>
 		</for>
 	</skill>
@@ -472,7 +472,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="gainHp" val="1.01" />
+			<mul stat="gainHp" val="1.01" />
 		</for>
 	</skill>
 	<skill id="3239" levels="10" name="Item Skill: Mana Gain">
@@ -482,7 +482,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="gainMp" val="1.01" />
+			<mul stat="gainMp" val="1.01" />
 		</for>
 	</skill>
 	<skill id="3240" levels="10" name="Item Skill: Might">
@@ -493,7 +493,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="pAtk" val="#pAtk" />
+			<mul stat="pAtk" val="#pAtk" />
 		</for>
 	</skill>
 	<skill id="3241" levels="10" name="Item Skill: Empower">
@@ -504,7 +504,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="mAtk" val="#mAtk" />
+			<mul stat="mAtk" val="#mAtk" />
 		</for>
 	</skill>
 	<skill id="3243" levels="10" name="Item Skill: Duel Might">
@@ -515,8 +515,8 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="pvpPhysDmg" val="#pvpBonus" />
-			<mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpBonus" />
+			<mul stat="pvpPhysDmg" val="#pvpBonus" />
+			<mul stat="pvpPhysSkillsDmg" val="#pvpBonus" />
 		</for>
 	</skill>
 	<skill id="3244" levels="10" name="Item Skill: Shield">
@@ -527,7 +527,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="pDef" val="#pDef" />
+			<mul stat="pDef" val="#pDef" />
 		</for>
 	</skill>
 	<skill id="3245" levels="10" name="Item Skill: Magic Barrier">
@@ -538,7 +538,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="mDef" val="#mDef" />
+			<mul stat="mDef" val="#mDef" />
 		</for>
 	</skill>
 	<skill id="3246" levels="10" name="Item Skill: Heal Empower">
@@ -549,7 +549,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<add order="0x40" stat="giveHp" val="#giveHp" />
+			<add stat="giveHp" val="#giveHp" />
 		</for>
 	</skill>
 	<skill id="3247" levels="10" name="Item Skill: Agility">
@@ -559,7 +559,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<add order="0x40" stat="rEvas" val="2" />
+			<add stat="rEvas" val="2" />
 		</for>
 	</skill>
 	<skill id="3248" levels="10" name="Item Skill: Guidance">
@@ -569,7 +569,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<add order="0x40" stat="accCombat" val="2" />
+			<add stat="accCombat" val="2" />
 		</for>
 	</skill>
 	<skill id="3249" levels="10" name="Item Skill: Focus">
@@ -579,7 +579,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<basemul order="0x30" stat="rCrit" val="0.2" />
+			<basemul stat="rCrit" val="0.2" />
 		</for>
 	</skill>
 	<skill id="3250" levels="10" name="Item Skill: Wild Magic">
@@ -589,7 +589,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<basemul order="0x10" stat="mCritRate" val="0.04" />
+			<basemul stat="mCritRate" val="0.04" />
 		</for>
 	</skill>
 	<skill id="3251" levels="10" name="Item Skill: Weight Limit">
@@ -599,7 +599,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="maxLoad" val="2" />
+			<mul stat="maxLoad" val="2" />
 		</for>
 	</skill>
 	<skill id="3252" levels="10" name="Item Skill: Kiss of Eva">
@@ -609,7 +609,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="breath" val="6" />
+			<mul stat="breath" val="6" />
 		</for>
 	</skill>
 	<skill id="3253" levels="10" name="Item Skill: Acrobatics">
@@ -634,7 +634,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="PhysicalMpConsumeRate" val="#PhysicalMpConsumeRate" />
+			<mul stat="PhysicalMpConsumeRate" val="#PhysicalMpConsumeRate" />
 		</for>
 	</skill>
 	<skill id="3256" levels="3" name="Item Skill: Spell Clarity">
@@ -645,7 +645,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="MagicalMpConsumeRate" val="#MagicalMpConsumeRate" />
+			<mul stat="MagicalMpConsumeRate" val="#MagicalMpConsumeRate" />
 		</for>
 	</skill>
 	<skill id="3257" levels="3" name="Item Skill: Music Clarity">
@@ -656,7 +656,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="DanceMpConsumeRate" val="#DanceMpConsumeRate" />
+			<mul stat="DanceMpConsumeRate" val="#DanceMpConsumeRate" />
 		</for>
 	</skill>
 	<skill id="3258" levels="3" name="Item Skill: Clarity">
@@ -668,9 +668,9 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="MagicalMpConsumeRate" val="#MagicalMpConsumeRate" />
-			<mul order="0x30" stat="PhysicalMpConsumeRate" val="#PhysicalMpConsumeRate" />
-			<mul order="0x30" stat="DanceMpConsumeRate" val="0.9" />
+			<mul stat="MagicalMpConsumeRate" val="#MagicalMpConsumeRate" />
+			<mul stat="PhysicalMpConsumeRate" val="#PhysicalMpConsumeRate" />
+			<mul stat="DanceMpConsumeRate" val="0.9" />
 		</for>
 	</skill>
 	<skill id="3259" levels="3" name="Item Skill: Reflect Damage">
@@ -681,7 +681,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<add order="0x40" stat="reflectDam" val="#reflectDam" />
+			<add stat="reflectDam" val="#reflectDam" />
 		</for>
 	</skill>
 	<skill id="3260" levels="1" name="Forgiveness">

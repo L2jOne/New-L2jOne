@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30">
 		<table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
@@ -82,7 +82,7 @@
 		<set name="aggroPoints" val="#aggro"/>
 		<for>
 			<effect name="Buff" time="15" val="0" stackOrder="#stackOrder" stackType="speed_up_special">
-				<add order="0x40" stat="runSpd" val="#spd"/>
+				<add stat="runSpd" val="#spd"/>
 			</effect>
 		</for>
 	</skill>
@@ -1135,12 +1135,12 @@
 		<enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="md_up">
-				<mul order="0x30" stat="mDef" val="#mDef"/>
+				<mul stat="mDef" val="#mDef"/>
 			</effect>
 		</for>
 		<enchant1for>
 			<effect name="Buff" time="1200" val="0" stackOrder="3" stackType="md_up">
-				<mul order="0x30" stat="mDef" val="1.3"/>
+				<mul stat="mDef" val="1.3"/>
 			</effect>
 		</enchant1for>
 	</skill>
@@ -1154,7 +1154,7 @@
 		<set name="aggroPoints" val="303" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
-				<add order="0x40" stat="pAtk-insects" val="20" />
+				<add stat="pAtk-insects" val="20" />
 			</effect>
 		</for>
 	</skill>
@@ -1170,9 +1170,9 @@
 		<set name="weaponsAllowed" val="DUALFIST" /> <!-- Dual Fist -->
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="runSpd" val="0.7"/> 
-				<mul order="0x30" stat="pAtk" val="1.2"/> 
-				<mul order="0x30" stat="cAtk" val="1.2"/>
+				<mul stat="runSpd" val="0.7"/> 
+				<mul stat="pAtk" val="1.2"/> 
+				<mul stat="cAtk" val="1.2"/>
 			</effect>
 		</for>
 	</skill>
@@ -1193,7 +1193,7 @@
 		<set name="aggroPoints" val="#aggro"/>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pa_up">
-				<mul order="0x30" stat="pAtk" val="#rate"/>
+				<mul stat="pAtk" val="#rate"/>
 			</effect>
 		</for>
 	</skill>
@@ -1211,7 +1211,7 @@
 		<set name="aggroPoints" val="#aggro"/>
 		<for>
 			<effect name="Buff" time="60" val="0" stackOrder="#stackOrder" stackType="pa_up_special">
-				<mul order="0x30" stat="pAtk" val="#pAtk"/>
+				<mul stat="pAtk" val="#pAtk"/>
 			</effect>
 		</for>
 	</skill>
@@ -1225,7 +1225,7 @@
 		<set name="aggroPoints" val="495"/>
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
-				<add order="0x40" stat="pAtk-monsters" val="20"/>
+				<add stat="pAtk-monsters" val="20"/>
 			</effect>
 		</for>
 	</skill>
@@ -1276,8 +1276,8 @@
 		<set name="aggroPoints" val="#aggro"/>
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="#stackOrder" stackType="majesty">
-				<mul order="0x30" stat="pDef" val="#pDef"/>
-				<sub order="0x40" stat="rEvas" val="#rEvas"/>
+				<mul stat="pDef" val="#pDef"/>
+				<sub stat="rEvas" val="#rEvas"/>
 			</effect>
 		</for>
 	</skill>
@@ -1293,8 +1293,8 @@
 		<set name="weaponsAllowed" val="DUALFIST" /> <!-- Dual Fist -->
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-				<mul order="0x30" stat="runSpd" val="1.2"/>
-				<add order="0x40" stat="accCombat" val="3"/>
+				<mul stat="runSpd" val="1.2"/>
+				<add stat="accCombat" val="3"/>
 			</effect>
 		</for>
 	</skill>
@@ -1355,12 +1355,12 @@
 		<enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="dmg_shield">
-				<add order="0x40" stat="reflectDam" val="#reflectDam" />
+				<add stat="reflectDam" val="#reflectDam" />
 			</effect>
 		</for>
 		<enchant1for>
 			<effect name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="dmg_shield">
-				<add order="0x40" stat="reflectDam" val="20"/>
+				<add stat="reflectDam" val="20"/>
 			</effect>
 		</enchant1for>
 	</skill>
@@ -1374,7 +1374,7 @@
 		<set name="aggroPoints" val="379"/>
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
-				<add order="0x40" stat="pAtk-animals" val="20"/>
+				<add stat="pAtk-animals" val="20"/>
 			</effect>
 		</for>
 	</skill>
@@ -1388,7 +1388,7 @@
 		<set name="aggroPoints" val="549" />
 		<for>
 			<effect name="Buff" time="600" val="0" stackOrder="1" stackType="detect_weakness">
-				<add order="0x40" stat="pAtk-dragons" val="20" />
+				<add stat="pAtk-dragons" val="20" />
 			</effect>
 		</for>
 	</skill>
@@ -1409,7 +1409,7 @@
 		<set name="aggroPoints" val="#aggro" />
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="pd_up">
-				<mul order="0x30" stat="pDef" val="#rate" />
+				<mul stat="pDef" val="#rate" />
 			</effect>
 		</for>
 	</skill>
@@ -1459,20 +1459,20 @@
 		<set name="aggroPoints" val="#aggro"/>
 		<for>
 			<effect name="Buff" time="90" val="0" stackOrder="#stackOrder" stackType="pa_up_special">
-				<add order="0x40" stat="accCombat" val="#accCombat">
+				<add stat="accCombat" val="#accCombat">
 					<using kind="BIGSWORD,BIGBLUNT"/>
 	      		</add>
-				<mul order="0x30" stat="pAtk" val="#swordblunt">
+				<mul stat="pAtk" val="#swordblunt">
 					<using kind="SWORD,BLUNT"/>
 				</mul>
-				<mul order="0x30" stat="pAtk" val="#twohands">
+				<mul stat="pAtk" val="#twohands">
 					<using kind="BIGSWORD,BIGBLUNT"/>
 				</mul>
-				<mul order="0x30" stat="pAtk" val="#other">
+				<mul stat="pAtk" val="#other">
 					<using kind="DUALFIST,DUAL,FIST,ETC,POLE,BOW,DAGGER"/>
 				</mul>
-				<mul order="0x30" stat="pDef" val="0.8" />
-				<sub order="0x40" stat="rEvas" val="3" />
+				<mul stat="pDef" val="0.8" />
+				<sub stat="rEvas" val="3" />
 			</effect>
 		</for>
 	</skill>
@@ -1504,7 +1504,7 @@
 		<enchant2 name="mpConsume" val="#ench2MpConsume"/>
 		<for>
 			<effect name="Debuff" time="30" val="0" stackOrder="#stackOrder" stackType="speed_down">
-				<mul order="0x30" stat="runSpd" val="#runSpd"/>
+				<mul stat="runSpd" val="#runSpd"/>
 			</effect>
 		</for>
 	</skill>
@@ -1561,7 +1561,7 @@
 		<enchant2 name="mpConsume" val="#ench2MpConsume"/>
 		<for>
 			<effect name="Debuff" time="60" val="0" stackOrder="3" stackType="pa_down">
-				<mul order="0x30" stat="pAtk" val="0.77"/>
+				<mul stat="pAtk" val="0.77"/>
 			</effect>
 		</for>
 	</skill>
@@ -1609,14 +1609,14 @@
 		<enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
 		<for>
 			<effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="attack_speed_up_bow">
-				<mul order="0x30" stat="pAtkSpd" val="#rate">
+				<mul stat="pAtkSpd" val="#rate">
 					<using kind="BOW"/>
 				</mul>
 			</effect>
 		</for>
 		<enchant1for>
 			<effect name="Buff" time="#ench1time" val="0" stackOrder="2" stackType="attack_speed_up_bow">
-				<mul order="0x30" stat="pAtkSpd" val="1.12">
+				<mul stat="pAtkSpd" val="1.12">
 					<using kind="BOW"/>
 				</mul>
 			</effect>

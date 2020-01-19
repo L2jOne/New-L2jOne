@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <list>
 	<skill id="5000" levels="1" name="Alfred - Super Strike">
 		<set name="mpConsume" val="108" />
@@ -34,7 +34,7 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="300" val="0" stackOrder="4" stackType="vampiric_attack">
-				<add order="0x40" stat="absorbDam" val="9" /> <!-- absorb HP from damage inflicted on enemies -->
+				<add stat="absorbDam" val="9" /> <!-- absorb HP from damage inflicted on enemies -->
 			</effect>
 		</for>
 	</skill>
@@ -132,12 +132,12 @@
 		<set name="target" val="TARGET_SELF" />
 		<for>
 			<effect name="#effectname1" time="#time" val="0" stackOrder="1" stackType="#stackType">
-				<mul order="0x30" stat="pAtk" val="#attackAndSpeed" />
-				<mul order="0x30" stat="mAtk" val="#attackAndSpeed" />
-				<mul order="0x30" stat="pAtkSpd" val="#attackAndSpeed" />
-				<mul order="0x30" stat="mAtkSpd" val="#attackAndSpeed" />
-				<add order="0x40" stat="runSpd" val="#attackAndSpeed" />
-				<mul order="0x30" stat="gainHp" val="#gainHp" />
+				<mul stat="pAtk" val="#attackAndSpeed" />
+				<mul stat="mAtk" val="#attackAndSpeed" />
+				<mul stat="pAtkSpd" val="#attackAndSpeed" />
+				<mul stat="mAtkSpd" val="#attackAndSpeed" />
+				<add stat="runSpd" val="#attackAndSpeed" />
+				<mul stat="gainHp" val="#gainHp" />
 			</effect>
 			<effect name="#effectname2" noicon="1" val="0" effectPower="#effectPower" effectType="#effectType" />
 		</for>
@@ -268,7 +268,7 @@
 		<set name="target" val="TARGET_SELF" />
 		<for>
 			<effect name="Grow" time="7200" val="0" stackOrder="1" stackType="big_body">
-				<mul order="0x30" stat="runSpd" val="1.22" />
+				<mul stat="runSpd" val="1.22" />
 			</effect>
 		</for>
 	</skill>
@@ -323,7 +323,7 @@
         <set name="effectRange" val="900" />
 		<for>
 			<effect name="Buff" time="1200" val="0">
-			    <add order="0x40" stat="holyPower" val="#holyPower" />
+			    <add stat="holyPower" val="#holyPower" />
 			</effect>
 		</for>
 	</skill>
@@ -348,7 +348,7 @@
 		<set name="lvlDepend" val="2" />
         <for>
             <effect name="Debuff" time="120" val="0" stackOrder="#stackOrder" stackType="speed_down">
-                <mul order="0x30" stat="runSpd" val="#runSpd" />
+                <mul stat="runSpd" val="#runSpd" />
             </effect>
         </for>
 	</skill>
@@ -393,7 +393,7 @@
         <set name="lvlDepend" val="1" />
         <for>
             <effect name="Debuff" time="120" val="0" stackOrder="3" stackType="attack_time_up">
-                <mul order="0x30" stat="pAtkSpd" val="#patkspd" />
+                <mul stat="pAtkSpd" val="#patkspd" />
             </effect>
         </for>
 	</skill>
@@ -478,7 +478,7 @@
         <set name="lvlDepend" val="1" />
         <for>
             <effect count="1" name="Debuff" time="30" val="0" noicon="1" stackOrder="3" stackType="casting_time_up">
-                <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
+                <mul stat="mAtkSpd" val="#mAtkSpd" />
             </effect>
         </for>
 	</skill>
@@ -489,9 +489,9 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="pvpMagicalDmg" val="#pvpDmg" />
-			<mul order="0x30" stat="pvpPhysDmg" val="#pvpDmg" />
-			<mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvpDmg" />
+			<mul stat="pvpMagicalDmg" val="#pvpDmg" />
+			<mul stat="pvpPhysDmg" val="#pvpDmg" />
+			<mul stat="pvpPhysSkillsDmg" val="#pvpDmg" />
 		</for>
 	</skill>
 	<skill id="5039" levels="1" name="NPC - Ultra Bomb">
@@ -589,9 +589,9 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="ImobileBuff" time="#time" val="0" stackOrder="#stackOrder" stackType="pd_up_special">
-				<add order="0x40" stat="pDef" val="#pDef" />
-				<add order="0x40" stat="mDef" val="#mDef" />
-				<addMul order="0x40" stat="cancelVuln" val="80" />
+				<add stat="pDef" val="#pDef" />
+				<add stat="mDef" val="#mDef" />
+				<addMul stat="cancelVuln" val="80" />
 			</effect>
 		</for>
 	</skill>
@@ -1031,7 +1031,7 @@
 		<set name="lvlDepend" val="2" />
         <for>
             <effect name="Debuff" time="30" val="0" effectPower="60" effectType="DEBUFF" stackOrder="#stackOrder" stackType="speed_down">
-                <mul order="0x30" stat="runSpd" val="0.7" />
+                <mul stat="runSpd" val="0.7" />
             </effect>
         </for>
 	</skill>
@@ -1054,7 +1054,7 @@
 		<set name="lvlDepend" val="2" />
         <for>
             <effect name="Debuff" time="15" val="0" stackOrder="3" stackType="attack_time_up">
-                <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
+                <mul stat="pAtkSpd" val="#pAtkSpd" />
             </effect>
         </for>
 	</skill>
@@ -1077,7 +1077,7 @@
 		<set name="lvlDepend" val="2" />
         <for>
             <effect name="Debuff" time="15" val="0" stackOrder="3" stackType="casting_time_up">
-                <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd" />
+                <mul stat="mAtkSpd" val="#mAtkSpd" />
             </effect>
         </for>
 	</skill>
@@ -1101,7 +1101,7 @@
 		<set name="lvlDepend" val="2" />
         <for>
             <effect name="Debuff" time="15" val="0" stackOrder="#stackOrder" stackType="pa_down">
-                <mul order="0x30" stat="pAtk" val="#pAtk" />
+                <mul stat="pAtk" val="#pAtk" />
             </effect>
         </for>
 	</skill>
@@ -1123,7 +1123,7 @@
         <set name="isDebuff" val="true" />
         <for>
             <effect name="Debuff" time="15" val="0" stackOrder="3" stackType="ma_down">
-                <mul order="0x30" stat="mAtk" val="#mAtk" />
+                <mul stat="mAtk" val="#mAtk" />
             </effect>
         </for>
 	</skill>
@@ -1145,7 +1145,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="maxCp" val="1.1" />
+			<mul stat="maxCp" val="1.1" />
 		</for>
 	</skill>
 	<skill id="5075" levels="1" name="The Vanquished of War">
@@ -1153,7 +1153,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="maxCp" val="0.9" />
+			<mul stat="maxCp" val="0.9" />
 		</for>
 	</skill>
 	<skill id="5076" levels="15" name="Death Penalty">
@@ -1166,15 +1166,15 @@
 		<set name="skillType" val="BUFF" />
 		<set name="target" val="TARGET_SELF" />
 		<for>
-			<mul order="0x30" stat="pAtk" val="#pAtkpAtkSpdmAtkmAtkSpd" />
-			<mul order="0x30" stat="pAtkSpd" val="#pAtkpAtkSpdmAtkmAtkSpd" />
-			<mul order="0x30" stat="mAtk" val="#pAtkpAtkSpdmAtkmAtkSpd" />
-			<mul order="0x30" stat="mAtkSpd" val="#pAtkpAtkSpdmAtkmAtkSpd" />
-			<sub order="0x40" stat="accCombat" val="#accCombatrEvas" />
-			<sub order="0x40" stat="rEvas" val="#accCombatrEvas" />
-			<mul order="0x30" stat="pDef" val="#pDefmDef" />
-			<mul order="0x30" stat="mDef" val="#pDefmDef" />
-			<mul order="0x30" stat="runSpd" val="#runSpd" />
+			<mul stat="pAtk" val="#pAtkpAtkSpdmAtkmAtkSpd" />
+			<mul stat="pAtkSpd" val="#pAtkpAtkSpdmAtkmAtkSpd" />
+			<mul stat="mAtk" val="#pAtkpAtkSpdmAtkmAtkSpd" />
+			<mul stat="mAtkSpd" val="#pAtkpAtkSpdmAtkmAtkSpd" />
+			<sub stat="accCombat" val="#accCombatrEvas" />
+			<sub stat="rEvas" val="#accCombatrEvas" />
+			<mul stat="pDef" val="#pDefmDef" />
+			<mul stat="mDef" val="#pDefmDef" />
+			<mul stat="runSpd" val="#runSpd" />
 		</for>
 	</skill>
 	<skill id="5077" levels="1" name="NPC Remove Death Penalty">
@@ -1189,7 +1189,7 @@
 		<set name="skillType" val="BUFF" />
 		<set name="operateType" val="OP_PASSIVE" />
 		<for>
-			<mul order="0x30" stat="cAtk" val="1.35" />
+			<mul stat="cAtk" val="1.35" />
 		</for>
 	</skill>
 	<skill id="5079" levels="1" name="NPC Focused Haste">
@@ -1205,8 +1205,8 @@
 		<set name="aggroPoints" val="100" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="2" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="1.33" />
-				<basemul order="0x30" stat="rCrit" val="0.3" />
+				<mul stat="pAtkSpd" val="1.33" />
+				<basemul stat="rCrit" val="0.3" />
 			</effect>
 		</for>
 	</skill>
@@ -1222,8 +1222,8 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="120" val="0" stackOrder="2" stackType="attack_time_down">
-				<mul order="0x30" stat="pAtkSpd" val="1.33" />
-				<mul order="0x30" stat="pAtk" val="1.15" />
+				<mul stat="pAtkSpd" val="1.33" />
+				<mul stat="pAtk" val="1.15" />
 			</effect>
 		</for>
 	</skill>
@@ -1292,7 +1292,7 @@
 		<set name="effectRange" val="60" />
 		<for>
 			<effect self="1" name="Buff" time="15" val="0" stackOrder="1" stackType="speed_up_special">
-				<add order="0x40" stat="runSpd" val="40" />
+				<add stat="runSpd" val="40" />
 			</effect>
 		</for>
 	</skill>
@@ -1347,9 +1347,9 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<for>
 			<effect name="Buff" time="1200" val="0">
-				<mul order="0x30" stat="pAtkSpd" val="#pAtkSpd" />
-				<mul order="0x30" stat="pAtk" val="#pAtk" />
-				<mul order="0x30" stat="pDef" val="#pDef" />
+				<mul stat="pAtkSpd" val="#pAtkSpd" />
+				<mul stat="pAtk" val="#pAtk" />
+				<mul stat="pDef" val="#pDef" />
 			</effect>
 		</for>
 	</skill>

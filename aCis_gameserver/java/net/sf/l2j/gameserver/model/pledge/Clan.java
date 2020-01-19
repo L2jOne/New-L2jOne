@@ -39,7 +39,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListDeleteAll;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillListAdd;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
@@ -501,7 +500,7 @@ public class Clan
 		return _chId > 0;
 	}
 	
-	public void setClanHall(int id)
+	public void setClanHallId(int id)
 	{
 		_chId = id;
 	}
@@ -1032,19 +1031,20 @@ public class Clan
 	
 	/**
 	 * Add a new {@link L2Skill} to the {@link Clan}.
-	 * @param newSkill : The skill to add.
+	 * @param skill : The {@link L2Skill} to add.
+	 * @param needRefresh : If True, a status refresh occured. Bypass {@link Player} {@link L2Skill} acquisition.
 	 */
-	public void addNewSkill(L2Skill newSkill)
+	public void addNewSkill(L2Skill skill, boolean needRefresh)
 	{
-		if (newSkill == null)
+		if (skill == null)
 			return;
 		
 		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SKILL))
 		{
 			ps.setInt(1, _clanId);
-			ps.setInt(2, newSkill.getId());
-			ps.setInt(3, newSkill.getLevel());
+			ps.setInt(2, skill.getId());
+			ps.setInt(3, skill.getLevel());
 			ps.executeUpdate();
 		}
 		catch (Exception e)
@@ -1054,28 +1054,32 @@ public class Clan
 		}
 		
 		// Replace or add the skill.
-		_skills.put(newSkill.getId(), newSkill);
+		_skills.put(skill.getId(), skill);
 		
-		final PledgeSkillListAdd pledgeListAdd = new PledgeSkillListAdd(newSkill.getId(), newSkill.getLevel());
-		final PledgeSkillList pledgeList = new PledgeSkillList(this);
-		final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED).addSkillName(newSkill.getId());
+		final PledgeSkillListAdd psla = new PledgeSkillListAdd(skill);
+		final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED).addSkillName(skill.getId());
 		
-		for (Player temp : getOnlineMembers())
+		for (Player player : getOnlineMembers())
 		{
-			if (newSkill.getMinPledgeClass() <= temp.getPledgeClass())
+			if (!needRefresh && skill.getMinPledgeClass() <= player.getPledgeClass())
 			{
-				temp.addSkill(newSkill, false);
-				temp.sendPacket(pledgeListAdd);
-				temp.sendSkillList();
+				player.addSkill(skill, false);
+				player.sendSkillList();
 			}
-			temp.sendPacket(pledgeList);
-			temp.sendPacket(sm);
+			player.sendPacket(psla);
+			player.sendPacket(sm);
 		}
 	}
 	
-	public void addSkillEffects(Player player)
+	/**
+	 * Add all {@link Clan} {@link L2Skill}s to the {@link Player} set as parameter.<br>
+	 * <br>
+	 * Only {@link L2Skill}s related to {@link Player} pledge are rewarded. Also, don't reward if reputation score is 0 or lower, or if the {@link Player} is on Olympiad mode.
+	 * @param player : The {@link Player} to test.
+	 */
+	public void addClanSkillsTo(Player player)
 	{
-		if (player == null || _reputationScore <= 0 || player.isInOlympiadMode())
+		if (_reputationScore <= 0 || player.isInOlympiadMode())
 			return;
 		
 		for (L2Skill skill : _skills.values())
@@ -1411,35 +1415,37 @@ public class Clan
 	}
 	
 	/**
-	 * Add the value to the total amount of the clan's reputation score.<br>
-	 * <b>This method updates the database.</b>
+	 * Add the value to the total amount of the {@link Clan}'s reputation score.<br>
 	 * @param value : The value to add to current amount.
+	 * @return True if a status refresh occured during the operation.
 	 */
-	public synchronized void addReputationScore(int value)
+	public synchronized boolean addReputationScore(int value)
 	{
-		setReputationScore(_reputationScore + value);
+		return setReputationScore(_reputationScore + value);
 	}
 	
 	/**
-	 * Removes the value to the total amount of the clan's reputation score.<br>
-	 * <b>This method updates the database.</b>
+	 * Removes the value to the total amount of this {@link Clan}'s reputation score.<br>
 	 * @param value : The value to remove to current amount.
+	 * @return True if a status refresh occured during the operation.
 	 */
-	public synchronized void takeReputationScore(int value)
+	public synchronized boolean takeReputationScore(int value)
 	{
-		setReputationScore(_reputationScore - value);
+		return setReputationScore(_reputationScore - value);
 	}
 	
 	/**
-	 * Launch behaviors following how big or low is the actual reputation.<br>
-	 * <b>This method DOESN'T update the database.</b>
+	 * Add or remove a given value from this {@link Clan}'s current reputation score.<br>
+	 * <br>
+	 * If needed, process a refresh of {@link Clan} status.
 	 * @param value : The total amount to set to _reputationScore.
+	 * @return True if a status refresh occured (being positive value reached negative, or negative value reached positive).
 	 */
-	private void setReputationScore(int value)
+	private boolean setReputationScore(int value)
 	{
 		// Don't add any CRPs to clans with low level.
 		if (_level < 5)
-			return;
+			return false;
 		
 		// That check is used to see if it needs a refresh.
 		final boolean needRefresh = (_reputationScore > 0 && value <= 0) || (value > 0 && _reputationScore <= 0);
@@ -1452,7 +1458,7 @@ public class Clan
 		// Refresh clan windows of all clan members, and reward/remove skills.
 		if (needRefresh)
 		{
-			final Collection<L2Skill> skills = getClanSkills().values();
+			final Collection<L2Skill> skills = _skills.values();
 			
 			if (_reputationScore <= 0)
 			{
@@ -1500,6 +1506,7 @@ public class Clan
 		{
 			LOGGER.error("Error while updating clan reputation points.", e);
 		}
+		return needRefresh;
 	}
 	
 	public int getRank()

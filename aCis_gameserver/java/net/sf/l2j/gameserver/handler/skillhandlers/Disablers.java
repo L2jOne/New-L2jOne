@@ -18,7 +18,6 @@ import net.sf.l2j.gameserver.model.actor.ai.type.AttackableAI;
 import net.sf.l2j.gameserver.model.actor.instance.SiegeSummon;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Disablers implements ISkillHandler
@@ -47,8 +46,6 @@ public class Disablers implements ISkillHandler
 	{
 		L2SkillType type = skill.getSkillType();
 		
-		final boolean ss = activeChar.isChargedShot(ShotType.SOULSHOT);
-		final boolean sps = activeChar.isChargedShot(ShotType.SPIRITSHOT);
 		final boolean bsps = activeChar.isChargedShot(ShotType.BLESSED_SPIRITSHOT);
 		
 		for (WorldObject obj : targets)
@@ -69,14 +66,14 @@ public class Disablers implements ISkillHandler
 			{
 				case BETRAY:
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 					else
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					break;
 				
 				case FAKE_DEATH:
 					// stun/fakedeath is not mdef dependant, it depends on lvl difference, target CON and power of stun
-					skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+					skill.getEffects(activeChar, target, shld, bsps);
 					break;
 				
 				case ROOT:
@@ -85,7 +82,7 @@ public class Disablers implements ISkillHandler
 						target = activeChar;
 					
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 					else
 					{
 						if (activeChar instanceof Player)
@@ -99,7 +96,7 @@ public class Disablers implements ISkillHandler
 						target = activeChar;
 					
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 					else
 					{
 						if (activeChar instanceof Player)
@@ -120,7 +117,7 @@ public class Disablers implements ISkillHandler
 							if (e.getSkill().getSkillType() == type)
 								e.exit();
 						}
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 					}
 					else
 					{
@@ -141,7 +138,7 @@ public class Disablers implements ISkillHandler
 								if (e.getSkill().getSkillType() == type)
 									e.exit();
 							}
-							skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+							skill.getEffects(activeChar, target, shld, bsps);
 						}
 						else
 						{
@@ -157,14 +154,14 @@ public class Disablers implements ISkillHandler
 					if (target instanceof Attackable)
 						target.getAI().notifyEvent(AiEventType.AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 					
-					skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+					skill.getEffects(activeChar, target, shld, bsps);
 					break;
 				
 				case AGGREDUCE:
 					// these skills needs to be rechecked
 					if (target instanceof Attackable)
 					{
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 						
 						double aggdiff = ((Attackable) target).getHating(activeChar) - target.calcStat(Stats.AGGRESSION, ((Attackable) target).getHating(activeChar), target, skill);
 						
@@ -191,7 +188,7 @@ public class Disablers implements ISkillHandler
 								targ.setWalking();
 							}
 						}
-						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+						skill.getEffects(activeChar, target, shld, bsps);
 					}
 					else
 					{
@@ -313,7 +310,7 @@ public class Disablers implements ISkillHandler
 							}
 						}
 					}
-					skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
+					skill.getEffects(activeChar, target, shld, bsps);
 					break;
 			}
 		}

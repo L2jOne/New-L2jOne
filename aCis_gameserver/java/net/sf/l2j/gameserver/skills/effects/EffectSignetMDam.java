@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.model.location.Location;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 
@@ -28,9 +27,9 @@ public class EffectSignetMDam extends L2Effect
 {
 	private EffectPoint _actor;
 	
-	public EffectSignetMDam(Env env, EffectTemplate template)
+	public EffectSignetMDam(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

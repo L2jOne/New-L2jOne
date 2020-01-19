@@ -1,44 +1,52 @@
 package net.sf.l2j.gameserver.skills.funcs;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
+/**
+ * @see Func
+ */
 public class FuncMDefMod extends Func
 {
-	static final FuncMDefMod _fpa_instance = new FuncMDefMod();
-	
-	public static Func getInstance()
-	{
-		return _fpa_instance;
-	}
+	private static final FuncMDefMod INSTANCE = new FuncMDefMod();
 	
 	private FuncMDefMod()
 	{
-		super(Stats.MAGIC_DEFENCE, 0x20, null, null);
+		super(null, Stats.MAGIC_DEFENCE, 10, 0, null);
 	}
 	
 	@Override
-	public void calc(Env env)
+	public double calc(Creature effector, Creature effected, L2Skill skill, double base, double value)
 	{
-		if (env.getCharacter() instanceof Player)
+		if (effector instanceof Player)
 		{
-			final Player player = env.getPlayer();
+			final Player player = (Player) effector;
+			
 			if (player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null)
-				env.subValue(5);
+				value -= 5;
+			
 			if (player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null)
-				env.subValue(5);
+				value -= 5;
+			
 			if (player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null)
-				env.subValue(9);
+				value -= 9;
+			
 			if (player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null)
-				env.subValue(9);
+				value -= 9;
+			
 			if (player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null)
-				env.subValue(13);
+				value -= 13;
 		}
-		
-		env.mulValue(Formulas.MEN_BONUS[env.getCharacter().getMEN()] * env.getCharacter().getLevelMod());
+		return value * Formulas.MEN_BONUS[effector.getMEN()] * effector.getLevelMod();
+	}
+	
+	public static Func getInstance()
+	{
+		return INSTANCE;
 	}
 }

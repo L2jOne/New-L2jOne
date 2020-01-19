@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.data.manager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.data.manager.DuelManager;
 import net.sf.l2j.gameserver.data.manager.FestivalOfDarknessManager;
 import net.sf.l2j.gameserver.data.manager.HeroManager;
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.data.manager.SevenSignsManager;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
@@ -139,6 +140,7 @@ import net.sf.l2j.gameserver.model.entity.Duel.DuelState;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.group.CommandChannel;
 import net.sf.l2j.gameserver.model.group.Party;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.model.holder.SkillUseHolder;
 import net.sf.l2j.gameserver.model.holder.Timestamp;
@@ -163,9 +165,6 @@ import net.sf.l2j.gameserver.model.multisell.PreparedListContainer;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadGameManager;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadGameTask;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadManager;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchWaitingList;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.model.pledge.ClanMember;
 import net.sf.l2j.gameserver.model.trade.TradeList;
@@ -237,15 +236,9 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.scripting.Quest;
 import net.sf.l2j.gameserver.scripting.QuestState;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaCON;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaDEX;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaINT;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaMEN;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaSTR;
-import net.sf.l2j.gameserver.skills.funcs.FuncHennaWIT;
+import net.sf.l2j.gameserver.skills.funcs.FuncHenna;
 import net.sf.l2j.gameserver.skills.funcs.FuncMaxCpMul;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
@@ -294,7 +287,7 @@ public final class Player extends Playable
 	
 	private static final String DELETE_RECIPEBOOK = "DELETE FROM character_recipebook WHERE charId=?";
 	private static final String SAVE_RECIPEBOOK = "INSERT INTO character_recipebook (charId, recipeId) values(?,?)";
-
+	
 	public static final String ADD_ITEM = "INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,object_id,custom_type1,custom_type2,mana_left,time) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	
 	public static final int REQUEST_TIMEOUT = 15;
@@ -389,7 +382,7 @@ public final class Player extends Playable
 	private final List<PcFreight> _depositedFreight = new ArrayList<>();
 	
 	private OperateType _operateType = OperateType.NONE;
-
+	
 	private long _offlineShopStart;
 	
 	private TradeList _activeTradeList;
@@ -426,7 +419,7 @@ public final class Player extends Playable
 	
 	private final RadarList _radarList = new RadarList(this);
 	
-	private int _partyroom;
+	private int _partyRoom;
 	
 	private int _clanId;
 	private Clan _clan;
@@ -662,12 +655,12 @@ public final class Player extends Playable
 		
 		addStatFunc(FuncMaxCpMul.getInstance());
 		
-		addStatFunc(FuncHennaSTR.getInstance());
-		addStatFunc(FuncHennaDEX.getInstance());
-		addStatFunc(FuncHennaINT.getInstance());
-		addStatFunc(FuncHennaMEN.getInstance());
-		addStatFunc(FuncHennaCON.getInstance());
-		addStatFunc(FuncHennaWIT.getInstance());
+		addStatFunc(FuncHenna.getSTR());
+		addStatFunc(FuncHenna.getCON());
+		addStatFunc(FuncHenna.getDEX());
+		addStatFunc(FuncHenna.getINT());
+		addStatFunc(FuncHenna.getMEN());
+		addStatFunc(FuncHenna.getWIT());
 	}
 	
 	@Override
@@ -1605,7 +1598,7 @@ public final class Player extends Playable
 			_subclassLock.unlock();
 		}
 	}
-
+	
 	public String setClassName(int Id)
 	{
 		switch (Id)
@@ -2751,7 +2744,7 @@ public final class Player extends Playable
 		
 		return _accountName;
 	}
-
+	
 	public String getAccountNamePlayer()
 	{
 		return _accountName;
@@ -3533,7 +3526,7 @@ public final class Player extends Playable
 		// Kill the Player
 		if (!super.doDie(killer))
 			return false;
-
+		
 		_spreeKills = 0; 
 		
 		if (isMounted())
@@ -3712,7 +3705,7 @@ public final class Player extends Playable
 		final Player targetPlayer = target.getActingPlayer();
 		if (targetPlayer == null || targetPlayer == this)
 			return;
-
+		
 		if (Config.ENABLE_FARM_PVP)
 			checkAntiFarm();
 		
@@ -3752,7 +3745,7 @@ public final class Player extends Playable
 			{
 				// Add PvP point to attacker.
 				setPvpKills(getPvpKills() + 1);
-
+				
 				if (Config.ANNOUNCE_KILL)
 					World.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_S2).addString(Config.ANNOUNCE_PVP_MSG.replace("$killer", getName()).replace("$target", targetPlayer.getName())).addZoneName(targetPlayer.getPosition()));
 				
@@ -3765,7 +3758,7 @@ public final class Player extends Playable
 							addItem("Reward", reward.getId(), reward.getValue(), null, true);
 					}
 				}
-
+				
 				pvpColor();
 				
 				if (Config.ENABLE_SPREEKILLS)
@@ -3803,7 +3796,7 @@ public final class Player extends Playable
 			// PK Points are increased only if you kill a player.
 			if (target instanceof Player)
 				setPkKills(getPkKills() + 1);
-
+			
 			if (Config.ANNOUNCE_KILL)
 				World.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_S2).addString(Config.ANNOUNCE_PK_MSG.replace("$killer", getName()).replace("$target", targetPlayer.getName())).addZoneName(targetPlayer.getPosition()));
 			
@@ -3824,7 +3817,7 @@ public final class Player extends Playable
 			sendPacket(new UserInfo(this));
 		}
 	}
-
+	
 	public boolean checkAntiFarm()
 	{
 		for (Player target : World.getInstance().getPlayers())
@@ -3950,30 +3943,33 @@ public final class Player extends Playable
 	
 	public int getPartyRoom()
 	{
-		return _partyroom;
+		return _partyRoom;
 	}
 	
 	public boolean isInPartyMatchRoom()
 	{
-		return _partyroom > 0;
+		return _partyRoom > 0;
 	}
 	
 	public void setPartyRoom(int id)
 	{
-		_partyroom = id;
+		_partyRoom = id;
 	}
 	
 	/**
-	 * Remove the player from both waiting list and any potential room.
+	 * Remove the {@link Player} from both waiting list and any potential {@link PartyMatchRoom}.
 	 */
 	public void removeMeFromPartyMatch()
 	{
-		PartyMatchWaitingList.getInstance().removePlayer(this);
-		if (_partyroom != 0)
+		// Remove waiting Player.
+		PartyMatchRoomManager.getInstance().removeWaitingPlayer(this);
+		
+		// Remove from existing PartyMatchRoom, if any.
+		if (_partyRoom > 0)
 		{
-			PartyMatchRoom room = PartyMatchRoomList.getInstance().getRoom(_partyroom);
+			final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(_partyRoom);
 			if (room != null)
-				room.deleteMember(this);
+				room.removeMember(this);
 		}
 	}
 	
@@ -4227,7 +4223,7 @@ public final class Player extends Playable
 		
 		_operateType = type;
 	}
-
+	
 	public long getOfflineStartTime()
 	{
 		return _offlineShopStart;
@@ -4367,10 +4363,10 @@ public final class Player extends Playable
 		if (isHero())
 			setHero(true);
 		
-		// Add clan skills.
+		// Add Clan skills.
 		if (getClan() != null)
 		{
-			getClan().addSkillEffects(this);
+			getClan().addClanSkillsTo(this);
 			
 			if (getClan().getLevel() >= Config.MINIMUM_CLAN_LEVEL && isClanLeader())
 				addSiegeSkills();
@@ -4704,7 +4700,7 @@ public final class Player extends Playable
 				sendPacket(SystemMessageId.STRIDER_IN_BATLLE_CANT_BE_RIDDEN);
 				return;
 			}
-
+			
 			if (!Config.ALLOW_WYVERN_RESTRITION_CITY && isInsideZone(ZoneId.TOWN))
 			{
 				sendMessage("Desculpe mais você não pode usar montaria dentro da Cidade.");
@@ -4948,7 +4944,7 @@ public final class Player extends Playable
 	{
 		return System.currentTimeMillis() - _uptime;
 	}
-
+	
 	public boolean isAFK()
 	{
 		return _lastAction < System.currentTimeMillis();
@@ -5967,19 +5963,14 @@ public final class Player extends Playable
 						 */
 						if (skill.hasEffects())
 						{
-							final Env env = new Env();
-							env.setCharacter(this);
-							env.setTarget(this);
-							env.setSkill(skill);
-							
-							for (EffectTemplate et : skill.getEffectTemplates())
+							for (EffectTemplate template : skill.getEffectTemplates())
 							{
-								final L2Effect ef = et.getEffect(env);
-								if (ef != null)
+								final L2Effect effect = template.getEffect(this, this, skill);
+								if (effect != null)
 								{
-									ef.setCount(effectCount);
-									ef.setFirstTime(effectCurTime);
-									ef.scheduleEffect();
+									effect.setCount(effectCount);
+									effect.setFirstTime(effectCurTime);
+									effect.scheduleEffect();
 								}
 							}
 						}
@@ -6155,10 +6146,10 @@ public final class Player extends Playable
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-
+		
 		if (isAio())
 		{
-			if (!isInsideZone(ZoneId.TOWN) ? true : skill.isAioSkill())
+			if (!isInsideZone(ZoneId.TOWN) ? true : Config.LIST_AIO_SKILLS.length == skill.getId())
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
@@ -7397,7 +7388,6 @@ public final class Player extends Playable
 		return _blockList;
 	}
 	
-	@Override
 	public boolean isVip()
 	{
 		return _isVip;
@@ -7430,7 +7420,7 @@ public final class Player extends Playable
 		broadcastUserInfo();
 		sendSkillList();
 	}
-
+	
 	public boolean isAio()
 	{
 		return _isAio;
@@ -7451,11 +7441,16 @@ public final class Player extends Playable
 			getMemos().set("aioTime", 0);
 			
 			for (IntIntHolder skills : Config.LIST_AIO_SKILLS)
-				removeSkill(skills.getId(), false);
+			{
+				if (skills.getId() > 0)
+					removeSkill(skills.getId(), false);
+			}
 			
 			for (IntIntHolder item : Config.LIST_AIO_ITEMS)
-				destroyItemByItemId("Destroy", item.getId(), item.getValue(), this, true);
-			
+			{
+				if (item.getId() > 0)
+					destroyItemByItemId("Destroy", item.getId(), item.getValue(), this, true);
+			}
 			broadcastPacket(new SocialAction(this, 13));
 		}
 		
@@ -7711,7 +7706,7 @@ public final class Player extends Playable
 		
 		final SkillList sl = new SkillList();
 		for (L2Skill skill : getSkills().values())
-			sl.addSkill(skill.getId(), skill.getLevel(), skill.isPassive(), isWearingFormalWear || (skill.isClanSkill() && isClanDisabled) || isAio && !isInsideZone(ZoneId.TOWN) ? true : skill.isAioSkill());
+			sl.addSkill(skill.getId(), skill.getLevel(), skill.isPassive(), isWearingFormalWear || (skill.isClanSkill() && isClanDisabled) || isAio && !isInsideZone(ZoneId.TOWN) ? true : Config.LIST_AIO_SKILLS.length == skill.getId());
 		
 		sendPacket(sl);
 	}
@@ -8017,7 +8012,7 @@ public final class Player extends Playable
 		
 		if (isVip())
 			VipTaskManager.getInstance().add(this);
-
+		
 		if (isAio())
 			AioTaskManager.getInstance().add(this);
 		
@@ -9606,7 +9601,7 @@ public final class Player extends Playable
 		
 		setIsParalyzed(true);
 	}
-
+	
 	private void pvpColor()
 	{
 		for (ColorSystem pvpColor : PvPData.getInstance().getColor())
@@ -9619,7 +9614,7 @@ public final class Player extends Playable
 			}
 		}
 	}
-
+	
 	public int getPcCafePoints()
 	{
 		return getMemos().getInteger("cafe_points", 0);

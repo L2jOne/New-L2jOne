@@ -2,12 +2,11 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import java.util.List;
 
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Npc;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 
-/**
- * @author nBd
- */
 public class ConditionTargetRaceId extends Condition
 {
 	private final List<Integer> _raceIds;
@@ -18,11 +17,8 @@ public class ConditionTargetRaceId extends Condition
 	}
 	
 	@Override
-	public boolean testImpl(Env env)
+	public boolean testImpl(Creature effector, Creature effected, L2Skill skill, Item item)
 	{
-		if (!(env.getTarget() instanceof Npc))
-			return false;
-		
-		return _raceIds.contains(((Npc) env.getTarget()).getTemplate().getRace().ordinal());
+		return effected instanceof Npc && _raceIds.contains(((Npc) effected).getTemplate().getRace().ordinal());
 	}
 }

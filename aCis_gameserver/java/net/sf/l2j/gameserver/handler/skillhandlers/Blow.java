@@ -10,7 +10,6 @@ import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.basefuncs.Func;
 
@@ -88,7 +87,7 @@ public class Blow implements ISkillHandler
 						target.stopSkillEffects(skill.getId());
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, true))
 						{
-							skill.getEffects(activeChar, target, new Env(shld, false, false, false));
+							skill.getEffects(activeChar, target, shld, false);
 							target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 						}
 						else
@@ -113,16 +112,7 @@ public class Blow implements ISkillHandler
 					if (vicious != null && damage > 1)
 					{
 						for (Func func : vicious.getStatFuncs())
-						{
-							final Env env = new Env();
-							env.setCharacter(activeChar);
-							env.setTarget(target);
-							env.setSkill(skill);
-							env.setValue(damage);
-							
-							func.calc(env);
-							damage = (int) env.getValue();
-						}
+							damage = (int) func.calc(activeChar, target, skill, damage, damage);
 					}
 				}
 				

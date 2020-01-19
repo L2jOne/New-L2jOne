@@ -10,7 +10,9 @@ import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.ArmorSet;
+import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.item.kind.Item;
+import net.sf.l2j.gameserver.model.itemcontainer.PcInventory;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
@@ -31,7 +33,8 @@ public class AdminCreateItem implements IAdminCommandHandler
 		"admin_create_item",
 		"admin_create_set",
 		"admin_create_coin",
-		"admin_reward_all"
+		"admin_reward_all",
+		"admin_inventory_cleanup"
 	};
 	
 	@Override
@@ -169,7 +172,22 @@ public class AdminCreateItem implements IAdminCommandHandler
 				html.replace("%sets%", sb.toString());
 				activeChar.sendPacket(html);
 			}
+			else if (command.equals("admin_inventory_cleanup"))
+			{
+				PcInventory inventory = activeChar.getInventory();
+				for (ItemInstance item : inventory.getItems())
+				{
+					if (item.getItemId() == 57)
+						continue;
+					
+					inventory.destroyItem("Destroy Item", item, activeChar, null);
+				}
+				
+				activeChar.sendPacket(new ItemList(activeChar, false));
+				activeChar.sendMessage("Inventory was cleanup.");
+			}
 		}
+		
 		return true;
 	}
 	

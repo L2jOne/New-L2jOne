@@ -3,16 +3,14 @@ package net.sf.l2j.gameserver.skills.effects;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 
-/**
- * @author -Nemesiss-
- */
 public class EffectPhysicalMute extends L2Effect
 {
-	public EffectPhysicalMute(Env env, EffectTemplate template)
+	public EffectPhysicalMute(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override

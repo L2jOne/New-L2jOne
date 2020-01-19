@@ -58,7 +58,7 @@ public class Q351_BlackSwan extends Quest
 				htmltext = "30969-02.htm";
 				
 				st.takeItems(LIZARD_FANG, -1);
-				st.rewardItems(57, lizardFangs * 20);
+				st.rewardItems(57, lizardFangs * 20 + ((lizardFangs >= 10) ? 3880 : 0));
 			}
 		}
 		else if (event.equalsIgnoreCase("30969-03a.htm"))

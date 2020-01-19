@@ -2,16 +2,17 @@ package net.sf.l2j.gameserver.skills.effects;
 
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectFakeDeath extends L2Effect
 {
-	public EffectFakeDeath(Env env, EffectTemplate template)
+	public EffectFakeDeath(EffectTemplate template, L2Skill skill, Creature effected, Creature effector)
 	{
-		super(env, template);
+		super(template, skill, effected, effector);
 	}
 	
 	@Override
@@ -42,9 +43,7 @@ public class EffectFakeDeath extends L2Effect
 		if (getEffected().isDead())
 			return false;
 		
-		double manaDam = calc();
-		
-		if (manaDam > getEffected().getCurrentMp())
+		if (getValue() > getEffected().getCurrentMp())
 		{
 			if (getSkill().isToggle())
 			{
@@ -53,7 +52,7 @@ public class EffectFakeDeath extends L2Effect
 			}
 		}
 		
-		getEffected().reduceCurrentMp(manaDam);
+		getEffected().reduceCurrentMp(getValue());
 		return true;
 	}
 }

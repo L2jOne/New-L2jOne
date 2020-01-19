@@ -21,15 +21,10 @@ import net.sf.l2j.gameserver.enums.skills.AbnormalEffect;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
 import net.sf.l2j.gameserver.enums.skills.PlayerState;
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.enums.skills.StatsType;
 import net.sf.l2j.gameserver.model.ChanceCondition;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.skills.basefuncs.FuncTemplate;
-import net.sf.l2j.gameserver.skills.basefuncs.Lambda;
-import net.sf.l2j.gameserver.skills.basefuncs.LambdaCalc;
-import net.sf.l2j.gameserver.skills.basefuncs.LambdaConst;
-import net.sf.l2j.gameserver.skills.basefuncs.LambdaStats;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
 import net.sf.l2j.gameserver.skills.conditions.ConditionElementSeed;
 import net.sf.l2j.gameserver.skills.conditions.ConditionForceBuff;
@@ -120,11 +115,11 @@ abstract class DocumentBase
 	
 	protected void parseTemplate(Node n, Object template)
 	{
-		Condition condition = null;
 		n = n.getFirstChild();
 		if (n == null)
 			return;
 		
+		Condition condition = null;
 		if ("cond".equalsIgnoreCase(n.getNodeName()))
 		{
 			condition = parseCondition(n.getFirstChild(), template);
@@ -162,6 +157,8 @@ abstract class DocumentBase
 				attachFunc(n, template, "Set", condition);
 			else if ("enchant".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Enchant", condition);
+			else if ("baseadd".equalsIgnoreCase(n.getNodeName()))
+				attachFunc(n, template, "BaseAdd", condition);
 			else if ("effect".equalsIgnoreCase(n.getNodeName()))
 			{
 				if (template instanceof EffectTemplate)
@@ -172,32 +169,27 @@ abstract class DocumentBase
 		}
 	}
 	
-	protected void attachFunc(Node n, Object template, String name, Condition attachCond)
+	protected void attachFunc(Node n, Object template, String function, Condition attachCond)
 	{
 		Stats stat = Stats.valueOfXml(n.getAttributes().getNamedItem("stat").getNodeValue());
-		String order = n.getAttributes().getNamedItem("order").getNodeValue();
-		Lambda lambda = getLambda(n, template);
-		int ord = Integer.decode(getValue(order, template));
-		Condition applayCond = parseCondition(n.getFirstChild(), template);
-		FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
 		
+		String valueString = n.getAttributes().getNamedItem("val").getNodeValue();
+		double value;
+		if (valueString.charAt(0) == '#')
+			value = Double.parseDouble(getTableValue(valueString));
+		else
+			value = Double.parseDouble(valueString);
+		
+		final Condition applyCond = parseCondition(n.getFirstChild(), template);
+		final FuncTemplate ft = new FuncTemplate(attachCond, applyCond, function, stat, value);
 		if (template instanceof Item)
 			((Item) template).attach(ft);
 		else if (template instanceof L2Skill)
 			((L2Skill) template).attach(ft);
 		else if (template instanceof EffectTemplate)
 			((EffectTemplate) template).attach(ft);
-	}
-	
-	protected void attachLambdaFunc(Node n, Object template, LambdaCalc calc)
-	{
-		String name = n.getNodeName();
-		final StringBuilder sb = new StringBuilder(name);
-		sb.setCharAt(0, Character.toUpperCase(name.charAt(0)));
-		name = sb.toString();
-		Lambda lambda = getLambda(n, template);
-		FuncTemplate ft = new FuncTemplate(null, null, name, null, calc.getFuncs().size(), lambda);
-		calc.addFunc(ft.getFunc(new Env(), calc));
+		else
+			throw new RuntimeException("Attaching stat to a non-effect template!!!");
 	}
 	
 	protected void attachEffect(Node n, Object template, Condition attachCond)
@@ -231,10 +223,16 @@ abstract class DocumentBase
 				icon = false;
 		}
 		
-		Lambda lambda = getLambda(n, template);
-		Condition applayCond = parseCondition(n.getFirstChild(), template);
-		AbnormalEffect abnormal = AbnormalEffect.NULL;
+		String valueString = n.getAttributes().getNamedItem("val").getNodeValue();
+		double value;
+		if (valueString.charAt(0) == '#')
+			value = Double.parseDouble(getTableValue(valueString));
+		else
+			value = Double.parseDouble(valueString);
 		
+		Condition applyCond = parseCondition(n.getFirstChild(), template);
+		
+		AbnormalEffect abnormal = AbnormalEffect.NULL;
 		if (attrs.getNamedItem("abnormal") != null)
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
@@ -296,7 +294,7 @@ abstract class DocumentBase
 		if (chance == null && isChanceSkillTrigger)
 			throw new NoSuchElementException("Invalid chance condition: " + chanceCond + " " + activationChance);
 		
-		lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time, abnormal, stackType, stackOrder, icon, effectPower, type, trigId, trigLvl, chance);
+		lt = new EffectTemplate(attachCond, applyCond, name, value, count, time, abnormal, stackType, stackOrder, icon, effectPower, type, trigId, trigLvl, chance);
 		
 		parseTemplate(n, lt);
 		if (template instanceof L2Skill)
@@ -649,7 +647,7 @@ abstract class DocumentBase
 				{
 					int old = mask;
 					String item = st.nextToken();
-					for (WeaponType wt : WeaponType.values())
+					for (WeaponType wt : WeaponType.VALUES)
 					{
 						if (wt.name().equals(item))
 						{
@@ -658,7 +656,7 @@ abstract class DocumentBase
 						}
 					}
 					
-					for (ArmorType at : ArmorType.values())
+					for (ArmorType at : ArmorType.VALUES)
 					{
 						if (at.name().equals(item))
 						{
@@ -727,57 +725,6 @@ abstract class DocumentBase
 			set.set(name, String.valueOf(getValue(value, level)));
 		else
 			set.set(name, value);
-	}
-	
-	protected Lambda getLambda(Node n, Object template)
-	{
-		Node nval = n.getAttributes().getNamedItem("val");
-		if (nval != null)
-		{
-			String val = nval.getNodeValue();
-			if (val.charAt(0) == '#')
-			{ // table by level
-				return new LambdaConst(Double.parseDouble(getTableValue(val)));
-			}
-			else if (val.charAt(0) == '$')
-			{
-				if (val.equalsIgnoreCase("$player_level"))
-					return new LambdaStats(StatsType.PLAYER_LEVEL);
-				if (val.equalsIgnoreCase("$target_level"))
-					return new LambdaStats(StatsType.TARGET_LEVEL);
-				if (val.equalsIgnoreCase("$player_max_hp"))
-					return new LambdaStats(StatsType.PLAYER_MAX_HP);
-				if (val.equalsIgnoreCase("$player_max_mp"))
-					return new LambdaStats(StatsType.PLAYER_MAX_MP);
-				// try to find value out of item fields
-				StatsSet set = getStatsSet();
-				String field = set.getString(val.substring(1));
-				
-				if (field != null)
-					return new LambdaConst(Double.parseDouble(getValue(field, template)));
-				
-				// failed
-				throw new IllegalArgumentException("Unknown value " + val);
-			}
-			else
-				return new LambdaConst(Double.parseDouble(val));
-		}
-		LambdaCalc calc = new LambdaCalc();
-		n = n.getFirstChild();
-		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
-			n = n.getNextSibling();
-		
-		if (n == null || !"val".equals(n.getNodeName()))
-			throw new IllegalArgumentException("Value not specified");
-		
-		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() != Node.ELEMENT_NODE)
-				continue;
-			
-			attachLambdaFunc(n, template, calc);
-		}
-		return calc;
 	}
 	
 	protected String getValue(String value, Object template)

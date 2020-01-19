@@ -1,89 +1,91 @@
 package net.sf.l2j.gameserver.skills.basefuncs;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.gameserver.enums.skills.Stats;
-import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.Creature;
+import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
 
-/**
- * @author mkizub
- */
 public final class FuncTemplate
 {
-	protected static final Logger _log = Logger.getLogger(FuncTemplate.class.getName());
+	private static final CLogger LOG = new CLogger(FuncTemplate.class.getName());
 	
-	public Condition attachCond;
-	public Condition applayCond;
-	public final Class<?> func;
-	public final Constructor<?> constructor;
-	public final Stats stat;
-	public final int order;
-	public final Lambda lambda;
+	private final Condition _attachCond;
+	private final Condition _applyCond;
+	private final Constructor<?> _constructor;
+	private final Stats _stat;
+	private final double _value;
 	
-	public FuncTemplate(Condition pAttachCond, Condition pApplayCond, String pFunc, Stats pStat, int pOrder, Lambda pLambda)
+	public FuncTemplate(Condition attachCond, Condition applyCond, String function, Stats stat, double value)
 	{
-		attachCond = pAttachCond;
-		applayCond = pApplayCond;
-		stat = pStat;
-		order = pOrder;
-		lambda = pLambda;
+		_attachCond = attachCond;
+		_applyCond = applyCond;
+		_stat = stat;
+		_value = value;
 		
 		try
 		{
-			func = Class.forName("net.sf.l2j.gameserver.skills.basefuncs.Func" + pFunc);
+			final Class<?> functionClass = Class.forName("net.sf.l2j.gameserver.skills.basefuncs.Func" + function);
+			_constructor = functionClass.getConstructor(Object.class, Stats.class, Double.TYPE, Condition.class);
 		}
-		catch (ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-		
-		try
-		{
-			constructor = func.getConstructor(new Class[]
-			{
-				Stats.class, // stats to update
-				Integer.TYPE, // order of execution
-				Object.class, // owner
-				Lambda.class
-				// value for function
-			});
-		}
-		catch (NoSuchMethodException e)
+		catch (ClassNotFoundException | NoSuchMethodException e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public Func getFunc(Env env, Object owner)
+	/**
+	 * Gets the functions for skills.
+	 * @param caster the caster
+	 * @param target the target
+	 * @param skill the skill
+	 * @param owner the owner
+	 * @return the function if conditions are met, {@code null} otherwise
+	 */
+	public Func getFunc(Creature caster, Creature target, L2Skill skill, Object owner)
 	{
-		if (attachCond != null && !attachCond.test(env))
+		return getFunc(caster, target, skill, null, owner);
+	}
+	
+	/**
+	 * Gets the functions for items.
+	 * @param caster the caster
+	 * @param target the target
+	 * @param item the item
+	 * @param owner the owner
+	 * @return the function if conditions are met, {@code null} otherwise
+	 */
+	public Func getFunc(Creature caster, Creature target, ItemInstance item, Object owner)
+	{
+		return getFunc(caster, target, null, item, owner);
+	}
+	
+	/**
+	 * Gets the functions for skills and items.
+	 * @param caster the caster
+	 * @param target the target
+	 * @param skill the skill
+	 * @param item the item
+	 * @param owner the owner
+	 * @return the function if conditions are met, {@code null} otherwise
+	 */
+	private Func getFunc(Creature caster, Creature target, L2Skill skill, ItemInstance item, Object owner)
+	{
+		if (_attachCond != null && !_attachCond.test(caster, target, skill))
 			return null;
 		
 		try
 		{
-			Func f = (Func) constructor.newInstance(stat, order, owner, lambda);
-			if (applayCond != null)
-				f.setCondition(applayCond);
-			return f;
+			return (Func) _constructor.newInstance(owner, _stat, _value, _applyCond);
 		}
-		catch (IllegalAccessException e)
+		catch (Exception e)
 		{
-			_log.log(Level.WARNING, "", e);
-			return null;
+			LOG.warn(FuncTemplate.class.getSimpleName() + ": " + e.getMessage());
 		}
-		catch (InstantiationException e)
-		{
-			_log.log(Level.WARNING, "", e);
-			return null;
-		}
-		catch (InvocationTargetException e)
-		{
-			_log.log(Level.WARNING, "", e);
-			return null;
-		}
+		return null;
 	}
 }

@@ -15,7 +15,6 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 public class Pdam implements ISkillHandler
@@ -91,7 +90,7 @@ public class Pdam implements ISkillHandler
 				{
 					// activate attacked effects, if any
 					target.stopSkillEffects(skill.getId());
-					effects = skill.getEffects(activeChar, target, new Env(shld, false, false, false));
+					effects = skill.getEffects(activeChar, target, shld, false);
 					if (effects != null && !effects.isEmpty())
 						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 				}

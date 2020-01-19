@@ -1,10 +1,9 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.data.manager.PartyMatchRoomManager;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.group.Party;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoom;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchRoomList;
-import net.sf.l2j.gameserver.model.partymatching.PartyMatchWaitingList;
+import net.sf.l2j.gameserver.model.group.PartyMatchRoom;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyRoomMember;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMatchDetail;
@@ -38,7 +37,7 @@ public class RequestPartyMatchList extends L2GameClientPacket
 		
 		if (_roomid > 0)
 		{
-			PartyMatchRoom room = PartyMatchRoomList.getInstance().getRoom(_roomid);
+			final PartyMatchRoom room = PartyMatchRoomManager.getInstance().getRoom(_roomid);
 			if (room != null)
 			{
 				room.setMaxMembers(_membersmax);
@@ -47,11 +46,8 @@ public class RequestPartyMatchList extends L2GameClientPacket
 				room.setLootType(_loot);
 				room.setTitle(_roomtitle);
 				
-				for (Player member : room.getPartyMembers())
+				for (Player member : room.getMembers())
 				{
-					if (member == null)
-						continue;
-					
 					member.sendPacket(new PartyMatchDetail(room));
 					member.sendPacket(SystemMessageId.PARTY_ROOM_REVISED);
 				}
@@ -59,12 +55,12 @@ public class RequestPartyMatchList extends L2GameClientPacket
 		}
 		else
 		{
-			final int maxId = PartyMatchRoomList.getInstance().getMaxId();
-			final PartyMatchRoom room = new PartyMatchRoom(maxId, _roomtitle, _loot, _lvlmin, _lvlmax, _membersmax, player);
+			final int newId = PartyMatchRoomManager.getInstance().getNewRoomId();
+			final PartyMatchRoom room = new PartyMatchRoom(newId, _roomtitle, _loot, _lvlmin, _lvlmax, _membersmax, player);
 			
-			// Remove from waiting list, and add to current room
-			PartyMatchWaitingList.getInstance().removePlayer(player);
-			PartyMatchRoomList.getInstance().addPartyMatchRoom(maxId, room);
+			// Remove Player from waiting list, and add newly created PartyMatchRoom.
+			PartyMatchRoomManager.getInstance().removeWaitingPlayer(player);
+			PartyMatchRoomManager.getInstance().addRoom(newId, room);
 			
 			final Party party = player.getParty();
 			if (party != null)
@@ -74,9 +70,7 @@ public class RequestPartyMatchList extends L2GameClientPacket
 					if (member == player)
 						continue;
 					
-					member.setPartyRoom(maxId);
-					
-					room.addMember(member);
+					room.addMember(member, newId);
 				}
 			}
 			
@@ -85,7 +79,7 @@ public class RequestPartyMatchList extends L2GameClientPacket
 			
 			player.sendPacket(SystemMessageId.PARTY_ROOM_CREATED);
 			
-			player.setPartyRoom(maxId);
+			player.setPartyRoom(newId);
 			player.broadcastUserInfo();
 		}
 	}
