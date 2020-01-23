@@ -14,7 +14,7 @@ public class GoldCoin implements IUserCommandHandler
 {
 	private static final int[] COMMAND_IDS =
 	{
-		118,119
+		115, 116
 	};
 	
 	@Override
@@ -33,7 +33,7 @@ public class GoldCoin implements IUserCommandHandler
 					activeChar.sendMessage("Você não tem Adena suficiente para converter para "+  ItemData.getInstance().getTemplate(gold.getId()).getName() +"(s), você precisa de " + Config.BANKING_SYSTEM_ADENA + " Adena.");
 			}
 		}
-		else if(id == 119)
+		else if (id == 119)
 		{
 			// If player hasn't enough space for adena
 			final long a = activeChar.getInventory().getInventoryItemCount(57, 0);

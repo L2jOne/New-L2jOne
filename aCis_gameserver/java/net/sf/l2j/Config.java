@@ -117,7 +117,7 @@ public final class Config
 	// --------------------------------------------------
 	// Events settings
 	// --------------------------------------------------
-
+	
 	/** Double Rates */
 	public static int TIME_DOUBLE_RATES;
 	public static double RATE_MULTIPLER;
@@ -280,14 +280,14 @@ public final class Config
 	// --------------------------------------------------
 	// NPCs / Monsters
 	// --------------------------------------------------
-
+	
 	/** Raid info*/
 	public static int RAID_BOSS_INFO_PAGE_LIMIT;
 	public static int RAID_BOSS_DROP_PAGE_LIMIT;
 	public static String RAID_BOSS_DATE_FORMAT;
 	public static String RAID_BOSS_IDS;
 	public static List<Integer> LIST_RAID_BOSS_IDS;
-			
+	
 	/** Champion Mod */
 	public static int CHAMPION_FREQUENCY;
 	public static int CHAMP_MIN_LVL;
@@ -404,11 +404,11 @@ public final class Config
 	
 	public static boolean ANNOUNCE_CASTLE_LORDS;
 	public static String ANNOUNCE_LORDS_ENTER_BY_CLAN_MEMBER_MSG;
-    
+	
 	public static boolean ANNOUNCE_KILL;
 	public static String ANNOUNCE_PK_MSG;
 	public static String ANNOUNCE_PVP_MSG;
-    
+	
 	public static boolean ANNOUNCE_TOP;
 	public static String ANNOUNCE_TOP_PVP_ENTER_BY_CLAN_MEMBER_MSG;
 	public static String ANNOUNCE_TOP_PVP_ENTER_BY_PLAYER_MSG;
@@ -497,7 +497,7 @@ public final class Config
 	public static int DWARF_RECIPE_LIMIT;
 	public static int COMMON_RECIPE_LIMIT;
 	public static boolean ALT_BLACKSMITH_USE_RECIPES;
-
+	
 	/** Offline Trade*/
 	public static boolean OFFLINE_TRADE_ENABLE;
 	public static boolean OFFLINE_CRAFT_ENABLE;
@@ -508,7 +508,7 @@ public final class Config
 	public static boolean OFFLINE_DISCONNECT_FINISHED;
 	public static boolean OFFLINE_SET_NAME_COLOR;
 	public static int OFFLINE_NAME_COLOR;
-		
+	
 	/** Skills & Classes **/
 	public static boolean AUTO_LEARN_SKILLS;
 	public static boolean MAGIC_FAILURES;
@@ -524,7 +524,7 @@ public final class Config
 	/** Buffs */
 	public static boolean STORE_SKILL_COOLTIME;
 	public static int MAX_BUFFS_AMOUNT;
-
+	
 	/** Aio */
 	public static String AIO_TITLE;
 	public static int AIO_COLOR;
@@ -540,7 +540,7 @@ public final class Config
 	public static double VIP_ADENA_RATES;
 	public static double VIP_SPOIL_RATES;
 	public static double VIP_DROP_RATES;
-
+	
 	// --------------------------------------------------
 	// Sieges
 	// --------------------------------------------------
@@ -642,7 +642,7 @@ public final class Config
 	public static double RATE_DROP_HP_HERBS;
 	public static double RATE_DROP_MP_HERBS;
 	public static double RATE_DROP_SPECIAL_HERBS;
-
+	
 	public static boolean GLOBAL_DROP;
 	public static Map<Integer, List<Integer>> DROP_LIST = new HashMap<>();
 	
@@ -705,6 +705,11 @@ public final class Config
 	public static boolean SERVER_NEWS;
 	public static int ZONE_TOWN;
 	public static boolean DISABLE_TUTORIAL;
+	public static boolean ANTIBOT_ENABLE;
+	public static int ANTIBOT_TIME_JAIL;
+	public static int ANTIBOT_TIME_VOTE;
+	public static int ANTIBOT_KILL_MOBS;
+	public static int ANTIBOT_MIN_LEVEL;	
 	public static boolean ALLOW_WYVERN_RESTRITION_CITY;
 	public static RestrictionType STORE_RESTRICTION_TYPE;
 	public static RestrictionType SHOUT_RESTRICTION_TYPE;
@@ -784,7 +789,7 @@ public final class Config
 		ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = clans.getProperty("DaysBeforeAcceptNewClanWhenDismissed", 1);
 		ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = clans.getProperty("DaysBeforeCreateNewAllyWhenDissolved", 10);
 		ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = clans.getProperty("AltMembersCanWithdrawFromClanWH", false);
-
+		
 		ITEM_ID_BUY_CLAN_HALL = clans.getProperty("ItemIDBuyClanHall", 57);
 		
 		ALT_MANOR_REFRESH_TIME = clans.getProperty("AltManorRefreshTime", 20);
@@ -1142,7 +1147,7 @@ public final class Config
 		CANCEL_SECONDS = players.getProperty("CancelSeconds", 5);
 		RAIDBOSS_NOBLES = players.getProperty("RaidBossId", 0);
 		ENABLE_SPREEKILLS = players.getProperty("EnableSpreeKills", false);
-
+		
 		ANNOUNCE_HERO_ONLY_BASECLASS = players.getProperty("AnnounceHero", false);
 		ANNOUNCE_HERO_ENTER_BY_CLAN_MEMBER_MSG = players.getProperty("AnnounceHeroLoginByClanMemberMsg", "The Hero %player% from %classe% and of the clan %clan% is now online.");
 		ANNOUNCE_HERO_ENTER_BY_PLAYER_MSG = players.getProperty("AnnounceHeroLoginByPlayerMsg", "The Hero %player% from %classe% is now online.");
@@ -1152,7 +1157,7 @@ public final class Config
 		ANNOUNCE_TOP_PVP_ENTER_BY_PLAYER_MSG = players.getProperty("AnnounceTopPvPLoginByPlayerMsg", "The Hero %player% from %classe% is now online.");
 		ANNOUNCE_TOP_PK_ENTER_BY_CLAN_MEMBER_MSG = players.getProperty("AnnounceTopPkLoginByClanMemberMsg", "The Hero %player% from %classe% and of the clan %clan% is now online.");
 		ANNOUNCE_TOP_PK_ENTER_BY_PLAYER_MSG = players.getProperty("AnnounceTopPkLoginByPlayerMsg", "The Hero %player% from %classe% is now online.");
-
+		
 		ENABLE_BOSS_DEFEATED_MSG = players.getProperty("EnableBossDefeatedMsg", false);
 		RAID_BOSS_DEFEATED_BY_CLAN_MEMBER_MSG = players.getProperty("RaidBossDefeatedByClanMemberMsg", "Raid Boss %raidboss% has been defeated by %player% of clan %clan%.");
 		RAID_BOSS_DEFEATED_BY_PLAYER_MSG = players.getProperty("RaidBossDefeatedByPlayerMsg", "Raid Boss %raidboss% has been defeated by %player%.");
@@ -1209,32 +1214,32 @@ public final class Config
 		KARMA_AWARD_PK_KILL = players.getProperty("AwardPKKillPVPPoint", true);
 		KARMA_PK_LIMIT = players.getProperty("MinimumPKRequiredToDrop", 5);
 		KARMA_NONDROPPABLE_PET_ITEMS = players.getProperty("ListOfPetItems", new int[]
-		{
-			2375,
-			3500,
-			3501,
-			3502,
-			4422,
-			4423,
-			4424,
-			4425,
-			6648,
-			6649,
-			6650
-		});
+			{
+				2375,
+				3500,
+				3501,
+				3502,
+				4422,
+				4423,
+				4424,
+				4425,
+				6648,
+				6649,
+				6650
+			});
 		KARMA_NONDROPPABLE_ITEMS = players.getProperty("ListOfNonDroppableItemsForPK", new int[]
-		{
-			1147,
-			425,
-			1146,
-			461,
-			10,
-			2368,
-			7,
-			6,
-			2370,
-			2369
-		});
+			{
+				1147,
+				425,
+				1146,
+				461,
+				10,
+				2368,
+				7,
+				6,
+				2370,
+				2369
+			});
 		
 		PVP_NORMAL_TIME = players.getProperty("PvPVsNormalTime", 15000);
 		PVP_PVP_TIME = players.getProperty("PvPVsPvPTime", 30000);
@@ -1252,7 +1257,7 @@ public final class Config
 		GM_STARTUP_SPEED = players.getProperty("GMStartupSpeed", true);
 		GM_STARTUP_AUTO_LIST = players.getProperty("GMStartupAutoList", true);
 		GM_TRADE_RESTRICTED_ITEMS = players.getProperty("GMTradeRestrictedItems", false);
-
+		
 		PETITIONING_ALLOWED = players.getProperty("PetitioningAllowed", true);
 		MAX_PETITIONS_PER_PLAYER = players.getProperty("MaxPetitionsPerPlayer", 5);
 		MAX_PETITIONS_PENDING = players.getProperty("MaxPetitionsPending", 25);
@@ -1261,7 +1266,7 @@ public final class Config
 		DWARF_RECIPE_LIMIT = players.getProperty("DwarfRecipeLimit", 50);
 		COMMON_RECIPE_LIMIT = players.getProperty("CommonRecipeLimit", 50);
 		ALT_BLACKSMITH_USE_RECIPES = players.getProperty("AltBlacksmithUseRecipes", true);
-
+		
 		OFFLINE_TRADE_ENABLE = players.getProperty("OfflineTradeEnable", false);
 		OFFLINE_CRAFT_ENABLE = players.getProperty("OfflineCraftEnable", false);
 		OFFLINE_MODE_IN_PEACE_ZONE = players.getProperty("OfflineModeInPeaceZone", false);
@@ -1271,7 +1276,7 @@ public final class Config
 		RESTORE_OFFLINERS = players.getProperty("RestoreOffliners", false);
 		OFFLINE_MAX_DAYS = players.getProperty("OfflineMaxDays", 10);
 		OFFLINE_DISCONNECT_FINISHED = players.getProperty("OfflineDisconnectFinished", true);
-
+		
 		AUTO_LEARN_SKILLS = players.getProperty("AutoLearnSkills", false);
 		MAGIC_FAILURES = players.getProperty("MagicFailures", true);
 		PERFECT_SHIELD_BLOCK_RATE = players.getProperty("PerfectShieldBlockRate", 5);
@@ -1285,7 +1290,7 @@ public final class Config
 		
 		MAX_BUFFS_AMOUNT = players.getProperty("MaxBuffsAmount", 20);
 		STORE_SKILL_COOLTIME = players.getProperty("StoreSkillCooltime", true);
-
+		
 		AIO_TITLE = players.getProperty("AioTitle", "Aio");
 		AIO_COLOR = Integer.decode("0x" + players.getProperty("AioColor", "606060"));
 		LIST_AIO_ITEMS = players.parseIntIntList("AioItems", "1-268");
@@ -1314,10 +1319,10 @@ public final class Config
 		MAX_ATTACKERS_NUMBER = sieges.getProperty("AttackerMaxClans", 10);
 		MAX_DEFENDERS_NUMBER = sieges.getProperty("DefenderMaxClans", 10);
 		ATTACKERS_RESPAWN_DELAY = sieges.getProperty("AttackerRespawn", 10000);
-
+		
 		REWARD_WINNER_SIEGE_CLAN = sieges.parseIntIntList("MembersRewardsID", "57-100");
 		LEADER_REWARD_WINNER_SIEGE_CLAN = sieges.parseIntIntList("LeaderRewardsID", "57-400");
-	
+		
 		CH_MINIMUM_CLAN_LEVEL = sieges.getProperty("ChSiegeClanMinLevel", 4);
 		CH_MAX_ATTACKERS_NUMBER = sieges.getProperty("ChAttackerMaxClans", 10);
 	}
@@ -1477,6 +1482,12 @@ public final class Config
 		SERVER_NEWS = server.getProperty("ShowServerNews", false);
 		DISABLE_TUTORIAL = server.getProperty("DisableTutorial", false);
 		
+		ANTIBOT_ENABLE = server.getProperty("AntiBotProtection", true);
+		ANTIBOT_TIME_JAIL = server.getProperty("AntiBotTimeJail", 1);
+		ANTIBOT_TIME_VOTE = server.getProperty("AntiBotTimeVote", 30);
+		ANTIBOT_KILL_MOBS = server.getProperty("AntiBotKillMobs", 1);
+		ANTIBOT_MIN_LEVEL = server.getProperty("AntiBotMinLevel", 1);				
+		
 		ALLOW_WYVERN_RESTRITION_CITY = server.getProperty("MountRequest", false);
 		SHOUT_RESTRICTION_TYPE = RestrictionType.valueOf(server.getProperty("ShoutRestrictionType", "NONE"));
 		TRADE_RESTRICTION_TYPE = RestrictionType.valueOf(server.getProperty("TradeRestrictionType", "NONE"));
@@ -1486,10 +1497,10 @@ public final class Config
 		MIN_LEVEL_TO_USE_STORE = server.getProperty("LevelToUseStore", 0);
 		SHOUT_RESTRICTION_VALUE = server.getProperty("ShoutRestrictionValue", 0);
 		TRADE_RESTRICTION_VALUE = server.getProperty("TradeRestrictionValue", 0);
-
+		
 		for (String listid : server.getProperty("RestrictedNames", "fuck,dildo,admin").split(","))
 			LIST_FORBIDDEN_NAMES.add(String.valueOf(listid));
-
+		
 		PROTECTION_HEAL = server.getProperty("HealProtection", false);
 		PROTECTION_HEAL_PVP = server.getProperty("HealCurrent", 1.);
 		

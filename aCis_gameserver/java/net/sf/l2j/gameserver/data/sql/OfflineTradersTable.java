@@ -127,8 +127,6 @@ public final class OfflineTradersTable
 	
 	public static void restoreOfflineTraders()
 	{
-		LOGGER.info("loading offline traders...");
-		
 		try (final Connection con = L2DatabaseFactory.getInstance().getConnection();
 			final Statement stm = con.createStatement();
 			final ResultSet rs = stm.executeQuery(LOAD_OFFLINE_STATUS))
@@ -239,7 +237,7 @@ public final class OfflineTradersTable
 				}
 			}
 			
-			LOGGER.info("loaded " + nTraders + " offline traders.");
+			LOGGER.info("Loaded " + nTraders + " offline traders.");
 			
 			try (final Statement stm1 = con.createStatement())
 			{

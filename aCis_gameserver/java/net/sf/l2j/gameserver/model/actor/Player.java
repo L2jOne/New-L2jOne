@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.data.manager.ZoneManager;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.data.xml.AdminData;
+import net.sf.l2j.gameserver.data.xml.AntiBotData;
 import net.sf.l2j.gameserver.data.xml.ItemData;
 import net.sf.l2j.gameserver.data.xml.MapRegionData;
 import net.sf.l2j.gameserver.data.xml.MapRegionData.TeleportType;
@@ -67,6 +68,7 @@ import net.sf.l2j.gameserver.enums.MessageType;
 import net.sf.l2j.gameserver.enums.PcCafeType;
 import net.sf.l2j.gameserver.enums.PolyType;
 import net.sf.l2j.gameserver.enums.PunishmentType;
+import net.sf.l2j.gameserver.enums.SayType;
 import net.sf.l2j.gameserver.enums.ScriptEventType;
 import net.sf.l2j.gameserver.enums.SealType;
 import net.sf.l2j.gameserver.enums.ShortcutType;
@@ -85,6 +87,7 @@ import net.sf.l2j.gameserver.enums.items.ArmorType;
 import net.sf.l2j.gameserver.enums.items.EtcItemType;
 import net.sf.l2j.gameserver.enums.items.ShotType;
 import net.sf.l2j.gameserver.enums.items.WeaponType;
+import net.sf.l2j.gameserver.enums.skills.AbnormalEffect;
 import net.sf.l2j.gameserver.enums.skills.L2EffectFlag;
 import net.sf.l2j.gameserver.enums.skills.L2EffectType;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
@@ -177,6 +180,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.network.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
@@ -184,6 +188,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.network.serverpackets.ExPCCafePointInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExSetCompassZoneCode;
+import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
 import net.sf.l2j.gameserver.network.serverpackets.GetOnVehicle;
@@ -195,6 +200,7 @@ import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationMode;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationReturn;
 import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowUpdate;
@@ -294,6 +300,11 @@ public final class Player extends Playable
 	
 	private static final Comparator<GeneralSkillNode> COMPARE_SKILLS_BY_MIN_LVL = Comparator.comparing(GeneralSkillNode::getMinLvl);
 	private static final Comparator<GeneralSkillNode> COMPARE_SKILLS_BY_LVL = Comparator.comparing(GeneralSkillNode::getValue);
+
+	private String _code = "";
+	private int _attempt = 0;
+	private int _mobs_dead = 0;
+	public static ScheduledFuture<?> _antiBotTask;
 	
 	private GameClient _client;
 	private final Map<Integer, String> _chars = new HashMap<>();
@@ -9667,5 +9678,170 @@ public final class Player extends Playable
 			statement.executeUpdate();
 		}
 		catch (Exception e){}
+	}
+
+	public void antibot()
+	{
+		increaseMobsDead();
+		
+		if (getMobsDead() >= Config.ANTIBOT_KILL_MOBS)
+		{
+			resetMobsDead();
+			_antiBotTask = ThreadPool.schedule(new startAntiBotTask(), Config.ANTIBOT_TIME_VOTE * 1000);
+		}
+	}
+	
+	private static void stopAntiBotTask()
+	{
+		if (_antiBotTask != null)
+		{
+			_antiBotTask.cancel(false);
+			_antiBotTask = null;
+		}
+	}
+	
+	private class startAntiBotTask implements Runnable
+	{
+		public startAntiBotTask()
+		{
+			setIsParalyzed(true);
+			setIsInvul(true);
+			startAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
+			sendPacket(new ExShowScreenMessage("[AntiBot]: You have " + Config.ANTIBOT_TIME_VOTE + " to confirm the Captcha!", 10000));
+			sendPacket(new CreatureSay(0, SayType.CRITICAL_ANNOUNCE, "[AntiBot]:", "You have " + Config.ANTIBOT_TIME_VOTE + " to confirm the Catpcha."));
+
+			NpcHtmlMessage html = new NpcHtmlMessage(0);
+			html.setFile("data/html/start.htm");
+			
+			html.replace("%playerName%", getName());
+			html.replace("%attemp%", String.valueOf(3 - getAttempt()));
+			int maxR = 3;
+			
+			String random = new String();
+			
+			for(int x = 0; x<maxR; x++)
+				random += Integer.toString(Rnd.get(0,9));
+			
+			html.replace("%code1%", num2img(Integer.parseInt(random)));
+					
+			setCode(String.valueOf(Integer.parseInt(random)));
+			sendPacket(html);
+		}
+		
+		@Override
+		public void run()
+		{
+			if (!isInJail())
+			{
+				sendPacket(new CreatureSay(0, SayType.HERO_VOICE, "[AntiBot]:", "Your time limit has elapsed."));
+				increaseAttempt();
+				
+				if (getAttempt() >= 3)
+				{
+					setIsParalyzed(false);
+					setIsInvul(false);
+					startAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
+					getPunishment().setType(PunishmentType.JAIL, Config.ANTIBOT_TIME_JAIL);
+					sendPacket(new CreatureSay(0, SayType.HERO_VOICE, "[AntiBot]:", "Character " + getName() + " jailed for " + Config.ANTIBOT_TIME_JAIL + " minutes."));
+					LOGGER.warn("[AntiBot]: Character " + getName() + " jailed for " + Config.ANTIBOT_TIME_JAIL + " minutes.");
+				}
+				else
+				{
+					_antiBotTask = ThreadPool.schedule(new startAntiBotTask(), Config.ANTIBOT_TIME_VOTE * 1000);
+				}
+			}
+		}
+	}
+	
+	public String num2img(int numero) 
+	{
+		String num = Integer.toString(numero);
+		char[] digitos = num.toCharArray();
+		
+		String tmp = "";
+		for(int x=0;x<num.length();x++) 
+		{
+			int dig = Integer.parseInt(Character.toString(digitos[x]));
+			final int it = AntiBotData.getInstance().getAntiBotClientID(dig);
+			AntiBotData.getInstance().sendImage(this, it);
+			tmp += "<img src=Crest.crest_" + Config.SERVER_ID + "_" + it + " width=38 height=33 align=left>";
+		}
+		
+		return tmp;
+	}
+	
+	public void checkCode(String code)
+	{
+		if (code.equals(getCode()))
+		{
+			stopAntiBotTask();
+			resetAttempt();
+			
+			sendPacket(new CreatureSay(0, SayType.HERO_VOICE, "[AntiBot]:", "Congratulations, has passed control."));
+			setIsParalyzed(false);
+			setIsInvul(false);
+			stopAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
+		}
+		else
+		{
+			stopAntiBotTask();
+			increaseAttempt();
+			
+			_antiBotTask = ThreadPool.schedule(new startAntiBotTask(), Config.ANTIBOT_TIME_VOTE * 1000);
+		}
+		
+		if (getAttempt() >= 3)
+		{
+			stopAntiBotTask();
+			resetAttempt();
+			
+			setIsParalyzed(false);
+			setIsInvul(false);
+			startAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
+			
+			getPunishment().setType(PunishmentType.JAIL, Config.ANTIBOT_TIME_JAIL);
+			sendPacket(new CreatureSay(0, SayType.HERO_VOICE, "[AntiBot]:", "Character " + getName() + " jailed for " + Config.ANTIBOT_TIME_JAIL + " minutes."));
+			LOGGER.warn("[AntiBot]: Character " + getName() + " jailed for " + Config.ANTIBOT_TIME_JAIL + " minutes.");
+		}
+	}
+	
+	private int getMobsDead()
+	{
+		return _mobs_dead;
+	}
+	
+	private void increaseMobsDead()
+	{
+		_mobs_dead++;
+	}
+	
+	private void resetMobsDead()
+	{
+		_mobs_dead = 0;
+	}
+	
+	private void setCode(String code)
+	{
+		_code = code;
+	}
+	
+	private String getCode()
+	{
+		return _code;
+	}
+	
+	public void increaseAttempt()
+	{
+		_attempt += 1;
+	}
+	
+	public int getAttempt()
+	{
+		return _attempt;
+	}
+	
+	public void resetAttempt()
+	{
+		_attempt = 0;
 	}
 }

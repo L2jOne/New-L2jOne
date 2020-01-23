@@ -224,14 +224,24 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				
 				REPORT_LOG.info("Character Info: " + info + "\r\nBug Type: " + type + "\r\nMessage: " + msg);
 				player.sendMessage("Relatério enviado. Os Gms irão verifica-la em breve, obrigado.");
-				
-				for (Player allgms : AdminData.getInstance().getAllGms(true))
-					allgms.sendMessage("Report Manager: "+ player.getName() + " enviou um relatório de bug.");
+				AdminData.getInstance().broadcastMessageToGMs("Report Manager: "+ player.getName() + " enviou um relatório de bug.");
 			}
 			catch (Exception e)
 			{
 				player.sendMessage("Algo deu errado, tente novamente.");
 			}
+		}
+		else if (_command.startsWith("antibot"))
+		{
+			StringTokenizer st = new StringTokenizer(_command);
+			st.nextToken();
+			
+			if (st.hasMoreTokens())
+			{
+				player.checkCode(st.nextToken());
+				return;
+			}
+			player.checkCode("Fail");
 		}
 	}
 }

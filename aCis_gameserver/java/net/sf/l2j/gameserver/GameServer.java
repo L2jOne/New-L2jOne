@@ -55,6 +55,7 @@ import net.sf.l2j.gameserver.data.sql.ServerMemoTable;
 import net.sf.l2j.gameserver.data.sql.SpawnTable;
 import net.sf.l2j.gameserver.data.xml.AdminData;
 import net.sf.l2j.gameserver.data.xml.AnnouncementData;
+import net.sf.l2j.gameserver.data.xml.AntiBotData;
 import net.sf.l2j.gameserver.data.xml.ArmorSetData;
 import net.sf.l2j.gameserver.data.xml.AugmentationData;
 import net.sf.l2j.gameserver.data.xml.DonateData;
@@ -161,6 +162,7 @@ public class GameServer
 		MapRegionData.getInstance();
 		AnnouncementData.getInstance();
 		ServerMemoTable.getInstance();
+		AntiBotData.getInstance();
 		
 		StringUtil.printSection("Skills");
 		SkillTable.getInstance();
