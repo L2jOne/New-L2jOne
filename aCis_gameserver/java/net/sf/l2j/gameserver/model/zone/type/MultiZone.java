@@ -27,7 +27,7 @@ public class MultiZone extends SpawnZoneType
 	private String _zoneName;
 	private boolean _isNoStore;
 	private boolean _isNoSummonFriend;
-	private boolean _isFlagEnabled;
+	private static boolean _isFlagEnabled;
 	private boolean _isHealEnabled;
 	private int _duration;
 	private int _reviveDelay;
@@ -178,7 +178,7 @@ public class MultiZone extends SpawnZoneType
 		return _reviveDelay;
 	}
 	
-	public boolean isFlagEnabled()
+	public static boolean isFlagEnabled()
 	{
 		return _isFlagEnabled;
 	}

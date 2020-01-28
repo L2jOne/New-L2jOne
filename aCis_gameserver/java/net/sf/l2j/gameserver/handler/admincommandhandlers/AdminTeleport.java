@@ -31,6 +31,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		"admin_goto",
 		"admin_teleportto", // deprecated
 		"admin_recall",
+		"admin_recallall",
 		"admin_recall_party",
 		"admin_recall_clan",
 		"admin_move_to",

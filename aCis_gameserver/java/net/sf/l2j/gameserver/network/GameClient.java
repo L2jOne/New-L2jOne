@@ -605,6 +605,9 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 	
 	public void close(L2GameServerPacket gsp)
 	{
+		if (getConnection() == null)
+			return;
+		
 		getConnection().close(gsp);
 	}
 	

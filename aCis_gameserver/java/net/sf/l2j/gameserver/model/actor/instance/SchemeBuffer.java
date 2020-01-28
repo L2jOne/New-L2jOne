@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 public class SchemeBuffer extends Folk
 {
-	private static final int PAGE_LIMIT = 6;
+	private static final int PAGE_LIMIT = 10;
 	
 	public SchemeBuffer(int objectId, NpcTemplate template)
 	{
@@ -68,9 +68,7 @@ public class SchemeBuffer extends Folk
 			player.sendPacket(html);
 		}
 		else if (currentCommand.startsWith("support"))
-		{
 			showGiveBuffsWindow(player);
-		}
 		else if (currentCommand.startsWith("givebuffs"))
 		{
 			final String schemeName = st.nextToken();
@@ -95,9 +93,7 @@ public class SchemeBuffer extends Folk
 			}
 		}
 		else if (currentCommand.startsWith("editschemes"))
-		{
 			showEditSchemeWindow(player, st.nextToken(), st.nextToken(), Integer.parseInt(st.nextToken()));
-		}
 		else if (currentCommand.startsWith("skill"))
 		{
 			final String groupType = st.nextToken();
@@ -273,8 +269,8 @@ public class SchemeBuffer extends Folk
 		int row = 0;
 		for (int skillId : skills)
 		{
-			final String icon = (skillId < 100) ? "icon.skill00" + skillId : (skillId < 1000) ? "icon.skill0" + skillId : "icon.skill" + skillId;
-			
+			final String icon = (skillId == 4699 || skillId == 4700 ? "icon.skill1331" : skillId == 4702 || skillId == 4703 ? "icon.skill1332" : (skillId < 100) ? "icon.skill00" + skillId : (skillId < 1000) ? "icon.skill0" + skillId : "icon.skill" + skillId);
+
 			sb.append(((row % 2) == 0 ? "<table width=\"280\" bgcolor=\"000000\"><tr>" : "<table width=\"280\"><tr>"));
 			
 			if (schemeSkills.contains(skillId))

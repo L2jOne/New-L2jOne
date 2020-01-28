@@ -12,6 +12,7 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.model.entity.AuctionItem;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
@@ -124,8 +125,15 @@ public class AuctionManager extends Folk
 			int costId = 0;
 			if (costitemtype.equals("Adena"))
 				costId = 57;
-			if (costitemtype.equals("Gold"))
-				costId = 3470;
+			
+			if (costitemtype.equals("Donate"))
+				costId = 9209;
+			
+			if (costitemtype.equals("Star"))
+				costId = 5556;
+
+			if (costitemtype.equals("Bead"))
+				costId = 5557;
 			
 			AuctionTable.getInstance().addItem(new AuctionItem(AuctionTable.getInstance().getNextAuctionId(), player.getObjectId(), player.getInventory().getItemByObjectId(itemId).getItemId(), itemAmount, player.getInventory().getItemByObjectId(itemId).getEnchantLevel(), costId, costCount));
 			
@@ -242,7 +250,7 @@ public class AuctionManager extends Folk
 		}
 		
 		html += "<br>Select price:";
-		html += "<br><combobox width=120 height=17 var=ebox list=Adena;Gold>";
+		html += "<br><combobox width=120 height=17 var=ebox list=Adena;Donate;Star;Bead;>";
 		html += "<br><edit var=count type=number width=120 height=17>";
 		html += "<br><button value=\"Add item\" action=\"bypass -h npc_"+ getObjectId() +"_addit2 "+itemId+" $ebox $count "+(item.isStackable() ? "$amm" : "1")+"\" width=70 height=21 back=\"L2UI.DefaultButton_click\" fore=\"L2UI.DefaultButton\">";
 		html += "</center></body></html>";
@@ -391,16 +399,19 @@ public class AuctionManager extends Folk
 		htm.setHtml(html);
 		player.sendPacket(htm);
 	}
-	
+
 	@Override
-	public String getHtmlPath(int npcId, int val)
+	public void showChatWindow(Player player, int val)
 	{
-		String pom = "";
-		if (val == 0)
-			pom = "" + npcId;
-		else
-			pom = npcId + "-" + val;
+		String name = "data/html/auction/" + getNpcId() + ".htm";
+		if (val != 0)
+			name = "data/html/auction/" + getNpcId() + "-" + val + ".htm";
 		
-		return "data/html/auction/" + pom + ".htm";
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile(name);
+		html.replace("%objectId%", getObjectId());
+		html.replace("%player%", player.getName());
+		player.sendPacket(html);
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

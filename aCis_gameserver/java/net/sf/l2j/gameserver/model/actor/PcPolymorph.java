@@ -101,7 +101,7 @@ public class PcPolymorph extends Npc
 		if (val != 0)
 			name = "data/html/polymorph/" + getNpcId() + "-" + val + ".htm";
 		
-		broadcastNpcSay("Olá " + player.getName() + " veja aqui o Rei do Server!");
+		broadcastNpcSay("Hello " + player.getName() + " see here the King of Server!");
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(name);
