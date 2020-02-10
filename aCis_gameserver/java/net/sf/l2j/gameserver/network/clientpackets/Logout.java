@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.data.manager.FestivalOfDarknessManager;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -37,6 +38,13 @@ public final class Logout extends L2GameClientPacket
 		if (AttackStanceTaskManager.getInstance().isInAttackStance(player))
 		{
 			player.sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
+		if (EventManager.getInstance().isRegistered(player))
+		{
+			player.sendMessage("You cannot logout while you are a participant of an event.");
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

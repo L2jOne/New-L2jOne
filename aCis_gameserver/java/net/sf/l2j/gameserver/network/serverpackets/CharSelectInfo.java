@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.model.CharSelectSlot;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
@@ -164,7 +164,7 @@ public class CharSelectInfo extends L2GameServerPacket
 	{
 		final List<CharSelectSlot> list = new ArrayList<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT_INFOS))
 		{
 			ps.setString(1, loginName);

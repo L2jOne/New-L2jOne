@@ -382,18 +382,38 @@ public class NpcTemplate extends CreatureTemplate
 		return _categories;
 	}
 	
-	/**
-	 * @return the {@link List} of all possible {@link DropData}s of this {@link NpcTemplate} linked to DROP behavior.
-	 */
-	public List<DropData> getAllDropData()
+	public final void addDropCategory(DropCategory category)
 	{
-		final List<DropData> list = new ArrayList<>();
-		for (DropCategory category : _categories)
+		synchronized (_categories)
 		{
-			if (!category.isSweep())
-				list.addAll(category.getAllDrops());
+			if (_categories.isEmpty())
+			{
+				// empty means _categories is instance of Collections.emptyList(); - cannot add items to this container
+				_categories = new ArrayList<>();
+			}
+			else
+			{
+				// category already exists, return
+				for (DropCategory cat : _categories)
+				{
+					if (cat.getCategoryType() == category.getCategoryType())
+						return;
+				}
+			}
+			
+			_categories.add(category);
 		}
-		return list;
+	}
+	
+	public final void removeDropCategory(DropCategory category)
+	{
+		synchronized (_categories)
+		{
+			if (_categories.isEmpty())
+				return;
+			
+			_categories.remove(category);
+		}
 	}
 	
 	/**
@@ -408,35 +428,6 @@ public class NpcTemplate extends CreatureTemplate
 				list.addAll(category.getAllDrops());
 		}
 		return list;
-	}
-	
-	/**
-	 * Add a {@link DropData} to a given category. If the category does not exist, create it.
-	 * @param drop : The DropData to add.
-	 * @param categoryType : The category type we refer.
-	 */
-	public void addDropData(DropData drop, int categoryType)
-	{
-		final boolean isBossType = isType("RaidBoss") || isType("GrandBoss");
-		
-		synchronized (_categories)
-		{
-			// Category exists, stores the drop and return.
-			for (DropCategory cat : _categories)
-			{
-				if (cat.getCategoryType() == categoryType)
-				{
-					cat.addDropData(drop, isBossType);
-					return;
-				}
-			}
-			
-			// Category doesn't exist, create and store it.
-			final DropCategory cat = new DropCategory(categoryType);
-			cat.addDropData(drop, isBossType);
-			
-			_categories.add(cat);
-		}
 	}
 	
 	/**
@@ -499,13 +490,13 @@ public class NpcTemplate extends CreatureTemplate
 				case INSTANT_JUMP:
 					addSkill(SkillType.TELEPORT, skill);
 					continue;
-				
+					
 				case BUFF:
 				case CONT:
 				case REFLECT:
 					addSkill(SkillType.BUFF, skill);
 					continue;
-				
+					
 				case HEAL:
 				case HOT:
 				case HEAL_PERCENT:
@@ -515,7 +506,7 @@ public class NpcTemplate extends CreatureTemplate
 				case MANAHEAL_PERCENT:
 					addSkill(SkillType.HEAL, skill);
 					continue;
-				
+					
 				case DEBUFF:
 				case ROOT:
 				case SLEEP:
@@ -533,7 +524,7 @@ public class NpcTemplate extends CreatureTemplate
 				case AGGDEBUFF:
 					addSkill(SkillType.DEBUFF, skill);
 					continue;
-				
+					
 				case PDAM:
 				case MDAM:
 				case BLOW:

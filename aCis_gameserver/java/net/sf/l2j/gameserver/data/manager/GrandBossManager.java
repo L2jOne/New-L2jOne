@@ -10,7 +10,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.util.StatsSet;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.model.actor.instance.GrandBoss;
 
@@ -31,7 +31,7 @@ public class GrandBossManager
 	
 	protected GrandBossManager()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT_GRAND_BOSS_DATA);
 			ResultSet rset = ps.executeQuery())
 		{
@@ -120,7 +120,7 @@ public class GrandBossManager
 	 */
 	private void updateDb(int bossId, boolean statusOnly)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			final StatsSet info = _storedInfo.get(bossId);
 			final GrandBoss boss = _bosses.get(bossId);
@@ -163,7 +163,7 @@ public class GrandBossManager
 	public void cleanUp()
 	{
 		// Store to database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps1 = con.prepareStatement(UPDATE_GRAND_BOSS_DATA2);
 			PreparedStatement ps2 = con.prepareStatement(UPDATE_GRAND_BOSS_DATA))
 		{

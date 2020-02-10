@@ -11,7 +11,7 @@ import java.util.Map;
 
 import net.sf.l2j.commons.data.xml.IXmlReader;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.enums.CabalType;
 import net.sf.l2j.gameserver.enums.SpawnType;
@@ -40,7 +40,7 @@ public final class CastleManager implements IXmlReader
 	protected CastleManager()
 	{
 		// Generate Castle objects with dynamic data.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_CASTLES);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -204,7 +204,7 @@ public final class CastleManager implements IXmlReader
 			castle.setLeftCertificates(300, false);
 		
 		// Update all castles with a single query.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESET_CERTIFICATES))
 		{
 			ps.executeUpdate();

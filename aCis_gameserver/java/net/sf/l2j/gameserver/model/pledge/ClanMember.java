@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.enums.actors.Sex;
 import net.sf.l2j.gameserver.model.actor.Player;
 
@@ -119,7 +119,7 @@ public class ClanMember
 	
 	public boolean isOnline()
 	{
-		return _player != null && _player.getClient() != null && !_player.getClient().isDetached();
+		return _player != null && _player.isOfflineMode() && _player.getClient() != null && !_player.getClient().isDetached();
 	}
 	
 	public int getClassId()
@@ -170,7 +170,7 @@ public class ClanMember
 	
 	public void updatePledgeType()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_PLEDGE))
 		{
 			ps.setInt(1, _pledgeType);
@@ -203,7 +203,7 @@ public class ClanMember
 	 */
 	public void updatePowerGrade()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_POWER_GRADE))
 		{
 			ps.setInt(1, _powerGrade);
@@ -441,7 +441,7 @@ public class ClanMember
 	
 	public void saveApprenticeAndSponsor(int apprentice, int sponsor)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_SPONSOR))
 		{
 			ps.setInt(1, apprentice);

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,7 +14,7 @@ import java.util.concurrent.ScheduledFuture;
 import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.ClanHallManager;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.xml.MapRegionData;
@@ -70,7 +71,7 @@ public abstract class ClanHallSiege extends Quest implements Siegable
 	
 	public void loadAttackers()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SQL_LOAD_ATTACKERS))
 		{
 			ps.setInt(1, _hall.getId());
@@ -93,7 +94,7 @@ public abstract class ClanHallSiege extends Quest implements Siegable
 	
 	public final void saveAttackers()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("DELETE FROM clanhall_siege_attackers WHERE clanhall_id = ?"))
 		{
 			ps.setInt(1, _hall.getId());
@@ -126,7 +127,7 @@ public abstract class ClanHallSiege extends Quest implements Siegable
 		{
 			_guards = new ArrayList<>();
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_LOAD_GUARDS))
 			{
 				ps.setInt(1, _hall.getId());
@@ -180,9 +181,9 @@ public abstract class ClanHallSiege extends Quest implements Siegable
 	}
 	
 	@Override
-	public List<Clan> getAttackerClans()
+	public Collection<Clan> getAttackerClans()
 	{
-		return (List<Clan>) _attackers.values();
+		return _attackers.values();
 	}
 	
 	@Override

@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 import net.sf.l2j.commons.lang.StringUtil;
 import net.sf.l2j.commons.math.MathUtil;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.manager.ClanHallManager;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
@@ -105,7 +105,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						onLineChange(activeChar, player, lvl);
 					else
 					{
-						try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+						try (Connection con = DatabaseFactory.getInstance().getConnection();
 							PreparedStatement ps = con.prepareStatement("UPDATE characters SET accesslevel=? WHERE char_name=?"))
 						{
 							ps.setInt(1, lvl);
@@ -649,7 +649,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				Player player = World.getInstance().getPlayer(playerName);
 				if (player == null)
 				{
-					try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+					try (Connection con = DatabaseFactory.getInstance().getConnection();
 						PreparedStatement ps = con.prepareStatement("UPDATE characters SET " + (changeCreateExpiryTime ? "clan_create_expiry_time" : "clan_join_expiry_time") + " WHERE char_name=? LIMIT 1"))
 					{
 						ps.setString(1, playerName);

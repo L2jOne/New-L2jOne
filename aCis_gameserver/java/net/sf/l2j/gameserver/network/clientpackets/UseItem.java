@@ -3,6 +3,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.commons.concurrent.ThreadPool;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.enums.items.ActionType;
 import net.sf.l2j.gameserver.enums.items.EtcItemType;
@@ -75,6 +76,9 @@ public final class UseItem extends L2GameClientPacket
 		}
 		
 		if (player.isAlikeDead() || player.isStunned() || player.isSleeping() || player.isParalyzed() || player.isAfraid())
+			return;
+
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(player) && !EventManager.getInstance().getCurrentEvent().onUseItem(player, item))
 			return;
 		
 		if (!Config.KARMA_PLAYER_CAN_TELEPORT && player.getKarma() > 0)

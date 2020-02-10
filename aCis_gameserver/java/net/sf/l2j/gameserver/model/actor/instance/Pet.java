@@ -12,7 +12,7 @@ import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.random.Rnd;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.ZoneId;
@@ -299,7 +299,7 @@ public class Pet extends Summon
 		if (_controlItemId == 0)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(STORE_PET))
 		{
 			ps.setString(1, getName());
@@ -509,7 +509,7 @@ public class Pet extends Summon
 		owner.destroyItem("PetDestroy", _controlItemId, 1, getOwner(), false);
 		
 		// Delete the pet from the database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_PET))
 		{
 			ps.setInt(1, _controlItemId);
@@ -529,7 +529,7 @@ public class Pet extends Summon
 		else
 			pet = new Pet(IdFactory.getInstance().getNextId(), template, owner, control);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_PET))
 			{

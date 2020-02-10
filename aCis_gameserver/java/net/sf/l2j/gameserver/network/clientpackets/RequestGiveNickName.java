@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.commons.lang.StringUtil;
 
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.model.pledge.ClanMember;
@@ -26,6 +27,12 @@ public class RequestGiveNickName extends L2GameClientPacket
 		final Player player = getClient().getPlayer();
 		if (player == null)
 			return;
+
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(player))
+		{
+			player.sendMessage("You cannot change title while participating in an event.");
+			return;
+		}
 		
 		if (!StringUtil.isValidString(_title, "^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$"))
 		{

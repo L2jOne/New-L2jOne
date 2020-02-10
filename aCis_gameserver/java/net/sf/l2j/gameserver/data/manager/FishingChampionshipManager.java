@@ -13,7 +13,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.ServerMemoTable;
 import net.sf.l2j.gameserver.data.xml.ItemData;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -99,7 +99,7 @@ public class FishingChampionshipManager
 	{
 		_endDate = ServerMemoTable.getInstance().getLong("fishChampionshipEnd", 0);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT))
 		{
 			try (ResultSet rs = ps.executeQuery())
@@ -433,7 +433,7 @@ public class FishingChampionshipManager
 	{
 		ServerMemoTable.getInstance().set("fishChampionshipEnd", _endDate);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE);
 			PreparedStatement ps2 = con.prepareStatement(INSERT))
 		{

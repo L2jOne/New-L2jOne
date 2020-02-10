@@ -6,7 +6,9 @@ import java.util.Map;
 import net.sf.l2j.gameserver.enums.skills.L2SkillType;
 import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
 import net.sf.l2j.gameserver.handler.skillhandlers.Blow;
+import net.sf.l2j.gameserver.handler.skillhandlers.Bomb;
 import net.sf.l2j.gameserver.handler.skillhandlers.Cancel;
+import net.sf.l2j.gameserver.handler.skillhandlers.Capture;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
 import net.sf.l2j.gameserver.handler.skillhandlers.CpDamPercent;
@@ -44,7 +46,9 @@ public class SkillHandler
 	{
 		registerHandler(new BalanceLife());
 		registerHandler(new Blow());
-		registerHandler(new Cancel());
+		registerHandler(new Bomb());
+ 		registerHandler(new Cancel());
+		registerHandler(new Capture());
 		registerHandler(new CombatPointHeal());
 		registerHandler(new Continuous());
 		registerHandler(new CpDamPercent());

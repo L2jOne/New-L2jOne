@@ -40,7 +40,7 @@ public class DoubleRatesTaskManager implements Runnable
 			Config.RATE_DROP_ITEMS = Config.RATE_MULTIPLER * Config.RATE_DROP_ITEMS;
 			Config.RATE_DROP_ITEMS_BY_RAID = Config.RATE_MULTIPLER * Config.RATE_DROP_ITEMS_BY_RAID;
 			Config.RATE_DROP_ADENA = Config.RATE_MULTIPLER * Config.RATE_DROP_ADENA;
-			World.announceToOnlinePlayers("The Dobro de Rates started you have " + Config.TIME_DOUBLE_RATES + " minutes to release. The rates were multiplied by " + Config.RATE_MULTIPLER);	
+			World.announceToOnlinePlayers("The Dobro de Rates started you have " + Config.TIME_DOUBLE_RATES + " minutes to release. The rates were multiplied by " + Config.RATE_MULTIPLER, true);	
 		}
 		else
 		{
@@ -49,7 +49,7 @@ public class DoubleRatesTaskManager implements Runnable
 			Config.RATE_DROP_ITEMS = Config.RATE_DROP_ITEMS / Config.RATE_MULTIPLER;
 			Config.RATE_DROP_ITEMS_BY_RAID = Config.RATE_DROP_ITEMS_BY_RAID / Config.RATE_MULTIPLER;
 			Config.RATE_DROP_ADENA = Config.RATE_DROP_ADENA / Config.RATE_MULTIPLER;
-			World.announceToOnlinePlayers("The rates are restored!!");
+			World.announceToOnlinePlayers("The rates are restored!!", true);
 		}
 	}
 	

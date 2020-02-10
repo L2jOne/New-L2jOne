@@ -7,6 +7,10 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
 import net.sf.l2j.gameserver.data.manager.HeroManager;
 import net.sf.l2j.gameserver.data.xml.AdminData;
+import net.sf.l2j.gameserver.data.xml.ItemData;
+import net.sf.l2j.gameserver.engine.EventBuffer;
+import net.sf.l2j.gameserver.engine.EventManager;
+import net.sf.l2j.gameserver.engine.EventStats;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.World;
@@ -14,6 +18,9 @@ import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.Npc;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.OlympiadManagerNpc;
+import net.sf.l2j.gameserver.model.entity.vote.VoteHopzone;
+import net.sf.l2j.gameserver.model.entity.vote.VoteNetwork;
+import net.sf.l2j.gameserver.model.entity.vote.VoteTopzone;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadManager;
 import net.sf.l2j.gameserver.network.FloodProtectors;
 import net.sf.l2j.gameserver.network.FloodProtectors.Action;
@@ -75,6 +82,10 @@ public final class RequestBypassToServer extends L2GameClientPacket
 			
 			ach.useAdminCommand(_command, player);
 		}
+		else if (_command.equals("register"))
+			EventManager.getInstance().registerPlayer(player);
+		else if (_command.equals("unregister"))
+			EventManager.getInstance().unregisterPlayer(player);
 		else if (_command.startsWith("player_help "))
 		{
 			final String path = _command.substring(12);
@@ -148,6 +159,45 @@ public final class RequestBypassToServer extends L2GameClientPacket
 			else
 				player.processQuestEvent(str[0], str[1]);
 		}
+		else if (_command.startsWith("eventvote "))
+			EventManager.getInstance().addVote(player, Integer.parseInt(_command.substring(10)));
+		else if (_command.startsWith("eventstats "))
+		{
+			try
+			{
+				EventStats.getInstance().showHtml(Integer.parseInt(_command.substring(11)), player);
+			}
+			catch (Exception e)
+			{
+				player.sendMessage("Currently there are no statistics to show.");
+			}
+		}
+		else if (_command.startsWith("eventstats_show "))
+			EventStats.getInstance().showPlayerStats(Integer.parseInt(_command.substring(16)), player);
+		else if (_command.equals("eventbuffershow"))
+			EventBuffer.getInstance().showHtml(player);
+		else if (_command.startsWith("eventbuffer "))
+		{
+			EventBuffer.getInstance().changeList(player, Integer.parseInt(_command.substring(12, _command.length() - 2)), (Integer.parseInt(_command.substring(_command.length() - 1)) == 0 ? false : true));
+			EventBuffer.getInstance().showHtml(player);
+		}
+		else if (_command.startsWith("eventinfo "))
+		{
+			int eventId = Integer.valueOf(_command.substring(10));
+			
+			NpcHtmlMessage html = new NpcHtmlMessage(0);
+			html.setFile("data/html/eventinfo/" + eventId + ".htm");
+			html.replace("%amount%", String.valueOf(EventManager.getInstance().getInt(eventId, "rewardAmmount")));
+			html.replace("%item%", ItemData.getInstance().getTemplate(EventManager.getInstance().getInt(eventId, "rewardId")).getName());
+			html.replace("%minlvl%", String.valueOf(EventManager.getInstance().getInt(eventId, "minLvl")));
+			html.replace("%maxlvl%", String.valueOf(EventManager.getInstance().getInt(eventId, "maxLvl")));
+			html.replace("%time%", String.valueOf(EventManager.getInstance().getInt(eventId, "matchTime") / 60));
+			html.replace("%players%", String.valueOf(EventManager.getInstance().getInt(eventId, "minPlayers")));
+			html.replace("%url%", EventManager.getInstance().getString("siteUrl"));
+			html.replace("%buffs%", EventManager.getInstance().getBoolean(eventId, "removeBuffs") ? "Self" : "Full");
+			player.sendPacket(html);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+		}
 		else if (_command.startsWith("_match"))
 		{
 			String params = _command.substring(_command.indexOf("?") + 1);
@@ -183,6 +233,12 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				player.sendPacket(SystemMessageId.WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME);
 				return;
 			}
+				
+			if (EventManager.getInstance().players.contains(player))
+			{
+				player.sendMessage("You can not observe games while registered for an event!");
+				return;
+			}				
 			
 			final int arenaId = Integer.parseInt(_command.substring(12).trim());
 			player.enterOlympiadObserverMode(arenaId);
@@ -242,6 +298,67 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				return;
 			}
 			player.checkCode("Fail");
+		}
+		else if (_command.startsWith("vote "))
+		{
+			String voteSiteName = _command.substring(5);
+			switch(voteSiteName)
+			{
+				case "hopzone":
+					new Thread(() -> {
+						if (player.eligibleToVoteHop())
+						{
+							VoteHopzone voteHop = new VoteHopzone();
+							if(voteHop.hasVoted(player))
+							{
+								voteHop.updateDB(player, "HopZone");
+								voteHop.setVoted(player);
+								voteHop.reward(player);
+							}
+							else
+								player.sendMessage("You haven't voted yet.");
+						}
+						else
+							GMAUDIT_LOG.info(player.getName() + " tried to send a bypass with adrenalin/phx");
+					}).start();
+					break;
+				case "topzone":
+					new Thread(() -> {
+						if (player.eligibleToVoteTop())
+						{
+							VoteTopzone voteTop = new VoteTopzone();
+							if (voteTop.hasVoted(player))
+							{
+								voteTop.updateDB(player, "TopZone");
+								voteTop.setVoted(player);
+								voteTop.reward(player);
+							}
+							else
+								player.sendMessage("You haven't voted yet.");
+						}
+						else
+							GMAUDIT_LOG.info(player.getName() + " tried to send a bypass with adrenalin/phx");
+					}).start();
+					break;
+				case "network":
+					new Thread(() -> {
+						if (player.eligibleToVoteNet())
+						{
+							VoteNetwork voteNet = new VoteNetwork();
+							if (voteNet.hasVoted(player))
+							{
+								voteNet.updateDB(player, "NetWork");
+								voteNet.setVoted(player);
+								voteNet.reward(player);
+							}
+							else
+								player.sendMessage("You haven't voted yet.");
+						}
+						else
+							GMAUDIT_LOG.info(player.getName() + " tried to send a bypass with adrenalin/phx");
+					}).start();
+					break;
+			}
 		}
 	}
 }

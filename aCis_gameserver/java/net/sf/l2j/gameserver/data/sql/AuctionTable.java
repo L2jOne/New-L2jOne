@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.entity.AuctionItem;
 
 /**
@@ -31,7 +31,7 @@ public class AuctionTable
 	
 	protected AuctionTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement stm = con.prepareStatement(RESTORE_ITEM))
 		{	
 			try (ResultSet rset = stm.executeQuery())
@@ -51,13 +51,13 @@ public class AuctionTable
 			e.printStackTrace();
 		}
 		
-		log.info("AuctionTable: Loaded "+ _items.size() +" items.");
+		log.info("Loaded {} Auction data.", _items.size());
 	}
 	
 	public void addItem(AuctionItem item)
 	{
 		_items.add(item);
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement stm = con.prepareStatement(ADD_ITEM))
 		{
 			stm.setInt(1, item.getAuctionId());
@@ -78,7 +78,7 @@ public class AuctionTable
 	public void deleteItem(AuctionItem item)
 	{
 		_items.remove(item);
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement stm = con.prepareStatement(DELETE_ITEM))
 		{
 			stm.setInt(1, item.getAuctionId());

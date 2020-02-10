@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import net.sf.l2j.commons.lang.StringUtil;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.Pet;
@@ -81,7 +81,7 @@ public final class RequestChangePetName extends L2GameClientPacket
 	{
 		boolean result = true;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SEARCH_NAME))
 		{
 			ps.setString(1, name);

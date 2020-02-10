@@ -12,7 +12,7 @@ public class Report implements IUserCommandHandler
 {
 	private static final int[] COMMAND_IDS =
 	{
-		114
+		116
 	};
 	
 	@Override

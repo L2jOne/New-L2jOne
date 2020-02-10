@@ -17,16 +17,14 @@ import net.sf.l2j.commons.mmocore.MMOConnection;
 import net.sf.l2j.commons.mmocore.ReceivablePacket;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.sql.OfflineTradersTable;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
-import net.sf.l2j.gameserver.enums.MessageType;
 import net.sf.l2j.gameserver.model.CharSelectSlot;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.olympiad.OlympiadManager;
 import net.sf.l2j.gameserver.model.pledge.Clan;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
@@ -212,27 +210,12 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 				{
 					setDetached(true);
 
-					if (OfflineTradersTable.offlineMode(getPlayer()))
+					if (OfflineTradersTable.getInstance().offlineMode(getPlayer()))
 					{
-						if (getPlayer().getParty() != null)
-							getPlayer().getParty().removePartyMember(getPlayer(), MessageType.DISCONNECTED);
-						
-						OlympiadManager.getInstance().unRegisterNoble(getPlayer());
-						
-						if (getPlayer().getSummon() != null)
-						{
-							getPlayer().getSummon().doRevive();
-							getPlayer().getSummon().unSummon(getPlayer());
-						}
-						
-						if (Config.OFFLINE_SET_NAME_COLOR)
-							getPlayer().broadcastUserInfo();
-						
-						if (getPlayer().getOfflineStartTime() == 0)
-							getPlayer().setOfflineStartTime(System.currentTimeMillis());
-						
+						getPlayer().setOfflineMode(true);
 						return;
 					}
+					
 					fast = !getPlayer().isInCombat() && !getPlayer().isLocked();
 				}
 				cleanMe(fast);
@@ -361,7 +344,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		
 		byte answer = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(SELECT_CLAN))
 			{
@@ -415,7 +398,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		if (objectId < 0)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_DELETE_TIME))
 		{
 			ps.setLong(1, 0);
@@ -435,7 +418,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>> imple
 		
 		PlayerInfoTable.getInstance().removePlayer(objectId);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_FRIENDS))
 			{

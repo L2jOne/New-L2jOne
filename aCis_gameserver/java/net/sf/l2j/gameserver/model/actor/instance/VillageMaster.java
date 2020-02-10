@@ -11,6 +11,7 @@ import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.xml.PlayerData;
 import net.sf.l2j.gameserver.data.xml.SkillTreeData;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.actors.ClassId;
 import net.sf.l2j.gameserver.enums.skills.AcquireSkillType;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -313,6 +314,12 @@ public class VillageMaster extends Folk
 				player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 				return;
 			}
+
+			if (EventManager.getInstance().players.contains(player))
+			{
+				player.sendMessage("Subclass cannot be changed while registered to event.");
+				return;
+			}
 			
 			// Affecting subclasses (add/del/change) if registered in Olympiads makes you ineligible to compete.
 			if (OlympiadManager.getInstance().isRegisteredInComp(player))
@@ -525,7 +532,7 @@ public class VillageMaster extends Folk
 					
 					player.sendPacket(SystemMessageId.SUBCLASS_TRANSFER_COMPLETED); // Transfer completed.
 					return;
-				
+					
 				case 6: // Change/Cancel Subclass - Choice
 					// validity check
 					if (paramOne < 1 || paramOne > 3)

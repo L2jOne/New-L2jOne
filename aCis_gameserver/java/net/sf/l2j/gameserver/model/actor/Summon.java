@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.xml.ItemData;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.TeamType;
 import net.sf.l2j.gameserver.enums.items.ActionType;
@@ -59,6 +60,10 @@ public abstract class Summon extends Playable
 		
 		_showSummonAnimation = true;
 		_owner = owner;
+		
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(owner))
+			for (L2Skill skill : EventManager.getInstance().getCurrentEvent().getSummonBuffs(owner))
+				skill.getEffects(owner, this);
 	}
 	
 	@Override
@@ -442,10 +447,7 @@ public abstract class Summon extends Playable
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Check if the target is correct</li>
-	 * <li>Check if the target is in the skill cast range</li>
-	 * <li>Check if the summon owns enough HP and MP to cast the skill</li>
-	 * <li>Check if all skills are enabled and this skill is enabled</li><BR>
+	 * <li>Check if the target is correct</li> <li>Check if the target is in the skill cast range</li> <li>Check if the summon owns enough HP and MP to cast the skill</li> <li>Check if all skills are enabled and this skill is enabled</li><BR>
 	 * <BR>
 	 * <li>Check if the skill is active</li><BR>
 	 * <BR>
@@ -485,7 +487,7 @@ public abstract class Summon extends Playable
 			case TARGET_OWNER_PET:
 				target = getOwner();
 				break;
-			// PARTY, AURA, SELF should be cast even if no target has been found
+				// PARTY, AURA, SELF should be cast even if no target has been found
 			case TARGET_PARTY:
 			case TARGET_AURA:
 			case TARGET_FRONT_AURA:
@@ -614,7 +616,7 @@ public abstract class Summon extends Playable
 					sendPacket(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB);
 				else
 					sendPacket(SystemMessageId.CRITICAL_HIT_BY_PET);
-				
+			
 			final SystemMessage sm;
 			
 			if (target.isInvul())

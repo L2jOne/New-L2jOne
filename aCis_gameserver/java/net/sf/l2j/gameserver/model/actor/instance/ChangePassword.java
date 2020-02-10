@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 import net.sf.l2j.commons.concurrent.ThreadPool;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -51,7 +51,7 @@ public class ChangePassword extends Folk
 				return;
 			}
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection(); 
+			try (Connection con = DatabaseFactory.getInstance().getConnection(); 
 				PreparedStatement ps = con.prepareStatement("UPDATE accounts SET password=? WHERE login=?"))
 			{
 				byte[] newPassword = MessageDigest.getInstance("SHA").digest(newPass.getBytes("UTF-8"));

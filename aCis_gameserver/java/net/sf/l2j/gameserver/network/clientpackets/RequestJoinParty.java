@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.LootRule;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -27,6 +28,12 @@ public final class RequestJoinParty extends L2GameClientPacket
 		final Player requestor = getClient().getPlayer();
 		if (requestor == null)
 			return;
+
+		if (EventManager.getInstance().isRegistered(requestor) && EventManager.getInstance().isSpecialEvent())
+		{
+			requestor.sendMessage("You cannot make a party while in LMS or DM events.");
+			return;
+		}
 		
 		final Player target = World.getInstance().getPlayer(_targetName);
 		if (target == null)
@@ -62,6 +69,12 @@ public final class RequestJoinParty extends L2GameClientPacket
 		if (target.isInJail() || requestor.isInJail())
 		{
 			requestor.sendMessage("The player you tried to invite is currently jailed.");
+			return;
+		}
+
+		if (target.isOfflineMode())
+		{
+			requestor.sendMessage("Player is in Offline mode.");
 			return;
 		}
 		

@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.SiegeSide;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -18,6 +19,7 @@ public class Die extends L2GameServerPacket
 	private boolean _inZone;
 	private boolean _sweepable;
 	private boolean _allowFixedRes;
+	private boolean _event;
 	private Clan _clan;
 	
 	public Die(Creature creature)
@@ -31,11 +33,10 @@ public class Die extends L2GameServerPacket
 			Player player = (Player) creature;
 			_allowFixedRes = player.getAccessLevel().allowFixedRes();
 			_clan = player.getClan();
-
+			_event = EventManager.getInstance().isRegistered(player);
 			// multi zonas
 			final MultiZone zone = ZoneManager.getInstance().getZone(player, MultiZone.class);
 			_inZone = zone != null && zone.getRevive() > 0;
-			
 		}
 		else if (creature instanceof Monster)
 			_sweepable = ((Monster) creature).getSpoilState().isSweepable();
@@ -44,7 +45,7 @@ public class Die extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		if (_fake || _inZone)
+		if (_fake || _inZone || _event)
 			return;
 		
 		writeC(0x06);

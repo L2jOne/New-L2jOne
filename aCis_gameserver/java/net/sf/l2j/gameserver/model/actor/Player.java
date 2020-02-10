@@ -27,7 +27,7 @@ import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.commons.util.ArraysUtil;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.communitybbs.BB.Forum;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
@@ -59,6 +59,7 @@ import net.sf.l2j.gameserver.data.xml.PvPData.RewardSystem;
 import net.sf.l2j.gameserver.data.xml.PvPData.SpreeKills;
 import net.sf.l2j.gameserver.data.xml.RecipeData;
 import net.sf.l2j.gameserver.data.xml.ScriptData;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.AiEventType;
 import net.sf.l2j.gameserver.enums.CabalType;
 import net.sf.l2j.gameserver.enums.GaugeColor;
@@ -300,7 +301,7 @@ public final class Player extends Playable
 	
 	private static final Comparator<GeneralSkillNode> COMPARE_SKILLS_BY_MIN_LVL = Comparator.comparing(GeneralSkillNode::getMinLvl);
 	private static final Comparator<GeneralSkillNode> COMPARE_SKILLS_BY_LVL = Comparator.comparing(GeneralSkillNode::getValue);
-
+	
 	private String _code = "";
 	private int _attempt = 0;
 	private int _mobs_dead = 0;
@@ -318,6 +319,7 @@ public final class Player extends Playable
 	private long _lastAccess;
 	private long _uptime;
 	private long _lastAction;
+	private int antiAfkTime;
 	
 	protected int _baseClass;
 	protected int _activeClass;
@@ -394,6 +396,7 @@ public final class Player extends Playable
 	
 	private OperateType _operateType = OperateType.NONE;
 	
+	private boolean isOfflineShop;
 	private long _offlineShopStart;
 	
 	private TradeList _activeTradeList;
@@ -488,6 +491,10 @@ public final class Player extends Playable
 	private final BlockList _blockList = new BlockList(this);
 	
 	private TeamType _team = TeamType.NONE;
+	
+	private long _lastHopVote;
+	private long _lastTopVote;
+	private long _lastNetVote;
 	
 	private int _alliedVarkaKetra; // lvl of alliance with ketra orcs or varka silenos, used in quests and aggro checks [-5,-1] varka, 0 neutral, [1,5] ketra
 	
@@ -611,7 +618,7 @@ public final class Player extends Playable
 		player.setBaseClass(player.getClassId());
 		
 		// Add the player in the characters table of the database
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_CHARACTER))
 		{
 			ps.setString(1, accountName);
@@ -1265,7 +1272,7 @@ public final class Player extends Playable
 		
 		_recomChars.add(target.getObjectId());
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(ADD_CHAR_RECOM))
 			{
@@ -1559,6 +1566,9 @@ public final class Player extends Playable
 	public void setClassId(int Id)
 	{
 		if (!_subclassLock.tryLock())
+			return;
+		
+		if (EventManager.getInstance().players.contains(this))
 			return;
 		
 		try
@@ -2887,6 +2897,12 @@ public final class Player extends Playable
 	@Override
 	public void onAction(Player player)
 	{
+		if (!EventManager.getInstance().canTargetPlayer(this, player))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		// Set the target of the player
 		if (player.getTarget() != this)
 			player.setTarget(this);
@@ -3560,6 +3576,17 @@ public final class Player extends Playable
 				CursedWeaponManager.getInstance().drop(_cursedWeaponEquippedId, killer);
 			else
 			{
+				if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this))
+				{
+					if (killer.isRaidBoss() || killer.isRaidRelated())
+						EventManager.getInstance().getCurrentEvent().onDie(this, killer);
+					else if (pk != null && EventManager.getInstance().isRegistered(pk))
+					{
+						EventManager.getInstance().getCurrentEvent().onKill(this, pk);
+						EventManager.getInstance().getCurrentEvent().onDie(this, pk);
+					}
+				}
+				
 				if (pk == null || !pk.isCursedWeaponEquipped())
 				{
 					onDieDropItem(killer); // Check if any item should be dropped
@@ -3731,6 +3758,9 @@ public final class Player extends Playable
 		if (isInDuel() && targetPlayer.isInDuel())
 			return;
 		
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRegistered(targetPlayer))
+			return;
+		
 		// If in pvp zone, do nothing.
 		if (isInsideZone(ZoneId.PVP) && targetPlayer.isInsideZone(ZoneId.PVP))
 		{
@@ -3854,6 +3884,9 @@ public final class Player extends Playable
 		if (isInsideZone(ZoneId.PVP))
 			return;
 		
+		if (EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRunning())
+			return;
+		
 		PvpFlagTaskManager.getInstance().add(this, Config.PVP_NORMAL_TIME);
 		
 		if (getPvpFlag() == 0)
@@ -3864,6 +3897,9 @@ public final class Player extends Playable
 	{
 		final Player player = target.getActingPlayer();
 		if (player == null)
+			return;
+		
+		if (EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRunning())
 			return;
 		
 		if (isInDuel() && player.getDuelId() == getDuelId())
@@ -3905,6 +3941,9 @@ public final class Player extends Playable
 	 */
 	public void deathPenalty(boolean atWar, boolean killedByPlayable, boolean killedBySiegeNpc)
 	{
+		if (EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRunning())
+			return;
+		
 		// No xp loss inside pvp zone unless
 		// - it's a siege zone and you're NOT participating
 		// - you're killed by a non-pc whose not belong to the siege
@@ -4229,10 +4268,39 @@ public final class Player extends Playable
 	 */
 	public void setOperateType(OperateType type)
 	{
-		if (Config.OFFLINE_DISCONNECT_FINISHED && type == OperateType.NONE && ((getClient() == null) || getClient().isDetached()))
+		if (Config.OFFLINE_DISCONNECT_FINISHED && type == OperateType.NONE && isOfflineMode())
 			deleteMe();
 		
 		_operateType = type;
+	}
+	
+	public boolean isOfflineMode()
+	{
+		return isOfflineShop;	
+	}
+	
+	public void setOfflineMode(boolean off)
+	{
+		isOfflineShop = off;
+		
+		if (getClan() != null)
+			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
+		
+		if (getParty() != null)
+			getParty().removePartyMember(this, MessageType.DISCONNECTED);
+		
+		OlympiadManager.getInstance().unRegisterNoble(this);
+		
+		if (getSummon() != null)
+		{
+			getSummon().doRevive();
+			getSummon().unSummon(this);
+		}
+		
+		if (getOfflineStartTime() == 0)
+			setOfflineStartTime(System.currentTimeMillis());
+		
+		broadcastUserInfo();
 	}
 	
 	public long getOfflineStartTime()
@@ -4605,6 +4673,9 @@ public final class Player extends Playable
 		ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 		if (sld != null)
 		{
+			if (sld.getItemId() == 17 && EventManager.getInstance().isRegistered(this))
+				return false;
+			
 			ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(sld);
 			InventoryUpdate iu = new InventoryUpdate();
 			for (ItemInstance itm : unequipped)
@@ -4815,7 +4886,7 @@ public final class Player extends Playable
 	{
 		if (_controlItemId != 0 && petId != 0)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement("UPDATE pets SET fed=? WHERE item_obj_id = ?"))
 			{
 				ps.setInt(1, getCurrentFeed());
@@ -4965,7 +5036,17 @@ public final class Player extends Playable
 	{
 		_lastAction = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(Config.PCB_AFK_TIMER);
 	}
+
+	public int getAntiAfk()
+	{
+		return antiAfkTime;
+	}
 	
+	public void setAntiAfk(int antiAfk)
+	{
+		antiAfkTime = antiAfk;
+	}
+
 	/**
 	 * Return True if the Player is invulnerable.
 	 */
@@ -5136,7 +5217,7 @@ public final class Player extends Playable
 	 */
 	public void updateOnlineStatus()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?"))
 		{
 			ps.setInt(1, isOnlineInt());
@@ -5164,7 +5245,7 @@ public final class Player extends Playable
 	{
 		Player player = null;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_CHARACTER))
 		{
 			ps.setInt(1, objectId);
@@ -5361,7 +5442,7 @@ public final class Player extends Playable
 	 */
 	private static boolean restoreSubClassData(Player player)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_CHAR_SUBCLASSES))
 		{
 			ps.setInt(1, player.getObjectId());
@@ -5420,7 +5501,7 @@ public final class Player extends Playable
 		if (isSubClassActive())
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(DELETE_RECIPEBOOK))
 			{
@@ -5458,7 +5539,7 @@ public final class Player extends Playable
 	 */
 	private void restoreRecipeBook()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT recipeId FROM character_recipebook WHERE charId=?"))
 		{
 			ps.setInt(1, getObjectId());
@@ -5513,7 +5594,7 @@ public final class Player extends Playable
 		
 		_classIndex = currentClassIndex;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_CHARACTER))
 		{
 			ps.setInt(1, level);
@@ -5593,7 +5674,7 @@ public final class Player extends Playable
 		if (_subClasses.isEmpty())
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_CHAR_SUBCLASS))
 		{
 			for (SubClass subClass : _subClasses.values())
@@ -5619,7 +5700,7 @@ public final class Player extends Playable
 		if (!Config.STORE_SKILL_COOLTIME)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// Delete all current stored effects for char to avoid dupe
 			try (PreparedStatement ps = con.prepareStatement(DELETE_SKILL_SAVE))
@@ -5864,7 +5945,7 @@ public final class Player extends Playable
 		
 		if (store)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(DELETE_SKILL_FROM_CHAR))
 			{
 				ps.setInt(1, skillId);
@@ -5892,7 +5973,7 @@ public final class Player extends Playable
 	 */
 	private void storeSkill(L2Skill skill, int classIndex)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SKILL))
 		{
 			ps.setInt(1, getObjectId());
@@ -5912,7 +5993,7 @@ public final class Player extends Playable
 	 */
 	private void restoreSkills()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_SKILLS_FOR_CHAR))
 		{
 			ps.setInt(1, getObjectId());
@@ -5935,7 +6016,7 @@ public final class Player extends Playable
 	 */
 	public void restoreEffects()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(RESTORE_SKILL_SAVE))
 			{
@@ -6007,7 +6088,7 @@ public final class Player extends Playable
 	 */
 	private void restoreRecom()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_CHAR_RECOMS))
 		{
 			ps.setInt(1, getObjectId());
@@ -6077,6 +6158,9 @@ public final class Player extends Playable
 			
 			// is AutoAttackable if both players are in the same duel and the duel is still going on
 			if (getDuelState() == DuelState.DUELLING && getDuelId() == cha.getDuelId())
+				return true;
+			
+			if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRegistered(attacker))
 				return true;
 			
 			if (getClan() != null)
@@ -6151,6 +6235,21 @@ public final class Player extends Playable
 	@Override
 	public boolean useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this))
+		{
+			if (!EventManager.getInstance().getCurrentEvent().getBoolean("allowUseMagic"))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+			
+			if (!EventManager.getInstance().getCurrentEvent().onUseMagic(skill))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+		}
+		
 		// Check if the skill is active
 		if (skill.isPassive())
 		{
@@ -6714,6 +6813,9 @@ public final class Player extends Playable
 			final Player targetPlayer = target.getActingPlayer();
 			if (targetPlayer == null || this == target)
 				return false;
+
+			if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRegistered(targetPlayer))
+				return true;
 			
 			// Peace Zone
 			if (target.isInsideZone(ZoneId.PEACE))
@@ -7631,7 +7733,7 @@ public final class Player extends Playable
 		
 		if (store)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_NOBLESS))
 			{
 				ps.setBoolean(1, val);
@@ -7741,7 +7843,7 @@ public final class Player extends Playable
 			
 			final SubClass subclass = new SubClass(classId, classIndex);
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(ADD_CHAR_SUBCLASS))
 			{
 				ps.setInt(1, getObjectId());
@@ -7788,7 +7890,7 @@ public final class Player extends Playable
 		
 		try
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+			try (Connection con = DatabaseFactory.getInstance().getConnection())
 			{
 				// Remove all henna info stored for this sub-class.
 				try (PreparedStatement ps = con.prepareStatement(DELETE_CHAR_HENNAS))
@@ -8399,6 +8501,10 @@ public final class Player extends Playable
 	@Override
 	public void deleteMe()
 	{
+		EventManager.getInstance().onLogout(this);
+		if (EventManager.getInstance().isRegistered(this))
+			EventManager.getInstance().getCurrentEvent().onLogout(this);
+		
 		cleanup();
 		store();
 		super.deleteMe();
@@ -8763,7 +8869,10 @@ public final class Player extends Playable
 	{
 		if (_deathPenaltyBuffLevel >= 15) // maximum level reached
 			return;
-		
+
+		if (EventManager.getInstance().isRegistered(this) && EventManager.getInstance().isRunning())
+			return;
+	
 		if ((getKarma() > 0 || Rnd.get(1, 100) <= Config.DEATH_PENALTY_CHANCE) && !(killer instanceof Player) && !isGM() && !(getCharmOfLuck() && (killer == null || killer.isRaidRelated())) && !isPhoenixBlessed() && !(isInsideZone(ZoneId.PVP) || isInsideZone(ZoneId.SIEGE)))
 		{
 			if (_deathPenaltyBuffLevel != 0)
@@ -9157,9 +9266,15 @@ public final class Player extends Playable
 			return false;
 		}
 		
-		if (player.isInObserverMode() || player.isInsideZone(ZoneId.NO_SUMMON_FRIEND))
+		if (player.isInObserverMode() || player.isInsideZone(ZoneId.NO_SUMMON_FRIEND) || EventManager.getInstance().isRegistered(this))
 		{
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA).addCharName(player));
+			return false;
+		}
+
+		if (EventManager.getInstance().isRegistered(player))
+		{
+			sendMessage("Your cannot summon a player that is in event.");
 			return false;
 		}
 		
@@ -9291,7 +9406,7 @@ public final class Player extends Playable
 	{
 		_friendList.clear();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT friend_id FROM character_friends WHERE char_id = ? AND relation = 0"))
 		{
 			ps.setInt(1, getObjectId());
@@ -9321,6 +9436,10 @@ public final class Player extends Playable
 			Player friend = World.getInstance().getPlayer(id);
 			if (friend != null)
 			{
+				// Do not notify offline characters
+				if (!friend.isOnline() || friend.isOfflineMode())
+					continue;
+				
 				friend.sendPacket(new FriendList(friend));
 				
 				if (login)
@@ -9658,7 +9777,7 @@ public final class Player extends Playable
 		final Item item = ItemData.getInstance().getTemplate(item_id);
 		int objectId = IdFactory.getInstance().getNextId();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(ADD_ITEM))
 		{
 			if (count > 1 && !item.isStackable())
@@ -9679,7 +9798,7 @@ public final class Player extends Playable
 		}
 		catch (Exception e){}
 	}
-
+	
 	public void antibot()
 	{
 		increaseMobsDead();
@@ -9709,7 +9828,7 @@ public final class Player extends Playable
 			startAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
 			sendPacket(new ExShowScreenMessage("[AntiBot]: You have " + Config.ANTIBOT_TIME_VOTE + " to confirm the Captcha!", 10000));
 			sendPacket(new CreatureSay(0, SayType.CRITICAL_ANNOUNCE, "[AntiBot]:", "You have " + Config.ANTIBOT_TIME_VOTE + " to confirm the Catpcha."));
-
+			
 			NpcHtmlMessage html = new NpcHtmlMessage(0);
 			html.setFile("data/html/start.htm");
 			
@@ -9723,7 +9842,7 @@ public final class Player extends Playable
 				random += Integer.toString(Rnd.get(0,9));
 			
 			html.replace("%code1%", num2img(Integer.parseInt(random)));
-					
+			
 			setCode(String.valueOf(Integer.parseInt(random)));
 			sendPacket(html);
 		}
@@ -9843,5 +9962,80 @@ public final class Player extends Playable
 	public void resetAttempt()
 	{
 		_attempt = 0;
+	}
+	
+	public long getLastHopVote()
+	{
+		return _lastHopVote;
+	}
+	
+	public long getLastTopVote()
+	{
+		return _lastTopVote;
+	}
+	
+	public long getLastNetVote()
+	{
+		return _lastNetVote;
+	}
+	
+	public void setLastHopVote(long val)
+	{
+		_lastHopVote = val;
+	}
+	
+	public void setLastTopVote(long val)
+	{
+		_lastTopVote = val;
+	}
+	
+	public void setLastNetVote(long val)
+	{
+		_lastNetVote = val;
+	}
+	
+	public boolean eligibleToVoteHop()
+	{
+		return (getLastHopVote() + 43200000) < System.currentTimeMillis();
+	}
+	
+	public boolean eligibleToVoteTop()
+	{
+		return (getLastTopVote() + 43200000) < System.currentTimeMillis();
+	}
+	
+	public boolean eligibleToVoteNet()
+	{
+		return (getLastNetVote() + 43200000) < System.currentTimeMillis();
+	}
+	
+	public String getVoteCountdownHop()
+	{
+		long youCanVote = getLastHopVote() - (System.currentTimeMillis() - 43200000);
+		return convertLongToCountdown(youCanVote);
+	}
+	
+	public String getVoteCountdownTop()
+	{
+		long youCanVote = getLastTopVote() - (System.currentTimeMillis() - 43200000);
+		return convertLongToCountdown(youCanVote);
+	}
+	
+	public String getVoteCountdownNet()
+	{
+		long youCanVote = getLastNetVote() - (System.currentTimeMillis() - 43200000);
+		return convertLongToCountdown(youCanVote);
+	}
+	
+	public static String convertLongToCountdown(long youCanVote)
+	{
+		String formattedCountdown = String.format("%d hours, %d mins, %d secs", 
+			TimeUnit.MILLISECONDS.toHours(youCanVote),
+			TimeUnit.MILLISECONDS.toMinutes(youCanVote) - 
+			TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(youCanVote)),
+			TimeUnit.MILLISECONDS.toSeconds(youCanVote) - 
+			TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(youCanVote))
+			);
+		return formattedCountdown;
 	}
 }

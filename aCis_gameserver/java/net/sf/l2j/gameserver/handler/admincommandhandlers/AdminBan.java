@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.enums.PunishmentType;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -271,7 +271,7 @@ public class AdminBan implements IAdminCommandHandler
 		else
 			punishement = PunishmentType.NONE;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_BAN))
 		{
 			ps.setInt(1, punishement.ordinal());
@@ -295,7 +295,7 @@ public class AdminBan implements IAdminCommandHandler
 	
 	private static void jailOfflinePlayer(Player activeChar, String name, int delay)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_JAIL))
 		{
 			ps.setInt(1, PunishmentType.JAIL.ordinal());
@@ -317,7 +317,7 @@ public class AdminBan implements IAdminCommandHandler
 	
 	private static void unjailOfflinePlayer(Player activeChar, String name)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_UNJAIL))
 		{
 			ps.setString(1, name);
@@ -345,7 +345,7 @@ public class AdminBan implements IAdminCommandHandler
 		}
 		else
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_ACCESS))
 			{
 				ps.setInt(1, lvl);

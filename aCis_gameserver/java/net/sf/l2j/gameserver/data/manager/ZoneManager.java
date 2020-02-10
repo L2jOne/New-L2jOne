@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.sf.l2j.commons.data.xml.IXmlReader;
 import net.sf.l2j.commons.lang.StringUtil;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.enums.SpawnType;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.WorldObject;
@@ -232,7 +232,7 @@ public class ZoneManager implements IXmlReader
 	 */
 	public final void save()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// clear table first
 			try (PreparedStatement ps = con.prepareStatement(DELETE_GRAND_BOSS_LIST))

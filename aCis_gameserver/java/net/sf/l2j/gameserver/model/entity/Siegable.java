@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import net.sf.l2j.gameserver.enums.SiegeSide;
@@ -13,7 +14,7 @@ public interface Siegable
 	
 	public void endSiege();
 	
-	public List<Clan> getAttackerClans();
+	public Collection<Clan> getAttackerClans();
 	
 	public List<Clan> getDefenderClans();
 	

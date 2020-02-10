@@ -15,7 +15,7 @@ import net.sf.l2j.commons.lang.StringUtil;
 import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.util.StatsSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.data.xml.NpcData;
@@ -77,7 +77,7 @@ public class HeroManager
 	
 	protected HeroManager()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps2 = con.prepareStatement(LOAD_CLAN_DATA))
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_HEROES);
@@ -217,7 +217,7 @@ public class HeroManager
 	 */
 	private void loadMessage(int objectId)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_MESSAGE))
 		{
 			ps.setInt(1, objectId);
@@ -238,7 +238,7 @@ public class HeroManager
 	{
 		int entries = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_DIARY))
 		{
 			ps.setInt(1, objectId);
@@ -299,7 +299,7 @@ public class HeroManager
 		int losses = 0;
 		int draws = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_FIGHTS))
 		{
 			ps.setInt(1, charId);
@@ -566,7 +566,7 @@ public class HeroManager
 	public synchronized void computeNewHeroes(List<StatsSet> newHeroes)
 	{
 		// Reset heroes played variable.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESET_PLAYED))
 		{
 			ps.execute();
@@ -641,7 +641,7 @@ public class HeroManager
 		}
 		
 		// Delete hero items.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_ITEMS))
 		{
 			ps.execute();
@@ -661,7 +661,7 @@ public class HeroManager
 	
 	private void updateHeroes()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_HERO))
 		{
 			for (Map.Entry<Integer, StatsSet> heroEntry : _heroes.entrySet())
@@ -792,7 +792,7 @@ public class HeroManager
 	
 	public void setDiaryData(int objectId, int action, int param)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_DIARY))
 		{
 			ps.setInt(1, objectId);
@@ -826,7 +826,7 @@ public class HeroManager
 		if (!_heroMessages.containsKey(objectId))
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_MESSAGE))
 		{
 			ps.setString(1, _heroMessages.get(objectId));

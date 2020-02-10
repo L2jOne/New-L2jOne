@@ -16,7 +16,7 @@ import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.HistoryInfo;
@@ -245,7 +245,7 @@ public class DerbyTrackManager
 	 */
 	protected void loadHistory()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_HISTORY);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -273,7 +273,7 @@ public class DerbyTrackManager
 	 */
 	protected void saveHistory(HistoryInfo history)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SAVE_HISTORY))
 		{
 			ps.setInt(1, history.getRaceId());
@@ -293,7 +293,7 @@ public class DerbyTrackManager
 	 */
 	protected void loadBets()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_BETS);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -313,7 +313,7 @@ public class DerbyTrackManager
 	 */
 	protected void saveBet(int lane, long sum)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SAVE_BETS))
 		{
 			ps.setInt(1, lane);
@@ -334,7 +334,7 @@ public class DerbyTrackManager
 		for (int key : _betsPerLane.keySet())
 			_betsPerLane.put(key, 0L);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_BETS))
 		{
 			ps.execute();

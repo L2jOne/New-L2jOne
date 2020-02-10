@@ -956,7 +956,7 @@ public class Monster extends Attackable
 					item = calculateCategorizedRewardItem(cat, levelModifier, player);
 				
 				if (item != null)
-				{
+				{				
 					// Check if the autoLoot mode is active
 					if ((isRaidBoss() && Config.AUTO_LOOT_RAID) || (!isRaidBoss() && Config.AUTO_LOOT))
 						player.doAutoLoot(this, item);

@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.model.actor;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.AiEventType;
 import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.ZoneId;
@@ -24,8 +25,7 @@ import net.sf.l2j.gameserver.scripting.QuestState;
  * <BR>
  * L2Playable :<BR>
  * <BR>
- * <li>Player</li>
- * <li>L2Summon</li><BR>
+ * <li>Player</li> <li>L2Summon</li><BR>
  * <BR>
  */
 public abstract class Playable extends Creature
@@ -107,8 +107,10 @@ public abstract class Playable extends Creature
 		// Stop HP/MP/CP Regeneration task
 		getStatus().stopHpMpRegeneration();
 		
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(this))
+		{}
 		// Stop all active skills effects in progress
-		if (isPhoenixBlessed())
+		else if (isPhoenixBlessed())
 		{
 			// remove Lucky Charm if player has SoulOfThePhoenix/Salvation buff
 			if (getCharmOfLuck())

@@ -282,6 +282,14 @@ public final class Config
 	// --------------------------------------------------
 	
 	/** Raid info*/
+	public static String VOTE_NETWORK_NAME;
+	public static String VOTE_TOPZONE_APIKEY;
+	public static int VOTE_TOPZONE_SERVERID;
+	public static String VOTE_HOPZONE_APIKEY;
+	public static IntIntHolder[] VOTE_REWARDS;
+	public static String SITE_URL;
+	
+	/** Raid info*/
 	public static int RAID_BOSS_INFO_PAGE_LIMIT;
 	public static int RAID_BOSS_DROP_PAGE_LIMIT;
 	public static String RAID_BOSS_DATE_FORMAT;
@@ -504,9 +512,8 @@ public final class Config
 	public static boolean OFFLINE_MODE_IN_PEACE_ZONE;
 	public static boolean OFFLINE_MODE_NO_DAMAGE;
 	public static boolean RESTORE_OFFLINERS;
-	public static int OFFLINE_MAX_DAYS;
 	public static boolean OFFLINE_DISCONNECT_FINISHED;
-	public static boolean OFFLINE_SET_NAME_COLOR;
+	public static int OFFLINE_MAX_DAYS;
 	public static int OFFLINE_NAME_COLOR;
 	
 	/** Skills & Classes **/
@@ -1033,6 +1040,13 @@ public final class Config
 	private static final void loadNpcs()
 	{
 		final ExProperties npcs = initProperties(NPCS_FILE);
+		VOTE_NETWORK_NAME = npcs.getProperty("VoteNetworkName", "");
+		VOTE_TOPZONE_APIKEY = npcs.getProperty("VoteTopzoneApiKey", "");
+		VOTE_TOPZONE_SERVERID = npcs.getProperty("VoteTopzoneServerId", 0);
+		VOTE_HOPZONE_APIKEY = npcs.getProperty("VoteHopzoneApiKey", "");
+		VOTE_REWARDS = npcs.parseIntIntList("VoteReward", "1-268");
+		SITE_URL = npcs.getProperty("SiteUrl", "");
+		
 		RAID_BOSS_INFO_PAGE_LIMIT = npcs.getProperty("RaidBossInfoPageLimit", 15);
 		RAID_BOSS_DROP_PAGE_LIMIT = npcs.getProperty("RaidBossDropPageLimit", 15);
 		RAID_BOSS_DATE_FORMAT = npcs.getProperty("RaidBossDateFormat", "MMM dd, HH:mm");
@@ -1271,7 +1285,6 @@ public final class Config
 		OFFLINE_CRAFT_ENABLE = players.getProperty("OfflineCraftEnable", false);
 		OFFLINE_MODE_IN_PEACE_ZONE = players.getProperty("OfflineModeInPeaceZone", false);
 		OFFLINE_MODE_NO_DAMAGE = players.getProperty("OfflineModeNoDamage", false);
-		OFFLINE_SET_NAME_COLOR = players.getProperty("OfflineSetNameColor", false);
 		OFFLINE_NAME_COLOR = Integer.decode("0x" + players.getProperty("OfflineNameColor", "808080"));
 		RESTORE_OFFLINERS = players.getProperty("RestoreOffliners", false);
 		OFFLINE_MAX_DAYS = players.getProperty("OfflineMaxDays", 10);

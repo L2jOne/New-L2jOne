@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.data.manager.FestivalOfDarknessManager;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.GameClient;
@@ -23,6 +24,13 @@ public final class RequestRestart extends L2GameClientPacket
 		final Player player = getClient().getPlayer();
 		if (player == null)
 			return;
+
+		if (EventManager.getInstance().isRegistered(player))
+		{
+			player.sendMessage("You cannot restart while you are a participant of an event.");
+			sendPacket(RestartResponse.valueOf(false));
+			return;
+		}
 		
 		if (player.getActiveEnchantItem() != null || player.isLocked() || player.isOperating())
 		{

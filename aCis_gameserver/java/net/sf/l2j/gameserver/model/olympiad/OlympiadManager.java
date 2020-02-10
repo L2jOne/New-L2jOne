@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import net.sf.l2j.commons.util.StatsSet;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.OlympiadType;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -134,6 +135,12 @@ public class OlympiadManager
 		if (player.isAio())
 		{
 			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return false;
+		}
+
+		if (EventManager.getInstance().players.contains(player))
+		{
+			player.sendMessage("You can't join olympiad while participating in an Event.");
 			return false;
 		}
 		

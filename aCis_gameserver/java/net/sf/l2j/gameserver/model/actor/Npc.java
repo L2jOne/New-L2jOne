@@ -1,8 +1,12 @@
 package net.sf.l2j.gameserver.model.actor;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.lang.StringUtil;
@@ -17,9 +21,11 @@ import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.xml.ItemData;
 import net.sf.l2j.gameserver.data.xml.MultisellData;
 import net.sf.l2j.gameserver.data.xml.NewbieBuffData;
+import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.data.xml.PolymorphData;
 import net.sf.l2j.gameserver.data.xml.PolymorphData.Polymorph;
 import net.sf.l2j.gameserver.data.xml.ScriptData;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.IntentionType;
 import net.sf.l2j.gameserver.enums.SayType;
 import net.sf.l2j.gameserver.enums.ScriptEventType;
@@ -30,6 +36,10 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminNpc;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.WorldObject;
+import net.sf.l2j.gameserver.model.actor.instance.Chest;
+import net.sf.l2j.gameserver.model.actor.instance.GrandBoss;
+import net.sf.l2j.gameserver.model.actor.instance.Monster;
+import net.sf.l2j.gameserver.model.actor.instance.RaidBoss;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
@@ -40,6 +50,8 @@ import net.sf.l2j.gameserver.model.clanhall.ClanHall;
 import net.sf.l2j.gameserver.model.clanhall.SiegableHall;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.holder.NewbieBuffHolder;
+import net.sf.l2j.gameserver.model.item.DropCategory;
+import net.sf.l2j.gameserver.model.item.DropData;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.model.item.kind.Weapon;
@@ -95,6 +107,20 @@ public class Npc extends Creature
 	private ClanHall _clanHall;
 	private SiegableHall _siegableHall;
 	
+	protected static final int PAGE_LIMIT = 7;
+	protected static final Map<Integer, Integer> LAST_PAGE = new ConcurrentHashMap<>();
+	protected static final String[][] MESSAGE =
+	{
+		{
+			"<font color=\"LEVEL\">%player%</font>, are you not afraid?",
+			"Be careful <font color=\"LEVEL\">%player%</font>!"
+		},
+		{
+			"Here is the drop list of <font color=\"LEVEL\">%boss%</font>!",
+			"Seems that <font color=\"LEVEL\">%boss%</font> has good drops."
+		},
+	};
+	
 	public Npc(int objectId, NpcTemplate template)
 	{
 		super(objectId, template);
@@ -113,7 +139,7 @@ public class Npc extends Creature
 		// initialize the "current" collisions
 		_currentCollisionHeight = template.getCollisionHeight();
 		_currentCollisionRadius = template.getCollisionRadius();
-
+		
 		_fakePc = PolymorphData.getInstance().getFakePc(template.getNpcId());
 		
 		// Set the name of the Creature
@@ -242,12 +268,137 @@ public class Npc extends Creature
 		}
 	}
 	
+	public void sendNpcDrop(Player player, int npcId, int page)
+	{
+		final NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
+		if (template == null)
+			return; 
+		
+		if (template.getDropData().isEmpty()) 
+		{
+			player.sendMessage("This target have not drop info.");
+			return;
+		} 
+		
+		final List<DropCategory> list = new ArrayList<>();
+		template.getDropData().forEach(c -> list.add(c));
+		Collections.reverse(list);
+		
+		int myPage = 1;
+		int i = 0;
+		int shown = 0;
+		boolean hasMore = false;
+		
+		final StringBuilder sb = new StringBuilder();
+		for (DropCategory cat : list) 
+		{
+			if (shown == PAGE_LIMIT)
+			{
+				hasMore = true;
+				break;
+			} 
+			
+			for (DropData drop : cat.getAllDrops())
+			{
+				final double chance = Math.min(100, (((drop.getItemId() == 57) ? drop.getChance() * Config.RATE_DROP_ADENA : drop.getChance() * Config.RATE_DROP_ITEMS) / 10000));
+				final Item item = ItemData.getInstance().getTemplate(drop.getItemId());
+
+				String name = item.getName();
+				if (name.startsWith("Recipe: "))
+					name = "R: " + name.substring(8);
+				
+				if (name.length() >= 45)
+					name = name.substring(0, 42) + "...";
+				
+				String percent = null;
+				if (chance <= 0.001)
+				{
+					DecimalFormat df = new DecimalFormat("#.####");
+					percent = df.format(chance);
+				}
+				else if (chance <= 0.01)
+				{
+					DecimalFormat df = new DecimalFormat("#.###");
+					percent = df.format(chance);
+				}
+				else
+				{
+					DecimalFormat df = new DecimalFormat("##.##");
+					percent = df.format(chance);
+				}
+				
+				if (myPage != page)
+				{
+					i++;
+					if (i == PAGE_LIMIT)
+					{
+						myPage++;
+						i = 0;
+					}
+					continue;
+				}
+				
+				if (shown == PAGE_LIMIT)
+				{
+					hasMore = true;
+					break;
+				}
+				
+				sb.append(((shown % 2) == 0 ? "<table width=\"280\" bgcolor=\"000000\"><tr>" : "<table width=\"280\"><tr>"));
+				sb.append("<td width=44 height=41 align=center><table bgcolor=" + (cat.isSweep() ? "FF00FF" : "FFFFFF") + " cellpadding=6 cellspacing=\"-5\"><tr><td><button width=32 height=32 back=" + item.getIcon() + " fore=" + item.getIcon() + "></td></tr></table></td>");
+				sb.append("<td width=240>" + (cat.isSweep() ? ("<font color=ff00ff>" + name + "</font>") : name) + "<br1><font color=B09878>" + (cat.isSweep() ? "Spoil" : "Drop") + " Chance : " + percent + "%</font></td>");
+				sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+				shown++;
+			} 
+		} 
+
+		// Build page footer.
+		sb.append("<br><img src=\"L2UI.SquareGray\" width=277 height=1><table width=\"100%\" bgcolor=000000><tr>");
+		
+		if (page > 1)
+			StringUtil.append(sb, "<td align=left width=70><a action=\"bypass -h npc_%objectId%_RaidBossDrop "+ npcId + " ", (page - 1), "\">Previous</a></td>");
+		else
+			StringUtil.append(sb, "<td align=left width=70>Previous</td>");
+		
+		StringUtil.append(sb, "<td align=center width=100>Page ", page, "</td>");
+		
+		if (page < shown)
+			StringUtil.append(sb, "<td align=right width=70>" + (hasMore ? "<a action=\"bypass -h npc_%objectId%_RaidBossDrop " + npcId + " " + (page + 1) + "\">Next</a>" : "") + "</td>");
+		else
+			StringUtil.append(sb, "<td align=right width=70>Next</td>");
+		
+		sb.append("</tr></table><img src=\"L2UI.SquareGray\" width=277 height=1>");
+		sb.append("<br>");
+		sb.append("<center>");
+		sb.append("<table width=\"160\" cellspacing=\"2\">");
+		sb.append("<tr>");
+		sb.append("<td width=\"160\" align=\"center\"><a action=\"bypass -h npc_%objectId%_RaidBossInfo " + LAST_PAGE.get(player.getObjectId()) + "\">Raid Info</a></td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("</center>");
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/droplist.htm");
+		html.replace("%list%", sb.toString());
+		html.replace("%msg%", MESSAGE[1][Rnd.get(MESSAGE.length)].replace("%boss%", template.getName()));
+		html.replace("%name%", getName());
+		html.replace("%objectId%", getObjectId());
+		player.sendPacket(html);
+	}
+	
 	@Override
 	public void onActionShift(Player player)
 	{
 		// Check if the Player is a GM ; send him NPC infos if true.
 		if (player.isGM())
 			AdminNpc.sendGeneralInfos(player, this);
+		else if (player.isVip())
+		{
+			if (this instanceof Monster || this instanceof RaidBoss || this instanceof GrandBoss || this instanceof Chest)
+				sendNpcDrop(player, getTemplate().getNpcId(), 1); 
+		} 
+		else
+			player.sendMessage("Command only for VIPs.");
 		
 		if (player.getTarget() != this)
 			player.setTarget(this);
@@ -470,7 +621,7 @@ public class Npc extends Creature
 		if (scripts != null)
 			for (Quest quest : scripts)
 				quest.notifyDecay(this);
-			
+		
 		// Remove the Npc from the world when the decay task is launched.
 		super.onDecay();
 		
@@ -698,7 +849,7 @@ public class Npc extends Creature
 	{
 		_castle = castle;
 	}
-
+	
 	public Polymorph getFakePc()
 	{
 		return _fakePc;
@@ -1211,7 +1362,7 @@ public class Npc extends Creature
 						player.setLoto(i, val);
 						break;
 					}
-				
+			
 			// setting pusshed buttons
 			count = 0;
 			for (int i = 0; i < 5; i++)
@@ -1414,6 +1565,19 @@ public class Npc extends Creature
 	 */
 	public void showChatWindow(Player player, int val)
 	{
+		if (getNpcId() == EventManager.getInstance().getInt("managerNpcId"))
+		{
+			EventManager.getInstance().showFirstHtml(player, getObjectId());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(player) && EventManager.getInstance().getCurrentEvent().onTalkNpc(this, player))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		showChatWindow(player, getHtmlPath(getNpcId(), val));
 	}
 	

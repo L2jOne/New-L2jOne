@@ -23,7 +23,7 @@ public final class PledgeShowMemberListUpdate extends L2GameServerPacket
 		_classId = player.getClassId().getId();
 		_race = player.getRace().ordinal();
 		_sex = player.getAppearance().getSex().ordinal();
-		_isOnline = (player.isOnline()) ? player.getObjectId() : 0;
+		_isOnline = (player.isOnline()) && !player.isOfflineMode() ? player.getObjectId() : 0;
 	}
 	
 	public PledgeShowMemberListUpdate(ClanMember member)

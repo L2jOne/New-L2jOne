@@ -9,7 +9,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.cache.HtmCache;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.DropData;
@@ -184,7 +184,7 @@ public final class QuestState
 				takeItems(itemId, -1);
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement((repeatable) ? QUEST_DELETE : QUEST_COMPLETE))
 		{
 			ps.setInt(1, _player.getObjectId());
@@ -405,7 +405,7 @@ public final class QuestState
 	 */
 	private void setQuestVarInDb(String var, String value)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(QUEST_SET_VAR))
 		{
 			ps.setInt(1, _player.getObjectId());
@@ -426,7 +426,7 @@ public final class QuestState
 	 */
 	private void removeQuestVarInDb(String var)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(QUEST_DEL_VAR))
 		{
 			ps.setInt(1, _player.getObjectId());

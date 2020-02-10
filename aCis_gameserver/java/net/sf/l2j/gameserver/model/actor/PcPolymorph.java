@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.CharSelectSlot;
 import net.sf.l2j.gameserver.model.WorldObject;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
@@ -114,7 +114,7 @@ public class PcPolymorph extends Npc
 	
 	public static CharSelectSlot loadCharInfo(int objectId)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT char_name, race, base_class, classid, sex, face, hairStyle, hairColor, clanid FROM characters WHERE obj_Id = ?"))
 		{
 			statement.setInt(1, objectId);
@@ -137,7 +137,7 @@ public class PcPolymorph extends Npc
 					int weaponObjId = charInfo.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND);
 					if (weaponObjId > 0)
 					{
-						try (PreparedStatement statementAugment = con.prepareStatement("SELECT attributes FROM augmentations WHERE item_id = ?"))
+						try (PreparedStatement statementAugment = con.prepareStatement("SELECT attributes FROM augmentations WHERE item_oid = ?"))
 						{
 							statementAugment.setInt(1, weaponObjId);
 							try (ResultSet rsAugment = statementAugment.executeQuery())

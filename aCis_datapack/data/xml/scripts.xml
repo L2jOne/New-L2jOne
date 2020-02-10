@@ -404,15 +404,17 @@
 	<script path="scripts.custom.HeroWeapon"/>
 
 	<!-- Events -->
-
+	
+	<script path="scripts.events.HeavyMedal" schedule="YEARLY_WEEK" start="MON-6 18:00:00" end="SUN-8 18:00:00"/>
+	<script path="scripts.events.PlayingWithFire" schedule="YEARLY_DAY" start="6-6 18:00:00" end="SUN-8 18:00:00"/>
+	<script path="scripts.events.DeckTeHalls" schedule="YEARLY_DAY" start="6-6 8:00:00" end="SUN-8 20:00:00"/>
 <!-- 	<script path="scripts.events.GiftOfVitality"/> -->
-<!-- 	<script path="scripts.events.HeavyMedal"/> -->
 <!-- 	<script path="scripts.events.TheValentineEvent"/> -->
 <!-- 	<script path="scripts.events.MasterOfEnchanting"/> -->
 
 	<!-- Teleports -->
 
-	<script path="scripts.teleports.CastleDefendTeleport"/>
+	<script path="scripts.teleports.CastleDegfendTeleport"/>
 	<script path="scripts.teleports.ElrokiTeleporters"/>
 	<script path="scripts.teleports.GatekeeperSpirit"/>
 	<script path="scripts.teleports.GrandBossTeleporters"/>

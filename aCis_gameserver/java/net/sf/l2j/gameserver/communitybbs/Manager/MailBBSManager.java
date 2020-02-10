@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.l2j.commons.lang.StringUtil;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.cache.HtmCache;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.model.World;
@@ -163,7 +163,7 @@ public class MailBBSManager extends BaseBBSManager
 	
 	private void initId()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT_LAST_ID))
 		{
 			try (ResultSet rs = ps.executeQuery())
@@ -193,7 +193,7 @@ public class MailBBSManager extends BaseBBSManager
 		{
 			mails = ConcurrentHashMap.newKeySet();
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(SELECT_CHAR_MAILS))
 			{
 				ps.setInt(1, objectId);
@@ -462,7 +462,7 @@ public class MailBBSManager extends BaseBBSManager
 		// Get the current time under timestamp format.
 		final Timestamp time = new Timestamp(currentDate);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_NEW_MAIL))
 		{
 			ps.setInt(3, player.getObjectId());
@@ -633,7 +633,7 @@ public class MailBBSManager extends BaseBBSManager
 			}
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_MAIL))
 		{
 			ps.setInt(1, mailId);
@@ -649,7 +649,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		getMail(player, mailId).unread = false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(MARK_MAIL_READ))
 		{
 			ps.setInt(1, mailId);
@@ -665,7 +665,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		getMail(player, mailId).location = location;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(SET_MAIL_LOC))
 		{
 			ps.setString(1, location.toString().toLowerCase());
@@ -688,7 +688,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		boolean isGM = false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(GET_GM_STATUS))
 		{
 			ps.setInt(1, objectId);

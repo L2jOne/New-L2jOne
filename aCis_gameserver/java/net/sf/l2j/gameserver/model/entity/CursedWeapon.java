@@ -10,7 +10,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.commons.util.StatsSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.enums.MessageType;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
@@ -107,7 +107,7 @@ public class CursedWeapon
 		
 		_skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_CW))
 			{
@@ -281,7 +281,7 @@ public class CursedWeapon
 			{
 				LOGGER.info("{} is being removed offline.", _name);
 				
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+				try (Connection con = DatabaseFactory.getInstance().getConnection())
 				{
 					// Delete the item
 					try (PreparedStatement ps = con.prepareStatement(DELETE_ITEM))
@@ -584,7 +584,7 @@ public class CursedWeapon
 		cancelDropTimer();
 		
 		// Save data on database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(INSERT_CW))
 			{
@@ -642,7 +642,7 @@ public class CursedWeapon
 	 */
 	private void removeFromDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(DELETE_CW))
 			{
@@ -795,7 +795,7 @@ public class CursedWeapon
 			// Save data.
 			else
 			{
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+				try (Connection con = DatabaseFactory.getInstance().getConnection())
 				{
 					try (PreparedStatement ps = con.prepareStatement(UPDATE_CW))
 					{

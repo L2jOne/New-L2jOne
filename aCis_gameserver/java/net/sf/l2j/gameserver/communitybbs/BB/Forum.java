@@ -10,7 +10,7 @@ import java.util.Map;
 
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 import net.sf.l2j.gameserver.enums.TopicType;
@@ -77,7 +77,7 @@ public class Forum
 	
 	private void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_FORUMS);
 			PreparedStatement ps2 = con.prepareStatement(RESTORE_TOPICS))
 		{
@@ -120,7 +120,7 @@ public class Forum
 	
 	private void getChildren()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_CHILDREN))
 		{
 			ps.setInt(1, _forumId);
@@ -197,7 +197,7 @@ public class Forum
 	
 	public void insertIntoDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_FORUM))
 		{
 			ps.setInt(1, _forumId);

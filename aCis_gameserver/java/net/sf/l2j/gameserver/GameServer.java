@@ -14,7 +14,7 @@ import net.sf.l2j.commons.mmocore.SelectorThread;
 import net.sf.l2j.commons.util.SysUtil;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.data.cache.CrestCache;
@@ -60,6 +60,7 @@ import net.sf.l2j.gameserver.data.xml.ArmorSetData;
 import net.sf.l2j.gameserver.data.xml.AugmentationData;
 import net.sf.l2j.gameserver.data.xml.DonateData;
 import net.sf.l2j.gameserver.data.xml.DoorData;
+import net.sf.l2j.gameserver.data.xml.DropDataCustom;
 import net.sf.l2j.gameserver.data.xml.EnchantData;
 import net.sf.l2j.gameserver.data.xml.FishData;
 import net.sf.l2j.gameserver.data.xml.HennaData;
@@ -82,6 +83,8 @@ import net.sf.l2j.gameserver.data.xml.StaticObjectData;
 import net.sf.l2j.gameserver.data.xml.SummonItemData;
 import net.sf.l2j.gameserver.data.xml.TeleportLocationData;
 import net.sf.l2j.gameserver.data.xml.WalkerRouteData;
+import net.sf.l2j.gameserver.engine.EventBuffer;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
@@ -151,7 +154,7 @@ public class GameServer
 		Config.loadGameServer();
 		
 		// Factories
-		L2DatabaseFactory.getInstance();
+		DatabaseFactory.getInstance();
 		ThreadPool.init();
 		
 		StringUtil.printSection("IdFactory");
@@ -199,9 +202,10 @@ public class GameServer
 		PartyMatchRoomManager.getInstance();
 		RaidPointManager.getInstance();
 		PvPData.getInstance();
+		DropDataCustom.getInstance();
 		
 		if ((Config.OFFLINE_TRADE_ENABLE || Config.OFFLINE_CRAFT_ENABLE) && Config.RESTORE_OFFLINERS)
-			OfflineTradersTable.restoreOfflineTraders();
+			OfflineTradersTable.getInstance();
 		
 		StringUtil.printSection("Community server");
 		if (Config.ENABLE_COMMUNITY_BOARD) // Forums has to be loaded before clan data
@@ -285,7 +289,10 @@ public class GameServer
 		StringUtil.printSection("Events");
 		DerbyTrackManager.getInstance();
 		LotteryManager.getInstance();
-
+		
+		if (EventManager.getInstance().getBoolean("eventBufferEnabled"))
+			EventBuffer.getInstance();
+		
 		if (Config.CKM_ENABLED)
 			CharacterKillingManager.getInstance().init();
 

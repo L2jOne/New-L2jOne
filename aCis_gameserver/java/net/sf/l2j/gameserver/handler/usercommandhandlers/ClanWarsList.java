@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.pledge.Clan;
@@ -34,7 +34,7 @@ public class ClanWarsList implements IUserCommandHandler
 			return;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement((id == 88) ? SELECT_ATTACK_LIST : ((id == 89) ? SELECT_UNDER_ATTACK_LIST : SELECT_WAR_LIST)))
 		{
 			ps.setInt(1, clan.getClanId());

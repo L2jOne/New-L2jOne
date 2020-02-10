@@ -6,7 +6,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.network.StatusType;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.BufferManager;
 import net.sf.l2j.gameserver.data.manager.CastleManorManager;
 import net.sf.l2j.gameserver.data.manager.CoupleManager;
@@ -141,7 +141,7 @@ public class Shutdown extends Thread
 			LOGGER.info("BufferTable data has been saved.");
 
 			if ((Config.OFFLINE_TRADE_ENABLE || Config.OFFLINE_CRAFT_ENABLE) && Config.RESTORE_OFFLINERS)
-				OfflineTradersTable.storeOffliners();
+				OfflineTradersTable.getInstance().storeOffliners();
 			
 			// Couples save.
 			if (Config.ALLOW_WEDDING)
@@ -175,7 +175,7 @@ public class Shutdown extends Thread
 			
 			try
 			{
-				L2DatabaseFactory.getInstance().shutdown();
+				DatabaseFactory.getInstance().shutdown();
 			}
 			catch (Throwable t)
 			{

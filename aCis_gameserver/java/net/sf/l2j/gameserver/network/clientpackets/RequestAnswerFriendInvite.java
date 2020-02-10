@@ -3,7 +3,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
@@ -48,7 +48,7 @@ public final class RequestAnswerFriendInvite extends L2GameClientPacket
 			requestor.sendPacket(new FriendList(requestor));
 			player.sendPacket(new FriendList(player));
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(ADD_FRIEND))
 			{
 				ps.setInt(1, requestor.getObjectId());

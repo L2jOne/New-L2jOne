@@ -17,7 +17,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.util.ArraysUtil;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.manager.HeroManager;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
@@ -80,7 +80,7 @@ public class Siege implements Siegable
 		}
 		
 		// Feed _registeredClans.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_SIEGE_CLAN))
 			{
@@ -547,7 +547,7 @@ public class Siege implements Siegable
 	/** Clear all registered siege clans from database for castle */
 	public void clearAllClans()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_SIEGE_CLANS))
 		{
 			ps.setInt(1, _castle.getCastleId());
@@ -572,7 +572,7 @@ public class Siege implements Siegable
 	/** Clear all siege clans waiting for approval from database for castle */
 	protected void clearPendingClans()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_PENDING_CLANS))
 		{
 			ps.setInt(1, _castle.getCastleId());
@@ -689,7 +689,7 @@ public class Siege implements Siegable
 		if (clan == null || clan.getCastleId() == _castle.getCastleId() || _registeredClans.remove(clan) == null)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_SIEGE_CLAN))
 		{
 			ps.setInt(1, _castle.getCastleId());
@@ -822,7 +822,7 @@ public class Siege implements Siegable
 			_siegeTask = ThreadPool.schedule(() -> siegeStart(), 1000);
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_SIEGE_INFOS))
 		{
 			ps.setLong(1, getSiegeDate().getTimeInMillis());
@@ -861,7 +861,7 @@ public class Siege implements Siegable
 				break;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SIEGE_CLAN))
 		{
 			ps.setInt(1, clan.getClanId());

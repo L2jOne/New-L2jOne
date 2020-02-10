@@ -10,7 +10,7 @@ import java.util.Map;
 
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -62,7 +62,7 @@ public class BlockList
 	{
 		final List<Integer> list = new ArrayList<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_BLOCKLIST))
 			{
@@ -90,7 +90,7 @@ public class BlockList
 	
 	private void updateInDB(int targetId, boolean state)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement((state) ? INSERT_BLOCKED_USER : DELETE_BLOCKED_USER))
 		{
 			ps.setInt(1, _owner.getObjectId());

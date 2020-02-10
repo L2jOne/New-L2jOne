@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
 
 /**
@@ -345,7 +345,7 @@ public class CharSelectSlot
 	{
 		int[][] paperdoll = new int[0x12][3];
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_PAPERDOLLS))
 		{
 			ps.setInt(1, objectId);

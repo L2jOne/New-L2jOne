@@ -11,6 +11,7 @@ import net.sf.l2j.commons.util.ArraysUtil;
 import net.sf.l2j.commons.util.StatsSet;
 
 import net.sf.l2j.gameserver.data.SkillTable;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.enums.items.ArmorType;
 import net.sf.l2j.gameserver.enums.items.WeaponType;
@@ -637,7 +638,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			case PDAM:
 			case MDAM:
 				return 20;
-			
+				
 			default:
 				// to let debuffs succeed even without specified power
 				return (_power <= 0 || 100 < _power) ? 20 : _power;
@@ -1384,6 +1385,13 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							
 							if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 								continue;
+
+							if (EventManager.getInstance().isRunning() && (obj instanceof Player || obj instanceof Summon) && activeChar instanceof Player)
+							{
+								Player o = obj.getActingPlayer();
+								if (EventManager.getInstance().isRegistered(activeChar) && EventManager.getInstance().isRegistered(o) && EventManager.getInstance().areTeammates(o, (Player) activeChar))
+									continue;
+							}
 							
 							if (onlyFirst)
 								return new Creature[]
@@ -1425,7 +1433,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					
 					if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 						continue;
-					
+
+					if (EventManager.getInstance().isRunning() && (obj instanceof Player || obj instanceof Summon) && activeChar instanceof Player)
+					{
+						Player o = obj.getActingPlayer();
+						if (EventManager.getInstance().getCurrentEvent().numberOfTeams() > 1 && EventManager.getInstance().isRegistered((Player) activeChar) && EventManager.getInstance().isRegistered(o) && EventManager.getInstance().getCurrentEvent().getTeam(o) == EventManager.getInstance().getCurrentEvent().getTeam((Player) activeChar))
+							continue;
+					}
+
 					targetList.add(obj);
 				}
 				
@@ -1570,7 +1585,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						{
 							switch (getId())
 							{
-								// FORCE BUFFS may cancel here but there should be a proper condition
+							// FORCE BUFFS may cancel here but there should be a proper condition
 								case 426:
 									if (!((Player) target).isMageClass())
 										return new Creature[]
@@ -1578,7 +1593,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 											target
 										};
 									return _emptyTargetList;
-								
+									
 								case 427:
 									if (((Player) target).isMageClass())
 										return new Creature[]
@@ -1967,11 +1982,20 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					final Summon targetSummon = (Summon) target;
 					final Player summonOwner = targetSummon.getActingPlayer();
 					
-					if (activeChar instanceof Player && activeChar.getSummon() != targetSummon && !targetSummon.isDead() && (summonOwner.getPvpFlag() != 0 || summonOwner.getKarma() > 0) || (summonOwner.isInsideZone(ZoneId.PVP) && activeChar.isInsideZone(ZoneId.PVP)) || (summonOwner.isInDuel() && ((Player) activeChar).isInDuel() && summonOwner.getDuelId() == ((Player) activeChar).getDuelId()))
-						return new Creature[]
-						{
-							targetSummon
-						};
+					if (activeChar instanceof Player)
+					{
+						if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(activeChar) && EventManager.getInstance().isRegistered(summonOwner) && !EventManager.getInstance().areTeammates(summonOwner, (Player) activeChar))
+							return new Creature[]
+								{
+									targetSummon
+								};
+						
+						if (activeChar instanceof Player && activeChar.getSummon() != targetSummon && !targetSummon.isDead() && (summonOwner.getPvpFlag() != 0 || summonOwner.getKarma() > 0) || (summonOwner.isInsideZone(ZoneId.PVP) && activeChar.isInsideZone(ZoneId.PVP)) || (summonOwner.isInDuel() && ((Player) activeChar).isInDuel() && summonOwner.getDuelId() == ((Player) activeChar).getDuelId()))
+							return new Creature[]
+								{
+									targetSummon
+								};
+					}
 				}
 				return _emptyTargetList;
 			}

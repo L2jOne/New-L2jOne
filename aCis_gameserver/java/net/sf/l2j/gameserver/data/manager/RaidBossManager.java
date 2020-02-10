@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.SpawnTable;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.enums.BossStatus;
@@ -40,7 +40,7 @@ public class RaidBossManager
 	
 	private void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_RAIDBOSSES);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -163,7 +163,7 @@ public class RaidBossManager
 			// Time passed by, or we force the database save ; save data on database.
 			if (time > respawnTime || forceSave)
 			{
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+				try (Connection con = DatabaseFactory.getInstance().getConnection();
 					PreparedStatement ps = con.prepareStatement(INSERT_RAIDBOSS))
 				{
 					ps.setInt(1, spawn.getNpcId());
@@ -234,7 +234,7 @@ public class RaidBossManager
 		// Save HP/MP and locations if boolean flag is set to true.
 		if (saveOnDb)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(SAVE_RAIDBOSS))
 			{
 				for (Entry<Integer, BossSpawn> entry : _spawns.entrySet())

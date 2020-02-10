@@ -153,11 +153,11 @@ public class CharInfo extends L2GameServerPacket
 		writeC((_player.isHero() || (_player.isGM() && Config.GM_HERO_AURA)) ? 1 : 0);
 		writeC((_player.isFishing()) ? 1 : 0);
 		writeLoc(_player.getFishingStance().getLoc());
-		writeD(_player.isVip() ? Config.VIP_COLOR : _player.isAio() ? Config.AIO_COLOR : _player.getAppearance().getNameColor());
+		writeD(_player.isVip() ? Config.VIP_COLOR : _player.isAio() ? Config.AIO_COLOR : _player.isOfflineMode() ? Config.OFFLINE_NAME_COLOR : _player.getAppearance().getNameColor());
 		writeD(_player.getHeading());
 		writeD(_player.getPledgeClass());
 		writeD(_player.getPledgeType());
-		writeD(_player.isVip() ? Config.VIP_COLOR : _player.isAio() ? Config.AIO_COLOR : _player.getAppearance().getTitleColor());
+		writeD(_player.isVip() ? Config.VIP_COLOR : _player.isAio() ? Config.AIO_COLOR : _player.isOfflineMode() ? Config.OFFLINE_NAME_COLOR : _player.getAppearance().getTitleColor());
 		writeD(CursedWeaponManager.getInstance().getCurrentStage(_player.getCursedWeaponEquippedId()));
 	}
 }

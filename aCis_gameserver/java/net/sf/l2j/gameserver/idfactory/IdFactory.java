@@ -13,7 +13,7 @@ import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.math.PrimeFinder;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 
 /**
  * This class ensure data integrity and correct allocation of unique object ids towards objects.
@@ -63,7 +63,7 @@ public class IdFactory
 		// Get all used objectIds.
 		final List<Integer> usedObjectIds = new ArrayList<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (Statement st = con.createStatement())
 			{
@@ -196,7 +196,7 @@ public class IdFactory
 	 */
 	private static void setAllCharacterOffline()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("UPDATE characters SET online = 0"))
 		{
 			ps.executeUpdate();
@@ -215,7 +215,7 @@ public class IdFactory
 	{
 		int cleanCount = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (Statement stmt = con.createStatement())
 			{
@@ -289,7 +289,7 @@ public class IdFactory
 	{
 		int cleanCount = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("DELETE FROM character_skills_save WHERE restore_type = 1 AND systime <= ?"))
 		{
 			ps.setLong(1, System.currentTimeMillis());

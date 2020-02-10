@@ -1,15 +1,16 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.commons.lang.StringUtil;
-import net.sf.l2j.commons.math.MathUtil;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.manager.BuyListManager;
 import net.sf.l2j.gameserver.data.xml.ItemData;
@@ -25,9 +26,11 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.MercenaryManagerNpc;
 import net.sf.l2j.gameserver.model.actor.instance.Merchant;
 import net.sf.l2j.gameserver.model.actor.instance.Monster;
+import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate.SkillType;
 import net.sf.l2j.gameserver.model.buylist.NpcBuyList;
 import net.sf.l2j.gameserver.model.buylist.Product;
+import net.sf.l2j.gameserver.model.item.DropCategory;
 import net.sf.l2j.gameserver.model.item.DropData;
 import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.model.location.Location;
@@ -235,49 +238,93 @@ public class AdminNpc implements IAdminCommandHandler
 	 */
 	private static void sendDropInfos(Player player, Npc npc, int page, boolean isDrop)
 	{
-		List<DropData> list = (isDrop) ? npc.getTemplate().getAllDropData() : npc.getTemplate().getAllSpoilData();
+		final NpcTemplate template = NpcData.getInstance().getTemplate(npc.getNpcId());
+		if (template == null)
+			return; 
 		
-		// Load static Htm.
+		final List<DropCategory> list = new ArrayList<>();
+		template.getDropData().forEach(c -> list.add(c));
+		Collections.reverse(list);
+
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/admin/npcinfo/drop.htm");
-		
+
 		if (list.isEmpty())
 		{
 			html.replace("%drop%", "<tr><td>This NPC has no " + ((isDrop) ? "drops" : "spoils") + ".</td></tr>");
 			player.sendPacket(html);
 			return;
 		}
+
+		int myPage = 1;
+		int i = 0;
+		int shown = 0;
+		boolean hasMore = false;
 		
-		final int max = MathUtil.countPagesNumber(list.size(), PAGE_LIMIT);
-		if (page > max)
-			page = max;
+		final StringBuilder sb = new StringBuilder();
 		
-		list = list.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, list.size()));
-		
-		final StringBuilder sb = new StringBuilder(2000);
-		
-		int row = 0;
-		for (DropData drop : list)
+		for (DropCategory cat : list) 
 		{
-			sb.append(((row % 2) == 0 ? "<table width=\"280\" bgcolor=\"000000\"><tr>" : "<table width=\"280\"><tr>"));
+			if (shown == PAGE_LIMIT)
+			{
+				hasMore = true;
+				break;
+			} 
 			
-			final double chance = Math.min(100, (((drop.getItemId() == 57) ? drop.getChance() * Config.RATE_DROP_ADENA : drop.getChance() * Config.RATE_DROP_ITEMS) / 10000));
-			final Item item = ItemData.getInstance().getTemplate(drop.getItemId());
-			
-			String name = item.getName();
-			if (name.startsWith("Recipe: "))
-				name = "R: " + name.substring(8);
-			
-			if (name.length() >= 45)
-				name = name.substring(0, 42) + "...";
-			
-			StringUtil.append(sb, "<td width=34 height=34><img src=icon.noimage width=32 height=32></td>");
-			StringUtil.append(sb, "<td width=246 height=34>", name, "<br1><font color=B09878>", ((isDrop) ? "Drop" : "Spoil"), ": ", chance, "% Min: ", drop.getMinDrop(), " Max: ", drop.getMaxDrop(), "</font></td>");
-			
-			sb.append("</tr></table><img src=\"L2UI.SquareGray\" width=277 height=1>");
-			row++;
-		}
-		
+			for (DropData drop : cat.getAllDrops())
+			{
+				final double chance = Math.min(100, (((drop.getItemId() == 57) ? drop.getChance() * Config.RATE_DROP_ADENA : drop.getChance() * Config.RATE_DROP_ITEMS) / 10000));
+				final Item item = ItemData.getInstance().getTemplate(drop.getItemId());
+				
+				String name = item.getName();
+				if (name.startsWith("Recipe: "))
+					name = "R: " + name.substring(8);
+				
+				if (name.length() >= 45)
+					name = name.substring(0, 42) + "...";
+				
+				String percent = null;
+				if (chance <= 0.001)
+				{
+					DecimalFormat df = new DecimalFormat("#.####");
+					percent = df.format(chance);
+				}
+				else if (chance <= 0.01)
+				{
+					DecimalFormat df = new DecimalFormat("#.###");
+					percent = df.format(chance);
+				}
+				else
+				{
+					DecimalFormat df = new DecimalFormat("##.##");
+					percent = df.format(chance);
+				}
+
+				if (myPage != page)
+				{
+					i++;
+					if (i == PAGE_LIMIT)
+					{
+						myPage++;
+						i = 0;
+					}
+					continue;
+				}
+				
+				if (shown == PAGE_LIMIT)
+				{
+					hasMore = true;
+					break;
+				}
+				
+				sb.append(((shown % 2) == 0 ? "<table width=\"280\" bgcolor=\"000000\"><tr>" : "<table width=\"280\"><tr>"));
+				sb.append("<td width=44 height=41 align=center><table bgcolor=" + (cat.isSweep() ? "FF00FF" : "FFFFFF") + " cellpadding=6 cellspacing=\"-5\"><tr><td><button width=32 height=32 back=" + item.getIcon() + " fore=" + item.getIcon() + "></td></tr></table></td>");
+				sb.append("<td width=240>" + (cat.isSweep() ? ("<font color=ff00ff>" + name + "</font>") : name) + "<br1><font color=B09878>" + (cat.isSweep() ? "Spoil" : "Drop") + " Chance : " + percent + "%</font></td>");
+				sb.append("</tr></table><img src=L2UI.SquareGray width=280 height=1>");
+				shown++;
+			} 
+		} 
+
 		// Build page footer.
 		sb.append("<br><img src=\"L2UI.SquareGray\" width=277 height=1><table width=\"100%\" bgcolor=000000><tr>");
 		
@@ -288,8 +335,8 @@ public class AdminNpc implements IAdminCommandHandler
 		
 		StringUtil.append(sb, "<td align=center width=100>Page ", page, "</td>");
 		
-		if (page < max)
-			StringUtil.append(sb, "<td align=right width=70><a action=\"bypass admin_npcinfo ", ((isDrop) ? "drop" : "spoil"), " ", page + 1, "\">Next</a></td>");
+		if (page < shown)
+			StringUtil.append(sb, "<td align=right width=70>" + (hasMore ? "<a action=\"bypass admin_npcinfo " + ((isDrop) ? "drop" : "spoil") + " " + (page + 1) + "\">Next</a>" : "") + "</td>");
 		else
 			StringUtil.append(sb, "<td align=right width=70>Next</td>");
 		

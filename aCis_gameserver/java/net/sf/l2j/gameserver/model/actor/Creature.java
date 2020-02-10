@@ -16,6 +16,7 @@ import net.sf.l2j.gameserver.data.SkillTable.FrequentSkill;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
 import net.sf.l2j.gameserver.data.xml.MapRegionData;
 import net.sf.l2j.gameserver.data.xml.MapRegionData.TeleportType;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.enums.AiEventType;
 import net.sf.l2j.gameserver.enums.GaugeColor;
 import net.sf.l2j.gameserver.enums.IntentionType;
@@ -505,6 +506,27 @@ public abstract class Creature extends WorldObject
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+		if (this instanceof Player && EventManager.getInstance().isRegistered(this) || this instanceof Summon && EventManager.getInstance().isRegistered(((Summon) this).getOwner()))
+		{
+			Player p = getActingPlayer();
+			Player t = null;
+			if (target instanceof Player || target instanceof Summon)
+			{
+				t = target.getActingPlayer();
+				if (EventManager.getInstance().areTeammates(p, t))
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+			}
+			
+			if (!EventManager.getInstance().getCurrentEvent().canAttack(p, target))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+		}
 		
 		if (!isAlikeDead())
 		{
@@ -656,6 +678,9 @@ public abstract class Creature extends WorldObject
 		// Refresh PvP status of the attacker.
 		if (player != null && player.getSummon() != target)
 			player.updatePvPStatus(target);
+
+		if (this instanceof Player && target instanceof Player && EventManager.getInstance().isRegistered(this))
+			EventManager.getInstance().getCurrentEvent().onHit((Player) this, (Player) target);
 		
 		// Check if hit isn't missed
 		if (!hitted)
@@ -1028,6 +1053,47 @@ public abstract class Creature extends WorldObject
 			
 			return;
 		}
+
+		try
+		{
+			if (getTarget() != null && (this instanceof Player || this instanceof Summon))
+			{
+				boolean isArea = false;
+				switch (skill.getTargetType())
+				{
+					case TARGET_AREA:
+					case TARGET_FRONT_AREA:
+					case TARGET_BEHIND_AREA:
+					case TARGET_AURA:
+					case TARGET_FRONT_AURA:
+					case TARGET_BEHIND_AURA:
+						isArea = true;
+				}
+				
+				if (!isArea)
+				{
+					Player p = getActingPlayer();
+					if (p != null && EventManager.getInstance().isRegistered(p))
+					{
+						if (!EventManager.getInstance().getCurrentEvent().canAttack(p, getTarget()))
+						{
+							getAI().setIntention(IntentionType.ACTIVE);
+							return;
+						}
+						
+						if (getTarget() instanceof Player && EventManager.getInstance().areTeammates(p, (Player) getTarget()) && skill.isOffensive())
+						{
+							getAI().setIntention(IntentionType.ACTIVE);
+							return;
+						}
+					}
+				}
+			}
+		}
+		catch (ClassCastException e)
+		{
+		}
+		
 		// Override casting type
 		if (skill.isSimultaneousCast() && !simultaneously)
 			simultaneously = true;
@@ -3350,7 +3416,7 @@ public abstract class Creature extends WorldObject
 		{
 			case BOW:
 				return 1500 * 345 / getStat().getPAtkSpd();
-			
+				
 			default:
 				return Formulas.calcPAtkSpd(this, target, getStat().getPAtkSpd());
 		}
@@ -3498,7 +3564,7 @@ public abstract class Creature extends WorldObject
 		{
 			switch (skill.getTargetType())
 			{
-				// only AURA-type skills can be cast without target
+			// only AURA-type skills can be cast without target
 				case TARGET_AURA:
 				case TARGET_FRONT_AURA:
 				case TARGET_BEHIND_AURA:

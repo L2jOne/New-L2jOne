@@ -15,7 +15,7 @@ import net.sf.l2j.commons.lang.StringUtil;
 import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.manager.ClanHallManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -58,7 +58,7 @@ public class ClanTable
 	protected ClanTable()
 	{
 		// Load all clans.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_CLANS);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -256,7 +256,7 @@ public class ClanTable
 			clan.removeClanMember(member.getObjectId(), 0);
 		
 		// Numerous mySQL queries.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(DELETE_CLAN))
 			{
@@ -362,7 +362,7 @@ public class ClanTable
 		clan2.setAttackerClan(clanId1);
 		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.getName()));
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_WAR))
 		{
 			ps.setInt(1, clanId1);
@@ -391,7 +391,7 @@ public class ClanTable
 		clan2.deleteAttackerClan(clanId1);
 		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.getName()));
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			if (Config.ALT_CLAN_WAR_PENALTY_WHEN_ENDED > 0)
 			{
@@ -450,7 +450,7 @@ public class ClanTable
 	 */
 	private void restoreWars()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// Delete deprecated wars (server was offline).
 			try (PreparedStatement ps = con.prepareStatement(DELETE_OLD_WARS))
@@ -534,7 +534,7 @@ public class ClanTable
 		}
 		
 		// Retrieve the 99 best clans, allocate their ranks.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_RANK);
 			ResultSet rs = ps.executeQuery())
 		{

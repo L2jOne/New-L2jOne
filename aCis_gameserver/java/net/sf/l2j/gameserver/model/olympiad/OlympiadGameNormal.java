@@ -7,7 +7,7 @@ import java.util.List;
 import net.sf.l2j.commons.random.Rnd;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.enums.OlympiadType;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Creature;
@@ -466,7 +466,7 @@ abstract public class OlympiadGameNormal extends AbstractOlympiadGame
 	
 	protected static final void saveResults(Participant one, Participant two, int _winner, long _startTime, long _fightTime, OlympiadType type)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_RESULT))
 		{
 			ps.setInt(1, one.getObjectId());

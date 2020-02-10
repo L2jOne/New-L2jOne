@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 import net.sf.l2j.commons.util.StatsSet;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
 import net.sf.l2j.gameserver.enums.SiegeStatus;
 import net.sf.l2j.gameserver.model.actor.instance.Door;
@@ -50,7 +50,7 @@ public final class SiegableHall extends ClanHall
 	@Override
 	public final void updateDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_CLANHALL))
 		{
 			ps.setInt(1, getOwnerId());

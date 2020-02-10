@@ -15,7 +15,7 @@ import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.commons.util.StatsSet;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.data.sql.SpawnTable;
@@ -3201,7 +3201,7 @@ public class FestivalOfDarknessManager
 	 */
 	protected void restoreFestivalData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(RESTORE_FESTIVAL);
 				ResultSet rs = ps.executeQuery())
@@ -3259,7 +3259,7 @@ public class FestivalOfDarknessManager
 	 */
 	public void saveFestivalData(boolean updateSettings)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE);
 			PreparedStatement ps2 = con.prepareStatement(INSERT))
 		{
@@ -3330,7 +3330,7 @@ public class FestivalOfDarknessManager
 		}
 		else
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(GET_CLAN_NAME))
 			{
 				ps.setString(1, playerName);

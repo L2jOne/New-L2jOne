@@ -14,7 +14,7 @@ import net.sf.l2j.commons.mmocore.SelectorConfig;
 import net.sf.l2j.commons.mmocore.SelectorThread;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.loginserver.data.manager.GameServerManager;
 import net.sf.l2j.loginserver.data.manager.IpBanManager;
 import net.sf.l2j.loginserver.data.sql.AccountTable;
@@ -56,7 +56,7 @@ public class LoginServer
 		Config.loadLoginServer();
 		
 		// Factories
-		L2DatabaseFactory.getInstance();
+		DatabaseFactory.getInstance();
 		
 		AccountTable.getInstance();
 		

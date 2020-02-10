@@ -10,7 +10,7 @@ import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.RaidBossInfoManager;
 import net.sf.l2j.gameserver.enums.BossStatus;
 import net.sf.l2j.gameserver.model.actor.Npc;
@@ -205,7 +205,7 @@ public class BossSpawn
 			npc.deleteMe();
 		
 		// Refresh database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_RAIDBOSS))
 		{
 			ps.setInt(1, _spawn.getNpcId());
@@ -225,7 +225,7 @@ public class BossSpawn
 	 */
 	private void updateOnDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_RAIDBOSS))
 		{
 			ps.setLong(1, _respawnTime);

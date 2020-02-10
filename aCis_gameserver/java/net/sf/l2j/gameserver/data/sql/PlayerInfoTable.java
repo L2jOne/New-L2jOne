@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.Player;
 
 /**
@@ -28,7 +28,7 @@ public final class PlayerInfoTable
 	
 	protected PlayerInfoTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_DATA);
 			ResultSet rs = ps.executeQuery())
 		{

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Map.Entry;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.MailBBSManager;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.data.SkillTable.FrequentSkill;
@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.model.clanhall.ClanHall;
 import net.sf.l2j.gameserver.model.clanhall.SiegableHall;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.entity.vote.VoteBase;
 import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.pledge.Clan;
@@ -97,7 +98,7 @@ public class EnterWorld extends L2GameClientPacket
 			
 			if (Config.GM_STARTUP_INVISIBLE && AdminData.getInstance().hasAccess("admin_hide", player.getAccessLevel()))
 				player.getAppearance().setVisible(false);
-
+			
 			if (Config.GM_STARTUP_SPEED && AdminData.getInstance().hasAccess("admin_gmspeed", player.getAccessLevel()))
 				player.doCast(SkillTable.getInstance().getInfo(7029, 4));
 			
@@ -243,7 +244,7 @@ public class EnterWorld extends L2GameClientPacket
 			player.sendPacket(SystemMessage.getSystemMessage((GameTimeTaskManager.getInstance().isNight()) ? SystemMessageId.NIGHT_S1_EFFECT_APPLIES : SystemMessageId.DAY_S1_EFFECT_DISAPPEARS).addSkillName(L2Skill.SKILL_SHADOW_SENSE));
 		
 		// Load quests.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_PLAYER_QUESTS))
 		{
 			ps.setInt(1, objectId);
@@ -347,11 +348,11 @@ public class EnterWorld extends L2GameClientPacket
 		// Attacker or spectator logging into a siege zone will be ported at town.
 		if (!player.isGM() && (!player.isInSiege() || player.getSiegeState() < 2) && player.isInsideZone(ZoneId.SIEGE))
 			player.teleportTo(TeleportType.TOWN);
-
+		
 		// Announce Top PvP
 		if (Config.ANNOUNCE_TOP && player.getPvpKills() > 0)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT char_name, pvpkills FROM characters WHERE accesslevel=0 ORDER BY pvpkills DESC LIMIT 1"))
 			{ 
 				try (ResultSet rset = ps.executeQuery()) 
@@ -374,7 +375,7 @@ public class EnterWorld extends L2GameClientPacket
 		// Announce Top PK
 		if (Config.ANNOUNCE_TOP && player.getPkKills() > 0)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement("SELECT char_name, pkkills FROM characters WHERE accesslevel=0 ORDER BY pkkills DESC LIMIT 1"))
 			{ 
 				try (ResultSet rset = ps.executeQuery()) 
@@ -410,7 +411,7 @@ public class EnterWorld extends L2GameClientPacket
 		// announce hero
 		if (player.getActiveClass() == player.getBaseClass() && player.isHero() && Config.ANNOUNCE_HERO_ONLY_BASECLASS)
 			World.announceToOnlinePlayers(player.getClan() != null ? Config.ANNOUNCE_HERO_ENTER_BY_CLAN_MEMBER_MSG.replace("%player%", player.getName()).replace("%clan%", player.getClan().getName()).replace("%classe%", player.setClassName(player.getBaseClass())) : Config.ANNOUNCE_HERO_ENTER_BY_PLAYER_MSG.replace("%player%", player.getName()).replace("%classe%", player.setClassName(player.getBaseClass())), true);
-
+		
 		if (Config.PCB_INTERVAL > 0)
 			player.sendPacket(new ExPCCafePointInfo(player.getPcCafePoints(), 0, PcCafeType.NORMAL));
 		
@@ -441,7 +442,7 @@ public class EnterWorld extends L2GameClientPacket
 				player.sendMessage("Seu Hero terminam em " + new SimpleDateFormat("MMM dd, yyyy HH:mm").format(new Date(player.getMemos().getLong("heroTime", 0))) + ".");
 			}
 		}
- 		
+		
 		if (player.getMemos().getLong("vipTime", 0) > 0)	
 		{
 			long now = Calendar.getInstance().getTimeInMillis();
@@ -455,13 +456,55 @@ public class EnterWorld extends L2GameClientPacket
 				player.sendMessage("Seu Vip terminam em " + new SimpleDateFormat("MMM dd, yyyy HH:mm").format(new Date(player.getMemos().getLong("vipTime", 0))) + ".");
 			}
 		}
-
+		
 		ClassMaster.showQuestionMark(player);
 		
 		ZoneTaskManager.getInstance().onEnter(player);
 		
 		if (player.isVip() && Config.ANNOUNCE_VIP_ENTER)
 			World.announceToOnlinePlayers(player.getClan() != null ? Config.ANNOUNCE_VIP_ENTER_BY_CLAN_MEMBER_MSG.replace("%player%", player.getName()).replace("%clan%", player.getClan().getName()) : Config.ANNOUNCE_VIP_ENTER_BY_PLAYER_MSG.replace("%player%", player.getName()), true);
+		
+		// Retrieve VoteSystem info.
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
+			PreparedStatement vtsm = con.prepareStatement("SELECT HopZone, TopZone, NetWork FROM VoteSystem WHERE IP_Address=?"))
+		{
+			vtsm.setString(1, VoteBase.getPlayerStaticIp(player));
+			try (ResultSet votetimes = vtsm.executeQuery())
+			{
+				if (!votetimes.isBeforeFirst())
+				{
+					try (Connection conn = DatabaseFactory.getInstance().getConnection();
+						PreparedStatement crt = conn.prepareStatement("INSERT INTO VoteSystem (Account,Char_name,IP_Address,HopZone,TopZone,NetWork) VALUES (?,?,?,?,?,?)"))
+					{
+						crt.setString(1, player.getAccountName());
+						crt.setString(2, player.getName());
+						crt.setString(3, VoteBase.getPlayerStaticIp(player));
+						crt.setInt(4, 0);
+						crt.setInt(5, 0);
+						crt.setInt(6, 0);
+						crt.executeUpdate();
+						LOGGER.info("Created IP/API VoteSystem for player: " + player.getName());	
+					}
+				}
+				else
+				{
+					while (votetimes.next())
+					{
+						LOGGER.info("Restored IP/API VoteSystem for player: " + player.getName());
+						player.setLastHopVote(votetimes.getLong("HopZone"));
+						player.setLastTopVote(votetimes.getLong("TopZone"));
+						player.setLastNetVote(votetimes.getLong("NetWork"));
+					}
+				}
+				votetimes.close();
+				
+			}
+			vtsm.close();
+		}
+		catch (Exception e)
+		{
+			LOGGER.error("Couldn't load VoteSystem for player {}.", e, player.getName());
+		}
 		
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}

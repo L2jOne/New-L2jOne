@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.manager.DayNightManager;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
@@ -33,7 +33,7 @@ public class SpawnTable
 	
 	private void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_SPAWNS);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -116,7 +116,7 @@ public class SpawnTable
 		
 		if (storeInDb)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(ADD_SPAWN))
 			{
 				ps.setInt(1, spawn.getNpcId());
@@ -141,7 +141,7 @@ public class SpawnTable
 		
 		if (updateDb)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = DatabaseFactory.getInstance().getConnection();
 				PreparedStatement ps = con.prepareStatement(DELETE_SPAWN))
 			{
 				ps.setInt(1, spawn.getLocX());

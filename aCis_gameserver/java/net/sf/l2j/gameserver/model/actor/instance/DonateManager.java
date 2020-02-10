@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.lang.StringUtil;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.enums.actors.Sex;
 import net.sf.l2j.gameserver.data.SkillTable;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
@@ -601,7 +601,7 @@ public class DonateManager extends Folk
 		player.stopAllEffectsExceptThoseThatLastThroughDeath();
 		player.sendMessage(player.getName() + " sua nova classe é " + player.getTemplate().getClassName() + ".");
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// Remove all henna info stored for this sub-class.
 			try (PreparedStatement ps = con.prepareStatement("DELETE FROM character_hennas WHERE char_obj_id=? AND class_index=?"))

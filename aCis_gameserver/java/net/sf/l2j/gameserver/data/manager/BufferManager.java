@@ -16,7 +16,7 @@ import net.sf.l2j.commons.data.xml.IXmlReader;
 import net.sf.l2j.commons.lang.StringUtil;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.model.holder.BuffSkillHolder;
 
 import org.w3c.dom.Document;
@@ -46,7 +46,7 @@ public class BufferManager implements IXmlReader
 		parseFile("./data/xml/bufferSkills.xml");
 		LOGGER.info("Loaded {} available buffs.", _availableBuffs.size());
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_SCHEMES);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -96,7 +96,7 @@ public class BufferManager implements IXmlReader
 	{
 		final StringBuilder sb = new StringBuilder();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// Delete all entries from database.
 			try (PreparedStatement ps = con.prepareStatement(DELETE_SCHEMES))

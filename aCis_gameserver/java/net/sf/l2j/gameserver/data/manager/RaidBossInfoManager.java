@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 
 /**
  * @author Williams
@@ -29,7 +29,7 @@ public class RaidBossInfoManager
 	
 	public void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT boss_id, respawn_time FROM grandboss_data UNION SELECT boss_id, respawn_time FROM raidboss_spawnlist ORDER BY boss_id"))
 		{
 			try (ResultSet rs = statement.executeQuery())

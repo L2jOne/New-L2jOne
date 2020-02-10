@@ -9,7 +9,7 @@ import java.util.Scanner;
 import net.sf.l2j.commons.crypt.BCrypt;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 
 public class SQLAccountManager
 {
@@ -151,7 +151,7 @@ public class SQLAccountManager
 		}
 		q = q.concat(" ORDER BY login ASC");
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(q);
 			ResultSet rset = ps.executeQuery())
 		{
@@ -172,7 +172,7 @@ public class SQLAccountManager
 	
 	private static void addOrUpdateAccount(String account, String password, String level)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_OR_UPDATE_ACCOUNT))
 		{
 			// Hash the password with default (10) salt
@@ -200,7 +200,7 @@ public class SQLAccountManager
 	
 	private static void changeAccountLevel(String account, String level)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_ACCOUNT_LEVEL))
 		{
 			ps.setString(1, level);
@@ -223,7 +223,7 @@ public class SQLAccountManager
 	
 	private static void deleteAccount(String account)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_ACCOUNT))
 		{
 			ps.setString(1, account);

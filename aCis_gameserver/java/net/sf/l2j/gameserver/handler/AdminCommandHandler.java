@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEffects;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEnchant;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEvents;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
@@ -73,6 +74,7 @@ public class AdminCommandHandler
 		registerHandler(new AdminNpc());
 		registerHandler(new AdminEffects());
 		registerHandler(new AdminEnchant());
+		registerHandler(new AdminEvents());
 		registerHandler(new AdminExpSp());
 		registerHandler(new AdminGeoEngine());
 		registerHandler(new AdminGm());

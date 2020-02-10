@@ -14,20 +14,23 @@ public class ChangeTime implements IUserCommandHandler
 {
 	private static final int[] COMMAND_IDS =
 	{
-		120,121
+		117,118
 	};
 	
 	@Override
 	public void useUserCommand(int id, Player activeChar)
 	{
 		int _calcule = (int) arredondaValor(1, activeChar.getOnlineTime() / 3600);
-
-		if (id == 120)
+		
+		if (id == 117)
 		{
 			if ((_calcule >= 1) && (activeChar.getPvpKills() >= Config.MIN_PVP))
 			{
-				activeChar.addItem("Coins", Config.ID_REWARD, _calcule, activeChar, true);
-				activeChar.setOnlineTime(0);
+				if (Config.ID_REWARD > 0)
+				{
+					activeChar.addItem("Coins", Config.ID_REWARD, _calcule, activeChar, true);
+					activeChar.setOnlineTime(0);
+				}
 			}
 			else
 			{
@@ -38,7 +41,7 @@ public class ChangeTime implements IUserCommandHandler
 					activeChar.sendMessage("Você não tem 1 hora online agora.");
 			}
 		}
-		else if(id == 121)
+		else if(id == 118)
 		{
 			if (_calcule >= 1) 
 				activeChar.sendMessage("Você tem atualmente "+ _calcule +" horas online.");
@@ -48,7 +51,7 @@ public class ChangeTime implements IUserCommandHandler
 		
 		return;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public double arredondaValor(int casasDecimais, double valor)
 	{

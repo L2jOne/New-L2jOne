@@ -18,7 +18,7 @@ import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.commons.util.ArraysUtil;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.cache.HtmCache;
 import net.sf.l2j.gameserver.data.manager.ClanHallManager;
 import net.sf.l2j.gameserver.data.manager.ZoneManager;
@@ -597,7 +597,7 @@ public final class RainbowSpringsChateau extends ClanHallSiege
 	
 	private static void removeAttacker(int clanId)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("DELETE FROM rainbowsprings_attacker_list WHERE clanId = ?"))
 		{
 			ps.setInt(1, clanId);
@@ -611,7 +611,7 @@ public final class RainbowSpringsChateau extends ClanHallSiege
 	
 	private static void addAttacker(int clanId, int count)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("INSERT INTO rainbowsprings_attacker_list VALUES (?,?)"))
 		{
 			ps.setInt(1, clanId);
@@ -627,7 +627,7 @@ public final class RainbowSpringsChateau extends ClanHallSiege
 	@Override
 	public void loadAttackers()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			Statement s = con.createStatement();
 			ResultSet rset = s.executeQuery("SELECT * FROM rainbowsprings_attacker_list"))
 		{

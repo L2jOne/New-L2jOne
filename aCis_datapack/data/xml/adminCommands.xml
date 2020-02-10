@@ -150,6 +150,14 @@
 	<aCar name="admin_setba" accessLevel="7"/>
 	<aCar name="admin_setbe" accessLevel="7"/>
 	<aCar name="admin_enchant" accessLevel="7"/>
+	
+	<!-- EVENTS -->
+	<aCar name="admin_events" accessLevel="1" />
+	<aCar name="admin_enableEvent" accessLevel="1" />
+	<aCar name="admin_configureEvent" accessLevel="1" />
+	<aCar name="admin_event_set" accessLevel="1" />
+	<aCar name="admin_event_finish" accessLevel="1" />
+	<aCar name="admin_event_start" accessLevel="1" />
 
 	<!-- EXP & SP -->
 	<aCar name="admin_add_exp_sp_to_character" accessLevel="7"/>

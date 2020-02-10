@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.commons.logging.CLogger;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 
 /**
  * An implementation of {@link AbstractMemo} used for Player. There is a restore/save system.
@@ -32,7 +32,7 @@ public class PlayerMemo extends AbstractMemo
 	public boolean restoreMe()
 	{
 		// Restore previous variables.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(SELECT_QUERY))
 			{
@@ -64,7 +64,7 @@ public class PlayerMemo extends AbstractMemo
 		if (!hasChanges())
 			return false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = DatabaseFactory.getInstance().getConnection())
 		{
 			// Clear previous entries.
 			try (PreparedStatement ps = con.prepareStatement(DELETE_QUERY))

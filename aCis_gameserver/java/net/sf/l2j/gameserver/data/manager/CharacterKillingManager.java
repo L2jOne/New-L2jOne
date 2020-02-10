@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 
 import net.sf.l2j.commons.concurrent.ThreadPool;
 
@@ -46,7 +46,7 @@ public final class CharacterKillingManager
 	
 	public synchronized void init()
 	{	
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("SELECT cycle, cycle_start, winner_pvpkills, winner_pvpkills_count, winner_pkkills, winner_pkkills_count FROM character_kills_info ORDER BY cycle_start DESC LIMIT 1"))
 		{
 			try (ResultSet rs = st.executeQuery())
@@ -85,7 +85,7 @@ public final class CharacterKillingManager
 		computateCyclePKWinner();
 		refreshKillingSnapshot();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("INSERT INTO character_kills_info (cycle_start, winner_pvpkills, winner_pvpkills_count, winner_pkkills, winner_pkkills_count) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
 		{
 			st.setLong(1, _cycleStart);
@@ -120,7 +120,7 @@ public final class CharacterKillingManager
 		_winnerPvPKillsCount = 0;
 		_winnerPvPKillsInfo = null;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("SELECT c.obj_Id, (c.pvpkills - COALESCE(ck.pvpkills, 0)) pvpkills FROM characters c LEFT JOIN character_kills_snapshot ck ON ck.charId = c.obj_Id WHERE accesslevel = 0 ORDER BY pvpkills DESC LIMIT 1");
 			ResultSet rs = st.executeQuery();)
 		{
@@ -151,7 +151,7 @@ public final class CharacterKillingManager
 		_winnerPKKillsCount = 0;
 		_winnerPKKillsInfo = null;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement st = con.prepareStatement("SELECT c.obj_Id, (c.pkkills - COALESCE(ck.pkkills, 0)) pkkills FROM characters c LEFT JOIN character_kills_snapshot ck ON ck.charId = c.obj_Id WHERE accesslevel = 0 ORDER BY pkkills DESC LIMIT 1");
 			ResultSet rs = st.executeQuery();)
 		{
@@ -177,7 +177,7 @@ public final class CharacterKillingManager
 	
 	private static void refreshKillingSnapshot()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement stTruncate = con.prepareStatement("TRUNCATE TABLE character_kills_snapshot");
 			PreparedStatement stRefresh = con.prepareStatement("INSERT INTO character_kills_snapshot (charId, pvpkills, pkkills) SELECT obj_Id, pvpkills, pkkills FROM characters WHERE (pvpkills > 0 OR pkkills > 0) AND accesslevel = 0"))
 		{
@@ -295,6 +295,19 @@ public final class CharacterKillingManager
 		}
 	}
 	
+	@SuppressWarnings("static-access")
+	private static void addReward(int obj_id, boolean duple)
+	{
+		Player player = World.getInstance().getPlayer(obj_id);
+		for (IntIntHolder reward : Config.MONUMENT_EVENT_REWARDS)
+		{
+			if (player != null && player.isOnline())
+				player.addItem("Top", reward.getId(), duple ? reward.getValue() * 2 : reward.getValue(), null, true);
+			else
+				player.addItemToOffline(obj_id, reward.getId(), duple ? reward.getValue() * 2 : reward.getValue());
+		}
+	}
+
 	public static CharacterKillingManager getInstance()
 	{
 		return SingletonHolder._instance;
@@ -303,18 +316,5 @@ public final class CharacterKillingManager
 	private static class SingletonHolder
 	{
 		protected static final CharacterKillingManager _instance = new CharacterKillingManager();
-	}
-	
-	@SuppressWarnings("static-access")
-	private static void addReward(int obj_id, boolean duple)
-	{
-		Player player = World.getInstance().getPlayer(obj_id);
-		for (IntIntHolder reward : Config.MONUMENT_EVENT_REWARDS)
-		{
-			if (player != null && player.isOnline())
-				player.addItem("Top in 24 hours", reward.getId(), duple ? reward.getValue() * 2 : reward.getValue(), null, true);
-			else
-				player.addItemToOffline(obj_id, reward.getId(), duple ? reward.getValue() * 2 : reward.getValue());
-		}
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.loginserver.data.manager.GameServerManager;
 import net.sf.l2j.loginserver.model.GameServerInfo;
@@ -72,7 +72,7 @@ public class GameServerRegister
 								System.out.println("This server id isn't used.");
 							else
 							{
-								try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+								try (Connection con = DatabaseFactory.getInstance().getConnection();
 									PreparedStatement ps = con.prepareStatement(DELETE_SERVER))
 								{
 									ps.setInt(1, id);
@@ -102,7 +102,7 @@ public class GameServerRegister
 					
 					if (_choice.equals("y"))
 					{
-						try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+						try (Connection con = DatabaseFactory.getInstance().getConnection();
 							PreparedStatement ps = con.prepareStatement(DELETE_SERVERS))
 						{
 							ps.executeUpdate();

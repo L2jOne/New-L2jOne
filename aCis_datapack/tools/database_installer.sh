@@ -114,6 +114,9 @@ $MYG < ../sql/clanhall_functions.sql &> /dev/null
 $MYG < ../sql/clanhall_siege_attackers.sql &> /dev/null
 $MYG < ../sql/clanhall_siege_guards.sql &> /dev/null
 $MYG < ../sql/cursed_weapons.sql &> /dev/null
+$MYG < ../sql/event_buffs.sql &> /dev/null
+$MYG < ../sql/event_stats_full.sql &> /dev/null
+$MYG < ../sql/event_stats.sql &> /dev/null
 $MYG < ../sql/fishing_championship.sql &> /dev/null
 $MYG < ../sql/forums.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
@@ -144,6 +147,7 @@ $MYG < ../sql/siege_clans.sql &> /dev/null
 $MYG < ../sql/spawnlist_4s.sql &> /dev/null
 $MYG < ../sql/spawnlist.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
+$MYG < ../sql/votesystem.sql &> /dev/null
 echo ""
 echo "Was fast, isn't it ?"
 }

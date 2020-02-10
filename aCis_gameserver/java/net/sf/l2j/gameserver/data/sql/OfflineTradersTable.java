@@ -10,7 +10,7 @@ import java.util.Calendar;
 import net.sf.l2j.commons.logging.CLogger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.enums.ZoneId;
 import net.sf.l2j.gameserver.enums.actors.OperateType;
@@ -33,101 +33,9 @@ public final class OfflineTradersTable
 	private static final String LOAD_OFFLINE_STATUS = "SELECT * FROM character_offline_trade";
 	private static final String LOAD_OFFLINE_ITEMS = "SELECT * FROM character_offline_trade_items WHERE charId=?";
 	
-	public static void storeOffliners()
+	public OfflineTradersTable()
 	{
-		try (final Connection con = L2DatabaseFactory.getInstance().getConnection();
-			final PreparedStatement save_offline_status = con.prepareStatement(SAVE_OFFLINE_STATUS);
-			final PreparedStatement save_items = con.prepareStatement(SAVE_ITEMS))
-		{
-			try (final Statement stm = con.createStatement())
-			{
-				stm.execute(CLEAR_OFFLINE_TABLE);
-				stm.execute(CLEAR_OFFLINE_TABLE_ITEMS);
-			}
-			
-			for (final Player pc : World.getInstance().getPlayers())
-			{
-				try
-				{
-					if (pc.getOperateType() != OperateType.NONE && (pc.getClient() == null || pc.getClient().isDetached()))
-					{
-						save_offline_status.setInt(1, pc.getObjectId());
-						save_offline_status.setLong(2, pc.getOfflineStartTime());
-						save_offline_status.setInt(3, pc.getOperateType().getId());
-						switch (pc.getOperateType())
-						{
-							case BUY:
-							{
-								if (!Config.OFFLINE_TRADE_ENABLE)
-									continue;
-								
-								save_offline_status.setString(4, pc.getBuyList().getTitle());
-								
-								for (final TradeItem i : pc.getBuyList().getItems())
-								{
-									save_items.setInt(1, pc.getObjectId());
-									save_items.setInt(2, i.getItem().getItemId());
-									save_items.setLong(3, i.getCount());
-									save_items.setLong(4, i.getPrice());
-									save_items.addBatch();
-								}
-								break;
-							}
-							case SELL:
-							case PACKAGE_SELL:
-							{
-								if (!Config.OFFLINE_TRADE_ENABLE)
-									continue;
-								
-								save_offline_status.setString(4, pc.getSellList().getTitle());
-								for (final TradeItem i : pc.getSellList().getItems())
-								{
-									save_items.setInt(1, pc.getObjectId());
-									save_items.setInt(2, i.getObjectId());
-									save_items.setLong(3, i.getCount());
-									save_items.setLong(4, i.getPrice());
-									save_items.addBatch();
-								}
-								break;
-							}
-							case MANUFACTURE:
-							{
-								if (!Config.OFFLINE_CRAFT_ENABLE)
-									continue;
-								
-								save_offline_status.setString(4, pc.getManufactureList().getStoreName());
-								for (final ManufactureItem i : pc.getManufactureList().getList())
-								{
-									save_items.setInt(1, pc.getObjectId());
-									save_items.setInt(2, i.getId());
-									save_items.setLong(3, 0);
-									save_items.setLong(4, i.getValue());
-									save_items.addBatch();
-								}
-								break;
-							}
-						}
-						save_items.executeBatch();
-						save_offline_status.execute();
-					}
-				}
-				catch (final Exception e)
-				{
-					LOGGER.info("error while saving offline trader " + pc.getObjectId() + ".", e);
-				}
-			}
-			
-			LOGGER.info(OfflineTradersTable.class.getSimpleName() + ": offline traders stored.");
-		}
-		catch (final SQLException e)
-		{
-			LOGGER.warn("error while saving offline traders.", e);
-		}
-	}
-	
-	public static void restoreOfflineTraders()
-	{
-		try (final Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (final Connection con = DatabaseFactory.getInstance().getConnection();
 			final Statement stm = con.createStatement();
 			final ResultSet rs = stm.executeQuery(LOAD_OFFLINE_STATUS))
 		{
@@ -197,7 +105,7 @@ public final class OfflineTradersTable
 								while (items.next())
 									if (player.getBuyList().addItemByItemId(items.getInt(2), items.getInt(3), items.getInt(4), items.getInt(5)) == null)
 										throw new NullPointerException("NPE at BUY of offlineShop " + player.getObjectId() + " " + items.getInt(2) + " " + items.getInt(3) + " " + items.getInt(4) + " " + items.getInt(5));
-									
+								
 								player.getBuyList().setTitle(rs.getString("title"));
 								break;
 							}
@@ -207,7 +115,7 @@ public final class OfflineTradersTable
 								while (items.next())
 									if (player.getSellList().addItem(items.getInt(2), items.getInt(3), items.getInt(4)) == null)
 										throw new NullPointerException("NPE at SELL of offlineShop " + player.getObjectId() + " " + items.getInt(2) + " " + items.getInt(3) + " " + items.getInt(4) + " " + items.getInt(5));
-									
+								
 								player.getSellList().setTitle(rs.getString("title"));
 								player.getSellList().setPackaged(type == OperateType.PACKAGE_SELL);
 								break;
@@ -224,6 +132,7 @@ public final class OfflineTradersTable
 						}
 					}
 					
+					player.setOfflineMode(true);
 					player.setOperateType(type);
 					player.restoreEffects();
 					player.broadcastUserInfo();
@@ -237,7 +146,7 @@ public final class OfflineTradersTable
 				}
 			}
 			
-			LOGGER.info("Loaded " + nTraders + " offline traders.");
+			LOGGER.info("Loaded {} offline traders.", nTraders);
 			
 			try (final Statement stm1 = con.createStatement())
 			{
@@ -248,10 +157,104 @@ public final class OfflineTradersTable
 		catch (final SQLException e)
 		{
 			LOGGER.warn("error while loading offline traders.", e);
+		}	
+	}
+	
+	@SuppressWarnings("static-method")
+	public void storeOffliners()
+	{
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
+			PreparedStatement save_offline_status = con.prepareStatement(SAVE_OFFLINE_STATUS);
+			PreparedStatement save_items = con.prepareStatement(SAVE_ITEMS))
+		{
+			try (Statement stm = con.createStatement())
+			{
+				stm.execute(CLEAR_OFFLINE_TABLE);
+				stm.execute(CLEAR_OFFLINE_TABLE_ITEMS);
+			}
+			
+			for (Player pc : World.getInstance().getPlayers())
+			{
+				try
+				{
+					if (pc.getOperateType() != OperateType.NONE && (pc.isOfflineMode()))
+					{
+						save_offline_status.setInt(1, pc.getObjectId());
+						save_offline_status.setLong(2, pc.getOfflineStartTime());
+						save_offline_status.setInt(3, pc.getOperateType().getId());
+						switch (pc.getOperateType())
+						{
+							case BUY:
+							{
+								if (!Config.OFFLINE_TRADE_ENABLE)
+									continue;
+								
+								save_offline_status.setString(4, pc.getBuyList().getTitle());
+								
+								for (final TradeItem i : pc.getBuyList().getItems())
+								{
+									save_items.setInt(1, pc.getObjectId());
+									save_items.setInt(2, i.getItem().getItemId());
+									save_items.setLong(3, i.getCount());
+									save_items.setLong(4, i.getPrice());
+									save_items.addBatch();
+								}
+								break;
+							}
+							case SELL:
+							case PACKAGE_SELL:
+							{
+								if (!Config.OFFLINE_TRADE_ENABLE)
+									continue;
+								
+								save_offline_status.setString(4, pc.getSellList().getTitle());
+								for (final TradeItem i : pc.getSellList().getItems())
+								{
+									save_items.setInt(1, pc.getObjectId());
+									save_items.setInt(2, i.getObjectId());
+									save_items.setLong(3, i.getCount());
+									save_items.setLong(4, i.getPrice());
+									save_items.addBatch();
+								}
+								break;
+							}
+							case MANUFACTURE:
+							{
+								if (!Config.OFFLINE_CRAFT_ENABLE)
+									continue;
+								
+								save_offline_status.setString(4, pc.getManufactureList().getStoreName());
+								for (final ManufactureItem i : pc.getManufactureList().getList())
+								{
+									save_items.setInt(1, pc.getObjectId());
+									save_items.setInt(2, i.getId());
+									save_items.setLong(3, 0);
+									save_items.setLong(4, i.getValue());
+									save_items.addBatch();
+								}
+								break;
+							}
+						}
+						save_items.executeBatch();
+						save_offline_status.execute();
+					}
+				}
+				catch (final Exception e)
+				{
+					LOGGER.info("error while saving offline trader " + pc.getObjectId() + ".", e);
+				}
+			}
+			
+			LOGGER.info("Loaded: offline traders stored.");
+		}
+		catch (final SQLException e)
+		{
+			LOGGER.warn("error while saving offline traders.", e);
 		}
 	}
 	
-	public static boolean offlineMode(final Player player)
+	@SuppressWarnings("static-method")
+	public boolean offlineMode(final Player player)
 	{
 		if (player.isInOlympiadMode() || player.isFestivalParticipant() || player.isInJail() || player.getBoat() != null)
 			return false;
@@ -270,5 +273,15 @@ public final class OfflineTradersTable
 		}
 		
 		return false;
+	}
+	
+	public static OfflineTradersTable getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private static class SingletonHolder
+	{
+		protected static final OfflineTradersTable INSTANCE = new OfflineTradersTable();
 	}
 }

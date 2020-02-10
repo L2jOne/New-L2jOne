@@ -13,7 +13,7 @@ import net.sf.l2j.commons.concurrent.ThreadPool;
 import net.sf.l2j.commons.logging.CLogger;
 import net.sf.l2j.commons.random.Rnd;
 
-import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.DatabaseFactory;
 import net.sf.l2j.gameserver.data.xml.MapRegionData;
 import net.sf.l2j.gameserver.data.xml.NpcData;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -53,7 +53,7 @@ public class AutoSpawnTable
 	
 	protected AutoSpawnTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM random_spawn ORDER BY groupId ASC");
 			ResultSet rs = ps.executeQuery())
 		{

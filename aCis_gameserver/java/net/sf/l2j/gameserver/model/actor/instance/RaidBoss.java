@@ -9,6 +9,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.manager.HeroManager;
 import net.sf.l2j.gameserver.data.manager.RaidBossManager;
 import net.sf.l2j.gameserver.data.manager.RaidPointManager;
+import net.sf.l2j.gameserver.engine.EventManager;
 import net.sf.l2j.gameserver.model.World;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -112,6 +113,9 @@ public class RaidBoss extends Monster
 			final Player player = killer.getActingPlayer();
 			if (player != null)
 			{
+				if (EventManager.getInstance().isRunning() && EventManager.getInstance().isRegistered(player))
+					EventManager.getInstance().getCurrentEvent().onKill(this, player);
+					
 				broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
 				broadcastPacket(new PlaySound("systemmsg_e.1209"));
 				
