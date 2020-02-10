@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	 <category id="1">
+		<drop itemid="5556" min="5" max="10" chance="700000" />
+  	   	<drop itemid="5557" min="5" max="10" chance="700000" />
+	</category>
+</list>

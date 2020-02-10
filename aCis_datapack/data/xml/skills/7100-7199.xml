@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+	<skill id="7100" levels="1" name="Capture">
+		<set name="mpInitialConsume" val="50" />
+		<set name="target" val="TARGET_ONE" />
+		<set name="reuseDelay" val="10000" />
+		<set name="hitTime" val="5000" />
+		<set name="staticReuse" val="true" />
+		<set name="staticHitTime" val="true" />
+		<set name="skillType" val="CAPTURE" />
+		<set name="operateType" val="OP_ACTIVE" />
+		<set name="castRange" val="85" />
+		<set name="effectRange" val="400" />
+	</skill>
+	<skill id="7101" levels="1" name="Bomb">
+		<set name="mpInitialConsume" val="50" />
+		<set name="target" val="TARGET_SELF" />
+		<set name="reuseDelay" val="10000" />
+		<set name="hitTime" val="1000" />
+		<set name="staticReuse" val="true" />
+		<set name="staticHitTime" val="true" />
+		<set name="skillType" val="BOMB" />
+		<set name="operateType" val="OP_ACTIVE" />
+		<set name="castRange" val="85" />
+		<set name="effectRange" val="400" />
+	</skill>
+	<skill id="7102" levels="1" name="Mutant">
+		<set name="target" val="TARGET_SELF" />
+		<set name="skillType" val="BUFF" />
+		<set name="operateType" val="OP_PASSIVE" />
+		<for>
+			<mul order="0x30" stat="pDef" val="5" />
+			<mul order="0x30" stat="mDef" val="5" />
+			<mul order="0x30" stat="mAtk" val="3" />
+			<mul order="0x30" stat="pAtk" val="3" />
+			<mul order="0x30" stat="mAtkSpd" val="2" />
+			<mul order="0x30" stat="pAtkSpd" val="2" />
+			<mul order="0x30" stat="rootVuln" val="0.7"/>
+			<mul order="0x30" stat="stunVuln" val="0.7"/>
+			<mul order="0x30" stat="paralyzeVuln" val="0.7"/>
+		</for>
+	</skill>
+	<skill id="7103" levels="1" name="Zombie">
+		<set name="target" val="TARGET_SELF" />
+		<set name="skillType" val="BUFF" />
+		<set name="operateType" val="OP_PASSIVE" />
+		<for>
+			<add order="0x40" stat="runSpd" val="150"/>
+		</for>
+	</skill>
+</list>
